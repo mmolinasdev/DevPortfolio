@@ -1,0 +1,86 @@
+/* ===================================
+   CONTACT SECTION
+   =================================== */
+
+.contact {
+    background: var(--color-white);
+}
+
+.contact__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: start;
+}
+
+/* Contact Info */
+.contact__info {
+    padding: var(--spacing-md) 0;
+}
+
+.contact__info-title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+.contact__info-description {
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+    line-height: var(--line-height-relaxed);
+}
+
+.contact__methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.contact__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.contact__item-icon {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-background-alt);
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+}
+
+.contact__item-content {
+    flex: 1;
+}
+
+.contact__item-title {
+    font-size: var(--font-size-base);
+    margin-bottom: 0.25rem;
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+}
+
+.contact__item-link {
+    color: var(--color-primary);
+    transition: text-decoration var(--transition-fast);
+}
+
+.contact__item-link:hover {
+    text-decoration: underline;
+}
+
+.contact__item-text {
+    color: var(--color-text-light);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .contact__content {
+        grid-template-columns: 1fr;
+    }
+}

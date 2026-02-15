@@ -1,0 +1,37 @@
+/* ===================================
+   PORTAFOLIO BD1 - STYLES MAIN
+   Nomenclatura BEM (Block Element Modifier)
+   =================================== */
+
+/* Base & Variables */
+@import url('base/variables.css');
+@import url('base/reset.css');
+@import url('base/typography.css');
+@import url('base/animations.css');
+
+/* Layout */
+@import url('layout/container.css');
+@import url('layout/grid.css');
+
+/* Components */
+@import url('components/preloader.css');
+@import url('components/navbar.css');
+@import url('components/hero.css');
+@import url('components/section.css');
+@import url('components/card.css');
+@import url('components/button.css');
+@import url('components/modal.css');
+@import url('components/form.css');
+@import url('components/footer.css');
+
+/* Pages/Sections */
+@import url('pages/presentation.css');
+@import url('pages/skills.css');
+@import url('pages/projects.css');
+@import url('pages/evidence.css');
+@import url('pages/contact.css');
+
+/* Utilities */
+@import url('utilities/helpers.css');
+@import url('utilities/responsive.css');
+@import url('utilities/mobile-touch.css');

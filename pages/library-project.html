@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Library Management System - Java library management application">
+    <meta name="theme-color" content="#667eea">
+    <title>Library Management System | Miguel Molina</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+                
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+                
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#home" class="navbar__link">Inicio</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#presentation" class="navbar__link">Presentación</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#about" class="navbar__link">Sobre Mí</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#skills" class="navbar__link">Habilidades</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#projects" class="navbar__link navbar__link--active">Proyectos</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#evidence" class="navbar__link">Evidencias</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#contact" class="navbar__link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="hero" style="min-height: 50vh; padding: 8rem 0 4rem;">
+        <div class="hero__overlay"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
+                <div class="hero__text">
+                    <a href="../index.html#projects" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                    </a>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">Library Management System</h1>
+                    <p class="hero__subtitle">Sistema de Gestión de Biblioteca en Java</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                        <span class="tag tag--primary">Java</span>
+                        <span class="tag tag--primary">Maven</span>
+                        <span class="tag tag--primary">MVC</span>
+                        <span class="tag tag--primary">DAO</span>
+                        <span class="tag tag--primary">Google Drive</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="section">
+        <div class="container" style="max-width: 900px;">
+            
+            <!-- Overview -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-info-circle" style="color: var(--color-primary);"></i>
+                    Descripción del Proyecto
+                </h2>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
+                    Sistema completo de gestión de biblioteca desarrollado en Java con arquitectura MVC y persistencia en archivos. 
+                    Incluye sincronización automática con Google Drive para trabajo colaborativo en equipo, generación profesional 
+                    de reportes PDF, e implementación de múltiples patrones de diseño.
+                </p>
+            </div>
+
+            <!-- Image/Screenshot -->
+            <div class="card" style="margin-bottom: 3rem; padding: 0; overflow: hidden;">
+                <img src="https://via.placeholder.com/900x500/667eea/ffffff?text=Library+Management+System" 
+                     alt="Library Management System Screenshot" 
+                     style="width: 100%; height: auto; display: block;">
+            </div>
+
+            <!-- Features -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-star" style="color: var(--color-primary);"></i>
+                    Características Principales
+                </h2>
+                <div class="grid grid--cols-2 grid--gap-md">
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Gestión completa de usuarios, libros y préstamos (CRUD)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Sistema de búsqueda avanzada con múltiples criterios</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Generación de reportes PDF con Apache PDFBox</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Sincronización automática con Google Drive</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Arquitectura limpia con patrones de diseño</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Detección automática de almacenamiento en la nube</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Sistema robusto de validación de datos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Interfaz de consola interactiva</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technologies -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-code" style="color: var(--color-primary);"></i>
+                    Tecnologías Utilizadas
+                </h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    <span class="tag">Java 11+</span>
+                    <span class="tag">Maven</span>
+                    <span class="tag">Apache PDFBox 2.0.30</span>
+                    <span class="tag">Google Drive API</span>
+                    <span class="tag">MVC</span>
+                    <span class="tag">DAO</span>
+                    <span class="tag">DTO</span>
+                    <span class="tag">Facade</span>
+                    <span class="tag">File I/O</span>
+                    <span class="tag">OOP Advanced</span>
+                </div>
+            </div>
+
+            <!-- Architecture -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-project-diagram" style="color: var(--color-primary);"></i>
+                    Arquitectura del Sistema
+                </h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">View (ViewConsole):</strong> 
+                        Interfaz de usuario por consola
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Controller (LibraryController):</strong> 
+                        Gestión del flujo de la aplicación
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Facade (Library):</strong> 
+                        Interfaz simplificada para operaciones complejas
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">DAO (LibraryDAO):</strong> 
+                        Lógica de negocio y acceso a datos
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Persistence (FileManager):</strong> 
+                        Gestión de archivos y sincronización
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">DTOs:</strong> 
+                        Transferencia de datos entre capas
+                    </li>
+                    <li style="padding: 0.75rem 0;">
+                        <strong style="color: var(--color-primary);">Mappers:</strong> 
+                        Conversión entre diferentes representaciones
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Stats -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-chart-bar" style="color: var(--color-primary);"></i>
+                    Estadísticas del Proyecto
+                </h2>
+                <div class="grid grid--cols-4 grid--gap-md">
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-code" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">2,500+</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Líneas de Código</span>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-file-code" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">24</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Clases</span>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-layer-group" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">5</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Patrones de Diseño</span>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-folder" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">15+</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Archivos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learnings -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-lightbulb" style="color: var(--color-primary);"></i>
+                    Aprendizajes Clave
+                </h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Implementación de patrones de diseño en proyectos reales
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Persistencia de datos sin frameworks ORM
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Manejo de archivos y sincronización en la nube
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Generación de PDFs de manera programática
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Arquitectura de software escalable y mantenible
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Colaboración en equipo con control de versiones
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Gestión de dependencias con Maven
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Comprensión de limitaciones de archivos vs bases de datos
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Challenges -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-mountain" style="color: var(--color-primary);"></i>
+                    Desafíos Superados
+                </h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Implementar sincronización automática con Google Drive sin API oficial
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Manejar concurrencia y condiciones de carrera en archivos
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Diseñar una arquitectura limpia y desacoplada
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Generar PDFs con formato profesional
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Coordinar trabajo en equipo sin base de datos centralizada
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="https://github.com/mmolinasdev/LibraryApp" target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fab fa-github"></i> Ver Código en GitHub
+                </a>
+                <a href="../index.html#projects" class="btn btn--outline btn--lg" style="margin-left: 1rem;">
+                    <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Portafolio profesional de Miguel Molina - Bases de Datos I">
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Miguel Molina | Portafolio BD1</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader__content">
+            <div class="preloader__logo">
+                <div class="preloader__circle"></div>
+                <div class="preloader__text">MM</div>
+            </div>
+            <div class="preloader__spinner">
+                <div class="preloader__spinner-dot"></div>
+                <div class="preloader__spinner-dot"></div>
+                <div class="preloader__spinner-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="#" class="navbar__logo">Miguel Molina</a>
+                
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+                
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item">
+                        <a href="#home" class="navbar__link navbar__link--active">Inicio</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#presentation" class="navbar__link">Presentación</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#about" class="navbar__link">Sobre Mí</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#skills" class="navbar__link">Habilidades</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#projects" class="navbar__link">Proyectos</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#evidence" class="navbar__link">Evidencias</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#contact" class="navbar__link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero__overlay"></div>
+        
+        <div class="container">
+            <div class="hero__content">
+                <div class="hero__text">
+                    <h1 class="hero__title">
+                        Hola, soy <span class="hero__title-highlight">Miguel Molina</span>
+                    </h1>
+                    <p class="hero__subtitle">Desarrollador Web Frontend | Estudiante de Ingeniería</p>
+                    <p class="hero__description">
+                        Apasionado por crear experiencias web modernas y funcionales. 
+                        Transformo ideas en interfaces atractivas e interactivas.
+                    </p>
+                    <div class="hero__buttons">
+                        <a href="#projects" class="btn btn--primary">Ver Proyectos</a>
+                        <a href="#presentation" class="btn btn--secondary">Conóceme</a>
+                    </div>
+                </div>
+                
+                <div class="hero__image">
+                    <div class="profile-card">
+                        <div class="profile-card__image">
+                            <img src="assets/profile.jpg" alt="Miguel Molina" id="profileImg">
+                        </div>
+                        <div class="profile-card__social">
+                            <a href="https://github.com/mmolinasdev" target="_blank" class="social-icon" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="mailto:mmolinas@unbosque.edu.co" class="social-icon" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span class="scroll-indicator__mouse"></span>
+        </div>
+    </section>
+
+    <!-- Presentación Section -->
+    <section id="presentation" class="section presentation">
+        <div class="container">
+            <header class="section__header">
+                <h2 class="section__title">Presentación</h2>
+                <p class="section__subtitle">Conoce un poco más sobre mí</p>
+            </header>
+            
+            <div class="section__content">
+                <div class="video-container">
+                    <div class="video-container__wrapper">
+                        <iframe 
+                            width="100%" 
+                            height="400" 
+                            src="https://www.youtube.com/embed/6sf7UqicVNY" 
+                            title="Video de Presentación" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="video-container__caption">
+                        Video de presentación personal (90-120 segundos)
+                    </p>
+                    <div style="text-align: center; margin-top: var(--spacing-md);">
+                        <a href="https://youtu.be/6sf7UqicVNY" target="_blank" rel="noopener noreferrer" class="btn btn--primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fab fa-youtube"></i>
+                            Ver video en YouTube
+                        </a>
+                    </div>
+                </div>
+
+                <div class="about">
+                    <h3 class="about__title">Sobre Mí</h3>
+                    <div class="about__grid">
+                        <article class="about__card">
+                            <i class="fas fa-user about__card-icon"></i>
+                            <h4 class="about__card-title">¿Cómo me gusta que me llamen?</h4>
+                            <p class="about__card-text">Miguel - Apasionado por la tecnología y el desarrollo de software</p>
+                        </article>
+                        
+                        <article class="about__card">
+                            <i class="fas fa-heart about__card-icon"></i>
+                            <h4 class="about__card-title">Intereses</h4>
+                            <p class="about__card-text">Desarrollo de software, arquitecturas limpias, patrones de diseño y bases de datos</p>
+                        </article>
+                        
+                        <article class="about__card">
+                            <i class="fas fa-database about__card-icon"></i>
+                            <h4 class="about__card-title">¿Por qué Bases de Datos I?</h4>
+                            <p class="about__card-text">Las bases de datos son el corazón de cualquier sistema. Entender cómo diseñar, optimizar y gestionar datos es fundamental para construir aplicaciones escalables y eficientes.</p>
+                        </article>
+                        
+                        <article class="about__card">
+                            <i class="fas fa-rocket about__card-icon"></i>
+                            <h4 class="about__card-title">Meta del Semestre</h4>
+                            <p class="about__card-text">"Este semestre quiero demostrar que puedo construir sistemas robustos aplicando principios sólidos de diseño de bases de datos y arquitectura de software."</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <header class="section__header">
+                <h2 class="section__title">Sobre Mí</h2>
+                <p class="section__subtitle">Desarrollador Frontend apasionado por crear experiencias digitales</p>
+            </header>
+
+            <div class="about__content" style="max-width: 800px; margin: 0 auto;">
+                <div class="card" style="padding: 3rem;">
+                    <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+                        <div style="font-size: 4rem;">👨‍💻</div>
+                        <div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-primary);">
+                                Desarrollador Web Frontend
+                            </h3>
+                            <p style="color: var(--color-text-light); font-size: 1.125rem;">
+                                Creando experiencias web modernas y funcionales
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="line-height: 1.8; color: var(--color-text-light); font-size: 1.125rem;">
+                        <p style="margin-bottom: 1.5rem;">
+                            Soy un <strong style="color: var(--color-text);">desarrollador frontend apasionado por la tecnología</strong> 
+                            y por crear interfaces web que no solo se vean increíbles, sino que también ofrezcan una experiencia 
+                            de usuario excepcional.
+                        </p>
+                        
+                        <p style="margin-bottom: 1.5rem;">
+                            Me encanta el <strong style="color: var(--color-text);">diseño de interfaces</strong>, trabajar con 
+                            las últimas tecnologías frontend, y transformar ideas en aplicaciones web interactivas y responsivas. 
+                            Mi enfoque está en escribir código limpio, mantener las mejores prácticas, y crear productos que 
+                            realmente importen.
+                        </p>
+                        
+                        <p style="margin-bottom: 1.5rem;">
+                            Además del frontend, tengo experiencia en <strong style="color: var(--color-text);">desarrollo backend</strong> 
+                            y <strong style="color: var(--color-text);">bases de datos</strong>, lo que me permite entender 
+                            el ciclo completo de desarrollo y crear soluciones más robustas e integradas.
+                        </p>
+                        
+                        <p>
+                            Siempre estoy buscando aprender nuevas tecnologías y mejorar mis habilidades para estar al día 
+                            con las últimas tendencias del desarrollo web.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section section--dark">
+        <div class="container">
+            <header class="section__header">
+                <h2 class="section__title">Habilidades</h2>
+                <p class="section__subtitle">Tecnologías y herramientas con las que trabajo</p>
+            </header>
+
+            <div class="skills__content">
+                <div class="skills__container">
+                    <!-- Frontend -->
+                    <div class="skills__category">
+                        <h3 class="skills__category-title">
+                            <i class="fas fa-palette"></i> Frontend
+                        </h3>
+                    <div class="skills__grid">
+                        <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #E34F26;">
+                                <i class="fab fa-html5"></i>
+                            </div>
+                            <h4 class="skill-card__name">HTML5</h4>
+                        </a>
+                        
+                        <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #1572B6;">
+                                <i class="fab fa-css3-alt"></i>
+                            </div>
+                            <h4 class="skill-card__name">CSS3</h4>
+                        </a>
+                        
+                        <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #F7DF1E;">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <h4 class="skill-card__name">JavaScript</h4>
+                        </a>
+                        
+                        <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #61DAFB;">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <h4 class="skill-card__name">React</h4>
+                        </a>
+                        
+                        <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #06B6D4;">
+                                <i class="fas fa-feather"></i>
+                            </div>
+                            <h4 class="skill-card__name">Tailwind CSS</h4>
+                        </a>
+                        
+                        <a href="https://angular.dev/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #DD0031;">
+                                <i class="fab fa-angular"></i>
+                            </div>
+                            <h4 class="skill-card__name">Angular</h4>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="skills__category">
+                    <h3 class="skills__category-title">
+                        <i class="fas fa-server"></i> Backend
+                    </h3>
+                    <div class="skills__grid">
+                        <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #339933;">
+                                <i class="fab fa-node-js"></i>
+                            </div>
+                            <h4 class="skill-card__name">Node.js</h4>
+                        </a>
+                        
+                        <a href="https://www.java.com/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #007396;">
+                                <i class="fab fa-java"></i>
+                            </div>
+                            <h4 class="skill-card__name">Java</h4>
+                        </a>
+                        
+                        <a href="https://spring.io/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #6DB33F;">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4 class="skill-card__name">Spring</h4>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="skills__category">
+                    <h3 class="skills__category-title">
+                        <i class="fas fa-database"></i> Bases de Datos
+                    </h3>
+                    <div class="skills__grid">
+                        <a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #336791;">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4 class="skill-card__name">PostgreSQL</h4>
+                        </a>
+                        
+                        <a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #4479A1;">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4 class="skill-card__name">MySQL</h4>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Methodologies -->
+                <div class="skills__category">
+                    <h3 class="skills__category-title">
+                        <i class="fas fa-tasks"></i> Metodologías
+                    </h3>
+                    <div class="skills__grid">
+                        <a href="https://www.scrum.org/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #667eea;">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <h4 class="skill-card__name">SCRUM</h4>
+                        </a>
+                        
+                        <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #F05032;">
+                                <i class="fab fa-git-alt"></i>
+                            </div>
+                            <h4 class="skill-card__name">Git</h4>
+                        </a>
+                        
+                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="skill-card">
+                            <div class="skill-card__icon" style="color: #181717;">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h4 class="skill-card__name">GitHub</h4>
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyectos Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <header class="section__header">
+                <h2 class="section__title">Proyectos</h2>
+                <p class="section__subtitle">Mis trabajos y desarrollos destacados</p>
+            </header>
+
+            <div class="projects__grid">
+                <!-- Proyecto 1: Library Management System -->
+                <article class="project-card project-card--featured">
+                    <span class="project-card__badge">Destacado</span>
+                    
+                    <div class="project-card__image">
+                        <img src="https://via.placeholder.com/600x400/667eea/ffffff?text=Library+Management+System" alt="Library Management System">
+                        <div class="project-card__overlay">
+                            <div class="project-card__links">
+                                <a href="https://github.com/mmolinasdev/LibraryApp" target="_blank" class="project-card__link">
+                                    <i class="fab fa-github"></i> Ver Código
+                                </a>
+                                <a href="pages/library-project.html" class="project-card__link">
+                                    <i class="fas fa-info-circle"></i> Ver Detalles
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card__content">
+                        <div class="project-card__tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Maven</span>
+                            <span class="tag">MVC</span>
+                            <span class="tag">DAO</span>
+                            <span class="tag">Google Drive</span>
+                        </div>
+                        
+                        <h3 class="project-card__title">Library Management System</h3>
+                        
+                        <p class="project-card__description">
+                            Sistema de gestión de biblioteca con arquitectura MVC, persistencia en archivos 
+                            y sincronización automática con Google Drive para colaboración en equipo.
+                        </p>
+                        
+                        <div class="project-card__features">
+                            <div class="project-card__feature">
+                                <i class="fas fa-check project-card__feature-icon"></i>
+                                <span>Gestión de Usuarios, Libros y Préstamos</span>
+                            </div>
+                            <div class="project-card__feature">
+                                <i class="fas fa-check project-card__feature-icon"></i>
+                                <span>Reportes PDF con Apache PDFBox</span>
+                            </div>
+                            <div class="project-card__feature">
+                                <i class="fas fa-check project-card__feature-icon"></i>
+                                <span>Patrones: MVC, DAO, DTO, Facade</span>
+                            </div>
+                            <div class="project-card__feature">
+                                <i class="fas fa-check project-card__feature-icon"></i>
+                                <span>Sincronización Google Drive en tiempo real</span>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card__stats">
+                            <div class="project-card__stat">
+                                <i class="fas fa-code project-card__stat-icon"></i>
+                                <span class="project-card__stat-value">2,500+ LOC</span>
+                            </div>
+                            <div class="project-card__stat">
+                                <i class="fas fa-file-code project-card__stat-icon"></i>
+                                <span class="project-card__stat-value">24 Clases</span>
+                            </div>
+                            <div class="project-card__stat">
+                                <i class="fas fa-layer-group project-card__stat-icon"></i>
+                                <span class="project-card__stat-value">5 Patrones</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Proyecto Placeholder 2 -->
+                <article class="project-card project-card--coming-soon">
+                    <div class="project-card__image">
+                        <img src="https://via.placeholder.com/600x400/764ba2/ffffff?text=Próximo+Proyecto" alt="Próximo Proyecto">
+                    </div>
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">Próximo Proyecto</h3>
+                        <p class="project-card__description">
+                            Nuevo proyecto en desarrollo...
+                        </p>
+                        <span class="project-card__coming-soon-badge">Próximamente</span>
+                    </div>
+                </article>
+
+                <!-- Proyecto Placeholder 3 -->
+                <article class="project-card project-card--coming-soon">
+                    <div class="project-card__image">
+                        <img src="https://via.placeholder.com/600x400/f093fb/ffffff?text=Próximo+Proyecto" alt="Próximo Proyecto">
+                    </div>
+                    <div class="project-card__content">
+                        <h3 class="project-card__title">Próximo Proyecto</h3>
+                        <p class="project-card__description">
+                            Nuevo proyecto en desarrollo...
+                        </p>
+                        <span class="project-card__coming-soon-badge">Próximamente</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evidencias Section -->
+    <section id="evidence" class="section evidence">
+        <div class="container">
+            <header class="section__header">
+                <h2 class="section__title">Evidencias</h2>
+                <p class="section__subtitle">Trabajos académicos organizados por categoría</p>
+            </header>
+
+            <div class="evidence__grid">
+                <article class="evidence-card">
+                    <div class="evidence-card__icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="evidence-card__title">Modelado</h3>
+                    <p class="evidence-card__description">
+                        Diagramas ER, modelado conceptual y lógico de bases de datos
+                    </p>
+                    <div class="evidence-card__content">
+                        <p class="evidence-card__coming-soon">Contenido próximamente...</p>
+                    </div>
+                    <a href="#" class="evidence-card__link" onclick="return false;">
+                        Ver más <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="evidence-card">
+                    <div class="evidence-card__icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <h3 class="evidence-card__title">Normalización</h3>
+                    <p class="evidence-card__description">
+                        Formas normales, dependencias funcionales y optimización de esquemas
+                    </p>
+                    <div class="evidence-card__content">
+                        <p class="evidence-card__coming-soon">Contenido próximamente...</p>
+                    </div>
+                    <a href="#" class="evidence-card__link" onclick="return false;">
+                        Ver más <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="evidence-card">
+                    <div class="evidence-card__icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="evidence-card__title">SQL</h3>
+                    <p class="evidence-card__description">
+                        Consultas, transacciones, procedimientos almacenados y optimización
+                    </p>
+                    <div class="evidence-card__content">
+                        <p class="evidence-card__coming-soon">Contenido próximamente...</p>
+                    </div>
+                    <a href="#" class="evidence-card__link" onclick="return false;">
+                        Ver más <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="evidence-card">
+                    <div class="evidence-card__icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="evidence-card__title">Proyecto Final</h3>
+                    <p class="evidence-card__description">
+                        Integración de conceptos en un sistema completo
+                    </p>
+                    <div class="evidence-card__content">
+                        <p class="evidence-card__coming-soon">Contenido próximamente...</p>
+                    </div>
+                    <a href="#" class="evidence-card__link" onclick="return false;">
+                        Ver más <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <header class="section__header">
+                <h2 class="section__title">Contacto</h2>
+                <p class="section__subtitle">¿Quieres colaborar o conectar?</p>
+            </header>
+
+            <div class="contact__content">
+                <div class="contact__info">
+                    <h3 class="contact__info-title">Mantengámonos en contacto</h3>
+                    <p class="contact__info-description">
+                        Estoy abierto a colaboraciones, proyectos y networking profesional.
+                    </p>
+                    
+                    <div class="contact__methods">
+                        <div class="contact__item">
+                            <i class="fas fa-envelope contact__item-icon"></i>
+                            <div class="contact__item-content">
+                                <h4 class="contact__item-title">Email</h4>
+                                <a href="mailto:mmolinas@unbosque.edu.co" class="contact__item-link">mmolinas@unbosque.edu.co</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact__item">
+                            <i class="fab fa-github contact__item-icon"></i>
+                            <div class="contact__item-content">
+                                <h4 class="contact__item-title">GitHub</h4>
+                                <a href="https://github.com/mmolinasdev" target="_blank" class="contact__item-link">@mmolinasdev</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact__item">
+                            <i class="fab fa-linkedin contact__item-icon"></i>
+                            <div class="contact__item-content">
+                                <h4 class="contact__item-title">LinkedIn</h4>
+                                <a href="https://linkedin.com" target="_blank" class="contact__item-link">Miguel Molina</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact__item">
+                            <i class="fas fa-university contact__item-icon"></i>
+                            <div class="contact__item-content">
+                                <h4 class="contact__item-title">Universidad</h4>
+                                <span class="contact__item-text">Universidad El Bosque</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form class="form" id="contactForm">
+                        <div class="form__group">
+                            <input type="text" class="form__input" placeholder="Nombre" required>
+                        </div>
+                        <div class="form__group">
+                            <input type="email" class="form__input" placeholder="Email" required>
+                        </div>
+                        <div class="form__group">
+                            <textarea class="form__textarea" placeholder="Mensaje" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--gradient btn--block">
+                            Enviar Mensaje <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

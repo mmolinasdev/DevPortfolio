@@ -1,0 +1,92 @@
+/* ===================================
+   EVIDENCE SECTION
+   =================================== */
+
+.evidence {
+    background: var(--color-background-alt);
+}
+
+.evidence__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* Evidence Card */
+.evidence-card {
+    background: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal),
+                box-shadow var(--transition-normal);
+    text-align: center;
+}
+
+.evidence-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Evidence Card Elements */
+.evidence-card__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-sm);
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.evidence-card__icon i {
+    font-size: var(--font-size-2xl);
+    color: var(--color-white);
+}
+
+.evidence-card__title {
+    font-size: var(--font-size-xl);
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+}
+
+.evidence-card__description {
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+    line-height: var(--line-height-relaxed);
+}
+
+.evidence-card__content {
+    margin: var(--spacing-sm) 0;
+}
+
+.evidence-card__coming-soon {
+    color: var(--color-text-light);
+    font-style: italic;
+    padding: var(--spacing-sm);
+    background: var(--color-background-alt);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+}
+
+.evidence-card__link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap var(--transition-fast);
+}
+
+.evidence-card__link:hover {
+    gap: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .evidence__grid {
+        grid-template-columns: 1fr;
+    }
+}
