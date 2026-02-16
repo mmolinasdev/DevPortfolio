@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Relational Model Database Design - Airline, Library, Hospital">
+    <meta name="theme-color" content="#667eea">
+    <title>Modelado Relacional | Miguel Molina</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+                
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+                
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#home" class="navbar__link">Inicio</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#presentation" class="navbar__link">Presentación</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#about" class="navbar__link">Sobre Mí</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#skills" class="navbar__link">Habilidades</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#projects" class="navbar__link navbar__link--active">Proyectos</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#evidence" class="navbar__link">Evidencias</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#contact" class="navbar__link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="hero" style="min-height: 50vh; padding: 8rem 0 4rem;">
+        <div class="hero__overlay"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
+                <div class="hero__text">
+                    <a href="../index.html#projects" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                    </a>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">Modelado Relacional</h1>
+                    <p class="hero__subtitle">Diseño de Bases de Datos con el Modelo Relacional</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                        <span class="tag tag--primary">Modelo Relacional</span>
+                        <span class="tag tag--primary">Esquemas</span>
+                        <span class="tag tag--primary">Claves</span>
+                        <span class="tag tag--primary">Relaciones</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="section">
+        <div class="container" style="max-width: 900px;">
+            
+            <!-- Overview -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-info-circle" style="color: var(--color-primary);"></i>
+                    Descripción del Proyecto
+                </h2>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
+                    Diseño de esquemas de bases de datos relacionales, escogiendo 2 de 3 casos de estudio propuestos: 
+                    una aerolínea, una biblioteca y un sistema de urgencias hospitalarias. Aplicando los 
+                    conceptos del Modelo Relacional según Garcia-Molina, Ullman y Widom.
+                </p>
+            </div>
+
+            <!-- Exercises -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-tasks" style="color: var(--color-primary);"></i>
+                    Ejercicios Desarrollados
+                </h2>
+                <div class="grid grid--cols-2 grid--gap-md" style="max-width: 700px; margin: 0 auto;">
+                    <div style="text-align: center; padding: 2rem 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg); border: 2px solid var(--color-border);">
+                        <i class="fas fa-plane" style="font-size: 3rem; color: #667eea; display: block; margin-bottom: 1rem;"></i>
+                        <strong style="display: block; font-size: 1.25rem; color: var(--color-text); margin-bottom: 0.5rem;">Aerolínea</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">7 tablas, 8 FK</span>
+                        <span style="color: var(--color-text-light); font-size: 0.85rem;">Gestión de vuelos, pilotos y tripulación</span>
+                    </div>
+                    <div style="text-align: center; padding: 2rem 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg); border: 2px solid var(--color-border);">
+                        <i class="fas fa-book" style="font-size: 3rem; color: #764ba2; display: block; margin-bottom: 1rem;"></i>
+                        <strong style="display: block; font-size: 1.25rem; color: var(--color-text); margin-bottom: 0.5rem;">Biblioteca</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">6 tablas, 5 FK</span>
+                        <span style="color: var(--color-text-light); font-size: 0.85rem;">Sistema de préstamos y autores</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PDF Viewer -->
+            <div class="card" style="margin-bottom: 3rem; padding: 0; overflow: hidden;">
+                <div style="padding: 2rem 2rem 1rem 2rem; background: var(--color-background-alt);">
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                        <i class="fas fa-file-pdf" style="color: var(--color-primary);"></i>
+                        Documento Completo
+                    </h2>
+                    <p style="color: var(--color-text-light); margin: 0;">
+                        Visualiza el documento PDF con todos los ejercicios resueltos
+                    </p>
+                </div>
+                <div style="width: 100%; height: 700px; background: #f5f5f5;">
+                    <iframe 
+                        src="https://drive.google.com/file/d/1i0hggYzn2lRL3LI7Ey8VpGS3pp8vpnT4/preview" 
+                        width="100%" 
+                        height="700" 
+                        style="border: none; display: block;"
+                        allow="autoplay"
+                        title="Ejercicios Modelo Relacional PDF">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Concepts Applied -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-graduation-cap" style="color: var(--color-primary);"></i>
+                    Conceptos Aplicados
+                </h2>
+                <div class="grid grid--cols-2" style="gap: 0.75rem;">
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Relaciones (Relations):</strong> Tablas del modelo relacional</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Tuplas (Tuples):</strong> Filas de datos en las tablas</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Atributos (Attributes):</strong> Columnas con tipos de datos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Claves Primarias:</strong> Identificadores únicos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Claves Foráneas:</strong> Referencias entre tablas</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Relaciones 1:N:</strong> Uno a muchos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Relaciones N:M:</strong> Muchos a muchos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Integridad Referencial:</strong> Consistencia de datos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-key" style="color: var(--color-primary);"></i>
+                    Decisiones de Diseño Clave
+                </h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Normalización:</strong> 
+                        Eliminación de redundancia mediante separación de entidades
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Tablas Intermedias:</strong> 
+                        Resolución de relaciones muchos-a-muchos
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Claves Naturales:</strong> 
+                        Uso de identificadores del dominio (ISBN, cédula, número de vuelo)
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Tipos de Datos Apropiados:</strong> 
+                        string, integer, date, time, boolean según el contexto
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
+                        <strong style="color: var(--color-primary);">Nomenclatura en Inglés:</strong> 
+                        Siguiendo estándares profesionales internacionales
+                    </li>
+                    <li style="padding: 0.75rem 0;">
+                        <strong style="color: var(--color-primary);">Integridad Referencial:</strong> 
+                        Foreign Keys aseguran consistencia entre tablas relacionadas
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Stats -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-chart-bar" style="color: var(--color-primary);"></i>
+                    Estadísticas del Proyecto
+                </h2>
+                <div class="grid grid--cols-4 grid--gap-md">
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-table" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">13</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Tablas Diseñadas</span>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-key" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">13</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Claves Foráneas</span>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-columns" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">55+</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Atributos</span>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
+                        <i class="fas fa-sitemap" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
+                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">10</strong>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Relaciones</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learnings -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-lightbulb" style="color: var(--color-primary);"></i>
+                    Aprendizajes Clave
+                </h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Comprensión profunda del Modelo Relacional de Codd
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Identificación de entidades y atributos a partir de requerimientos
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Diseño de esquemas relacionales sin redundancia
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Implementación de claves primarias y foráneas
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Resolución de relaciones uno-a-muchos (1:N)
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Resolución de relaciones muchos-a-muchos (N:M) con tablas intermedias
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Selección apropiada de tipos de datos
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
+                        • Documentación técnica de esquemas de bases de datos
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Relation Types -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-project-diagram" style="color: var(--color-primary);"></i>
+                    Tipos de Relaciones Implementadas
+                </h2>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="padding: 1.5rem; background: #f0f4ff; border-left: 4px solid #667eea; border-radius: var(--radius-md);">
+                        <strong style="color: #667eea; font-size: 1.25rem; display: block; margin-bottom: 0.5rem;">
+                            1:N (Uno a Muchos)
+                        </strong>
+                        <p style="color: var(--color-text-light); margin: 0;">
+                            Una entidad se relaciona con múltiples instancias de otra entidad. 
+                            Ejemplo: Una base tiene muchos aviones, una editorial tiene muchos libros.
+                        </p>
+                        <div style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--color-text-light);">
+                            <strong>Ejemplos en ejercicios:</strong> Bases → Aviones, Bases → Pilotos, Editorial → Libros
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 1.5rem; background: #fef5ff; border-left: 4px solid #764ba2; border-radius: var(--radius-md);">
+                        <strong style="color: #764ba2; font-size: 1.25rem; display: block; margin-bottom: 0.5rem;">
+                            N:M (Muchos a Muchos)
+                        </strong>
+                        <p style="color: var(--color-text-light); margin: 0;">
+                            Múltiples instancias de una entidad se relacionan con múltiples instancias de otra. 
+                            Requiere tabla intermedia. Ejemplo: Pilotos ↔ Vuelos, Libros ↔ Autores.
+                        </p>
+                        <div style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--color-text-light);">
+                            <strong>Ejemplos en ejercicios:</strong> Pilotos ↔ Vuelos, Tripulación ↔ Vuelos, Libros ↔ Autores
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Types -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-database" style="color: var(--color-primary);"></i>
+                    Tipos de Datos Utilizados
+                </h2>
+                <div style="background: #2d3748; color: #e2e8f0; padding: 1.5rem; border-radius: var(--radius-lg); font-family: 'Courier New', monospace;">
+                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">string</strong> → Cadenas de texto (nombres, códigos, direcciones)</div>
+                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">integer</strong> → Números enteros (años, horas, niveles)</div>
+                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">date</strong> → Fechas (YYYY-MM-DD)</div>
+                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">time</strong> → Horas (HH:MM:SS)</div>
+                    <div><strong style="color: #81e6d9;">boolean</strong> → Verdadero/Falso (true/false)</div>
+                </div>
+            </div>
+
+            <!-- Reference -->
+            <div class="card" style="margin-bottom: 3rem; background: linear-gradient(135deg, #f0f4ff 0%, #fef5ff 100%); border: 2px solid var(--color-primary);">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-book-open" style="color: var(--color-primary);"></i>
+                    Referencia Bibliográfica
+                </h2>
+                <div style="padding: 1rem; background: white; border-radius: var(--radius-md); margin-bottom: 1rem;">
+                    <p style="font-size: 1.1rem; color: var(--color-text); margin: 0; line-height: 1.6;">
+                        <strong>Database Systems: The Complete Book</strong><br>
+                        <span style="color: var(--color-text-light);">
+                            Hector Garcia-Molina, Jeffrey D. Ullman, Jennifer Widom<br>
+                            Segunda Edición (2008)<br>
+                            Capítulos 1-2: Introduction to Database Systems y The Relational Model of Data
+                        </span>
+                    </p>
+                </div>
+                <p style="color: var(--color-text-light); font-size: 0.95rem; margin: 0;">
+                    Los ejercicios aplican los conceptos fundamentales del modelo relacional presentados en los 
+                    primeros dos capítulos del libro, incluyendo la definición de relaciones (tablas), atributos, 
+                    tuplas, claves primarias y foráneas.
+                </p>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://drive.google.com/file/d/1i0hggYzn2lRL3LI7Ey8VpGS3pp8vpnT4/view?usp=sharing" target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-file-pdf"></i> Ver Documento Completo (PDF)
+                </a>
+                <a href="../index.html#projects" class="btn btn--outline btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>
