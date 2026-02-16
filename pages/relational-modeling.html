@@ -86,9 +86,19 @@
                     Descripción del Proyecto
                 </h2>
                 <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
-                    Diseño de esquemas de bases de datos relacionales, escogiendo 2 de 3 casos de estudio propuestos: 
-                    una aerolínea, una biblioteca y un sistema de urgencias hospitalarias. Aplicando los 
-                    conceptos del Modelo Relacional según Garcia-Molina, Ullman y Widom.
+                    Diseño de esquemas de bases de datos relacionales escogiendo 2 de 3 casos de estudio propuestos: 
+                    una aerolínea, una biblioteca y un sistema de urgencias hospitalarias. El trabajo aplica los 
+                    conceptos fundamentales presentados en los capítulos I y II del libro "Database Systems: The Complete Book" 
+                    de Garcia-Molina, Ullman y Widom, específicamente sobre el Modelo Relacional de datos.
+                </p>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8; margin-top: 1rem;">
+                    Para cada caso de estudio se desarrolla el esquema completo de relaciones (tablas), realizando 
+                    primero la identificación de entidades y sus atributos a partir de los requerimientos del sistema, 
+                    definiendo tipos de datos apropiados para cada atributo (string, integer, date, time, boolean), 
+                    estableciendo claves primarias para garantizar la unicidad de las tuplas, y diseñando claves foráneas 
+                    para mantener la integridad referencial entre las relaciones. Se implementan tanto relaciones 
+                    uno-a-muchos (1:N) mediante referencias directas, como relaciones muchos-a-muchos (N:M) utilizando 
+                    tablas intermedias.
                 </p>
             </div>
 
@@ -219,26 +229,26 @@
                     <i class="fas fa-chart-bar" style="color: var(--color-primary);"></i>
                     Estadísticas del Proyecto
                 </h2>
-                <div class="grid grid--cols-4 grid--gap-md">
-                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
-                        <i class="fas fa-table" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
-                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">13</strong>
-                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Tablas Diseñadas</span>
+                <div class="stats-grid">
+                    <div class="stats-grid__item">
+                        <i class="fas fa-table stats-grid__icon"></i>
+                        <strong class="stats-grid__value">13</strong>
+                        <span class="stats-grid__label">Tablas Diseñadas</span>
                     </div>
-                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
-                        <i class="fas fa-key" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
-                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">13</strong>
-                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Claves Foráneas</span>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-key stats-grid__icon"></i>
+                        <strong class="stats-grid__value">13</strong>
+                        <span class="stats-grid__label">Claves Foráneas</span>
                     </div>
-                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
-                        <i class="fas fa-columns" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
-                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">55+</strong>
-                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Atributos</span>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-columns stats-grid__icon"></i>
+                        <strong class="stats-grid__value">55+</strong>
+                        <span class="stats-grid__label">Atributos</span>
                     </div>
-                    <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg);">
-                        <i class="fas fa-sitemap" style="font-size: 2rem; color: var(--color-primary); display: block; margin-bottom: 0.5rem;"></i>
-                        <strong style="display: block; font-size: 1.5rem; color: var(--color-text); margin-bottom: 0.25rem;">10</strong>
-                        <span style="color: var(--color-text-light); font-size: 0.9rem;">Relaciones</span>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-sitemap stats-grid__icon"></i>
+                        <strong class="stats-grid__value">10</strong>
+                        <span class="stats-grid__label">Relaciones</span>
                     </div>
                 </div>
             </div>

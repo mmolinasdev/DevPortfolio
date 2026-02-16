@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Evidencias de Modelado - Bases de Datos I">
+    <meta name="theme-color" content="#667eea">
+    <title>Evidencias de Modelado | Miguel Molina</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+                
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+                
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#home" class="navbar__link">Inicio</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#presentation" class="navbar__link">Presentación</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#about" class="navbar__link">Sobre Mí</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#skills" class="navbar__link">Habilidades</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#projects" class="navbar__link">Proyectos</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#evidence" class="navbar__link navbar__link--active">Evidencias</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#contact" class="navbar__link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height: 50vh; padding: 8rem 0 4rem;">
+        <div class="hero__overlay"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
+                <div class="hero__text">
+                    <a href="../index.html#evidence" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                    </a>
+                    <div style="font-size: 4rem; color: var(--color-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">Evidencias de Modelado</h1>
+                    <p class="hero__subtitle">Diseño de bases de datos relacionales y esquemas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evidence Content -->
+    <section class="section">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-info-circle" style="color: var(--color-primary);"></i>
+                    Sobre esta Categoría
+                </h2>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
+                    Esta sección contiene los trabajos realizados sobre modelado de bases de datos relacionales, 
+                    aplicando los conceptos fundamentales del Modelo Relacional según Garcia-Molina, Ullman y Widom. 
+                    Se incluyen diseños de esquemas, definición de claves primarias y foráneas, y resolución de 
+                    relaciones entre tablas.
+                </p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects__grid">
+                
+                <!-- Proyecto 1: Modelado Relacional -->
+                <article class="project-card project-card--featured">
+                    <span class="project-card__badge">Destacado</span>
+                    
+                    <div class="project-card__image">
+                        <img src="https://via.placeholder.com/600x400/667eea/ffffff?text=Relational+Database+Modeling" alt="Modelado Relacional">
+                        <div class="project-card__overlay">
+                            <div class="project-card__links">
+                                <a href="https://drive.google.com/file/d/1i0hggYzn2lRL3LI7Ey8VpGS3pp8vpnT4/view?usp=sharing" target="_blank" class="project-card__link">
+                                    <i class="fas fa-file-pdf"></i> Ver PDF
+                                </a>
+                                <a href="relational-modeling.html" class="project-card__link">
+                                    <i class="fas fa-info-circle"></i> Ver Detalles
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card__content">
+                        <div class="project-card__tags">
+                            <span class="tag">Bases de Datos</span>
+                            <span class="tag">Modelo Relacional</span>
+                            <span class="tag">Esquemas</span>
+                            <span class="tag">SQL</span>
+                        </div>
+                        
+                        <h3 class="project-card__title">Modelado Relacional - Ejercicios</h3>
+                        
+                        <p class="project-card__description">
+                            Diseño de bases de datos relacionales, escogiendo 2 de 3 casos de estudio propuestos: Aerolínea y Biblioteca. 
+                            Aplicando los conceptos del modelo relacional de Garcia-Molina.
+                        </p>
+                        
+                        <div class="project-card__features">
+                            <div class="project-card__feature">
+                                <i class="fas fa-check project-card__feature-icon"></i>
+                                <span>Aerolínea: 7 tablas, 8 FK</span>
+                            </div>
+                            <div class="project-card__feature">
+                                <i class="fas fa-check project-card__feature-icon"></i>
+                                <span>Biblioteca: 6 tablas, 5 FK</span>
+                            </div>
+                            <div class="project-card__feature">
+                                <i class="fas fa-check project-card__feature-icon"></i>
+                                <span>Relaciones 1:N y N:M</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Placeholder para futuros proyectos -->
+                <article class="project-card project-card--coming-soon">
+                    <div class="project-card__image">
+                        <img src="https://via.placeholder.com/600x400/764ba2/ffffff?text=Entity-Relationship+Diagrams" alt="Diagramas ER">
+                    </div>
+                    <div class="project-card__content">
+                        <div class="project-card__tags">
+                            <span class="tag">ER</span>
+                            <span class="tag">UML</span>
+                        </div>
+                        <h3 class="project-card__title">Diagramas Entidad-Relación</h3>
+                        <p class="project-card__description">
+                            Modelado conceptual con diagramas ER y UML para sistemas complejos.
+                        </p>
+                        <span class="project-card__coming-soon-badge">Próximamente</span>
+                    </div>
+                </article>
+
+                <article class="project-card project-card--coming-soon">
+                    <div class="project-card__image">
+                        <img src="https://via.placeholder.com/600x400/f093fb/ffffff?text=Advanced+Modeling" alt="Modelado Avanzado">
+                    </div>
+                    <div class="project-card__content">
+                        <div class="project-card__tags">
+                            <span class="tag">Avanzado</span>
+                            <span class="tag">NoSQL</span>
+                        </div>
+                        <h3 class="project-card__title">Modelado Avanzado</h3>
+                        <p class="project-card__description">
+                            Diseño de bases de datos NoSQL y modelos híbridos.
+                        </p>
+                        <span class="project-card__coming-soon-badge">Próximamente</span>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Summary Stats -->
+            <div class="card" style="margin-top: 4rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-chart-line" style="color: var(--color-primary);"></i>
+                    Resumen General
+                </h2>
+                <div class="stats-grid">
+                    <div class="stats-grid__item">
+                        <i class="fas fa-check-circle stats-grid__icon" style="color: #48bb78;"></i>
+                        <strong class="stats-grid__value">1</strong>
+                        <span class="stats-grid__label">Proyecto Completado</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-table stats-grid__icon"></i>
+                        <strong class="stats-grid__value">13</strong>
+                        <span class="stats-grid__label">Tablas Diseñadas</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-key stats-grid__icon"></i>
+                        <strong class="stats-grid__value">13</strong>
+                        <span class="stats-grid__label">Claves Foráneas</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-sitemap stats-grid__icon"></i>
+                        <strong class="stats-grid__value">10</strong>
+                        <span class="stats-grid__label">Relaciones</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concepts Covered -->
+            <div class="card" style="margin-top: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-book-open" style="color: var(--color-primary);"></i>
+                    Conceptos Cubiertos
+                </h2>
+                <div class="grid grid--cols-2" style="gap: 0.75rem;">
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Modelo Relacional de Codd</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Relaciones (Tablas)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Atributos y Tuplas</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Claves Primarias (PK)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Claves Foráneas (FK)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Relaciones 1:N</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Relaciones N:M</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Integridad Referencial</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Tipos de Datos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Nomenclatura Profesional</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="../index.html#evidence" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>
