@@ -85,8 +85,10 @@
 
 .project-card__links {
     display: flex;
+    flex-direction: column;
     gap: var(--spacing-sm);
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .project-card__link {

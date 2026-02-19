@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Relational Model Database Design - Airline, Library, Hospital">
+    <meta name="description" content="Entity-Relationship Model - Database Design">
     <meta name="theme-color" content="#667eea">
-    <title>Modelado Relacional | Miguel Molina</title>
+    <title>Modelo Entidad-Relación | Miguel Molina</title>
     
     <!-- Styles -->
     <link rel="stylesheet" href="../css/styles.css">
@@ -59,15 +59,15 @@
         <div class="container">
             <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
                 <div class="hero__text">
-                    <a href="../index.html#projects" class="btn btn--secondary" style="margin-bottom: 2rem;">
-                        <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                    <a href="modeling-evidence.html" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Modelado
                     </a>
-                    <h1 class="hero__title" style="margin-bottom: 1rem;">Modelado Relacional</h1>
-                    <p class="hero__subtitle">Diseño de Bases de Datos con el Modelo Relacional</p>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">Modelo Entidad-Relación</h1>
+                    <p class="hero__subtitle">Diseño Conceptual de Bases de Datos</p>
                     <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
-                        <span class="tag tag--primary">Modelo Relacional</span>
-                        <span class="tag tag--primary">Esquemas</span>
-                        <span class="tag tag--primary">Claves</span>
+                        <span class="tag tag--primary">Modelo ER</span>
+                        <span class="tag tag--primary">Entidades</span>
+                        <span class="tag tag--primary">Atributos</span>
                         <span class="tag tag--primary">Relaciones</span>
                     </div>
                 </div>
@@ -86,19 +86,17 @@
                     Descripción del Proyecto
                 </h2>
                 <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
-                    Diseño de esquemas de bases de datos relacionales escogiendo 2 de 3 casos de estudio propuestos: 
-                    una aerolínea, una biblioteca y un sistema de urgencias hospitalarias. El trabajo aplica los 
-                    conceptos fundamentales presentados en los capítulos I y II del libro "Database Systems: The Complete Book" 
-                    de Garcia-Molina, Ullman y Widom, específicamente sobre el Modelo Relacional de datos.
+                    Diseño conceptual de bases de datos utilizando el Modelo Entidad-Relación (ER), escogiendo 2 de 3 
+                    casos de estudio propuestos: una aerolínea, una biblioteca y un sistema de urgencias hospitalarias. 
+                    El trabajo aplica los conceptos fundamentales del modelado conceptual presentados en el curso de 
+                    Bases de Datos I.
                 </p>
                 <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8; margin-top: 1rem;">
-                    Para cada caso de estudio se desarrolla el esquema completo de relaciones (tablas), realizando 
-                    primero la identificación de entidades y sus atributos a partir de los requerimientos del sistema, 
-                    definiendo tipos de datos apropiados para cada atributo (string, integer, date, time, boolean), 
-                    estableciendo claves primarias para garantizar la unicidad de las tuplas, y diseñando claves foráneas 
-                    para mantener la integridad referencial entre las relaciones. Se implementan tanto relaciones 
-                    uno-a-muchos (1:N) mediante referencias directas, como relaciones muchos-a-muchos (N:M) utilizando 
-                    tablas intermedias.
+                    Para cada caso de estudio se realiza la identificación de entidades principales del dominio, 
+                    definición de atributos significativos para cada entidad (simples, compuestos, multivaluados, derivados), 
+                    establecimiento de atributos identificadores (claves), y diseño de relaciones entre entidades especificando 
+                    sus cardinalidades (1:1, 1:N, N:M) y participación (total o parcial). El modelo resultante representa 
+                    la estructura conceptual del sistema antes de su implementación física.
                 </p>
             </div>
 
@@ -112,13 +110,13 @@
                     <div style="text-align: center; padding: 2rem 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg); border: 2px solid var(--color-border);">
                         <i class="fas fa-plane" style="font-size: 3rem; color: #667eea; display: block; margin-bottom: 1rem;"></i>
                         <strong style="display: block; font-size: 1.25rem; color: var(--color-text); margin-bottom: 0.5rem;">Aerolínea</strong>
-                        <span style="color: var(--color-text-light); font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">7 tablas, 8 FK</span>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">5 entidades principales</span>
                         <span style="color: var(--color-text-light); font-size: 0.85rem;">Gestión de vuelos, pilotos y tripulación</span>
                     </div>
                     <div style="text-align: center; padding: 2rem 1.5rem; background: var(--color-background-alt); border-radius: var(--radius-lg); border: 2px solid var(--color-border);">
                         <i class="fas fa-book" style="font-size: 3rem; color: #764ba2; display: block; margin-bottom: 1rem;"></i>
                         <strong style="display: block; font-size: 1.25rem; color: var(--color-text); margin-bottom: 0.5rem;">Biblioteca</strong>
-                        <span style="color: var(--color-text-light); font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">6 tablas, 5 FK</span>
+                        <span style="color: var(--color-text-light); font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">4 entidades principales</span>
                         <span style="color: var(--color-text-light); font-size: 0.85rem;">Sistema de préstamos y autores</span>
                     </div>
                 </div>
@@ -149,6 +147,34 @@
                 </div>
             </div>
 
+            <!-- PDF Viewers -->
+            <div class="card" style="margin-bottom: 3rem; padding: 0; overflow: hidden;">
+                <div style="padding: 2rem 2rem 1rem 2rem; background: var(--color-background-alt);">
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                        <i class="fas fa-file-pdf" style="color: var(--color-primary);"></i>
+                        Diagrama: Aerolínea
+                    </h2>
+                    <p style="color: var(--color-text-light); margin: 0;">
+                        Diagrama Entidad-Relación del sistema de aerolínea
+                    </p>
+                </div>
+                <div style="width: 100%; height: 700px; background: #f5f5f5;">
+                    <iframe 
+                        src="https://drive.google.com/file/d/14_j-Ih_Xh2URmpsrs0VYLNs9pZYCVUpH/preview" 
+                        width="100%" 
+                        height="700" 
+                        style="border: none; display: block;"
+                        allow="autoplay"
+                        title="Modelo ER Aerolínea PDF">
+                    </iframe>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt);">
+                    <a href="https://drive.google.com/file/d/14_j-Ih_Xh2URmpsrs0VYLNs9pZYCVUpH/view?usp=sharing" target="_blank" class="btn btn--primary">
+                        <i class="fas fa-external-link-alt"></i> Abrir Aerolínea en Google Drive
+                    </a>
+                </div>
+            </div>
+
             <!-- Ejercicio 2: Biblioteca -->
             <div class="card" style="margin-bottom: 2rem;">
                 <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
@@ -170,26 +196,30 @@
                 </div>
             </div>
 
-            <!-- PDF Viewer -->
             <div class="card" style="margin-bottom: 3rem; padding: 0; overflow: hidden;">
                 <div style="padding: 2rem 2rem 1rem 2rem; background: var(--color-background-alt);">
                     <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--color-text);">
                         <i class="fas fa-file-pdf" style="color: var(--color-primary);"></i>
-                        Esquemas Relacionales - Documento Completo
+                        Diagrama: Biblioteca
                     </h2>
                     <p style="color: var(--color-text-light); margin: 0;">
-                        Visualiza el documento PDF con los esquemas relacionales de ambos ejercicios
+                        Diagrama Entidad-Relación del sistema de biblioteca
                     </p>
                 </div>
                 <div style="width: 100%; height: 700px; background: #f5f5f5;">
                     <iframe 
-                        src="https://drive.google.com/file/d/1i0hggYzn2lRL3LI7Ey8VpGS3pp8vpnT4/preview" 
+                        src="https://drive.google.com/file/d/1L18DpFJOa8puULz2VVd2C2036bEppFFs/preview" 
                         width="100%" 
                         height="700" 
                         style="border: none; display: block;"
                         allow="autoplay"
-                        title="Ejercicios Modelo Relacional PDF">
+                        title="Modelo ER Biblioteca PDF">
                     </iframe>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt);">
+                    <a href="https://drive.google.com/file/d/1L18DpFJOa8puULz2VVd2C2036bEppFFs/view?usp=sharing" target="_blank" class="btn btn--primary">
+                        <i class="fas fa-external-link-alt"></i> Abrir Biblioteca en Google Drive
+                    </a>
                 </div>
             </div>
 
@@ -202,71 +232,37 @@
                 <div class="grid grid--cols-2" style="gap: 0.75rem;">
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Relaciones (Relations):</strong> Tablas del modelo relacional</span>
+                        <span><strong>Entidades:</strong> Objetos o conceptos del mundo real</span>
                     </div>
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Tuplas (Tuples):</strong> Filas de datos en las tablas</span>
+                        <span><strong>Atributos:</strong> Propiedades que describen entidades</span>
                     </div>
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Atributos (Attributes):</strong> Columnas con tipos de datos</span>
+                        <span><strong>Atributos Simples:</strong> Valores atómicos indivisibles</span>
                     </div>
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Claves Primarias:</strong> Identificadores únicos</span>
+                        <span><strong>Atributos Compuestos:</strong> Divisibles en subatributos</span>
                     </div>
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Claves Foráneas:</strong> Referencias entre tablas</span>
+                        <span><strong>Claves Primarias:</strong> Identificadores únicos de entidades</span>
                     </div>
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Relaciones 1:N:</strong> Uno a muchos</span>
+                        <span><strong>Relaciones:</strong> Asociaciones entre entidades</span>
                     </div>
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Relaciones N:M:</strong> Muchos a muchos</span>
+                        <span><strong>Cardinalidad:</strong> Número de instancias relacionadas</span>
                     </div>
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
-                        <span><strong>Integridad Referencial:</strong> Consistencia de datos</span>
+                        <span><strong>Participación:</strong> Total o parcial en relaciones</span>
                     </div>
                 </div>
-            </div>
-
-            <!-- Key Features -->
-            <div class="card" style="margin-bottom: 3rem;">
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
-                    <i class="fas fa-key" style="color: var(--color-primary);"></i>
-                    Decisiones de Diseño Clave
-                </h2>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
-                        <strong style="color: var(--color-primary);">Normalización:</strong> 
-                        Eliminación de redundancia mediante separación de entidades
-                    </li>
-                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
-                        <strong style="color: var(--color-primary);">Tablas Intermedias:</strong> 
-                        Resolución de relaciones muchos-a-muchos
-                    </li>
-                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
-                        <strong style="color: var(--color-primary);">Claves Naturales:</strong> 
-                        Uso de identificadores del dominio (ISBN, cédula, número de vuelo)
-                    </li>
-                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
-                        <strong style="color: var(--color-primary);">Tipos de Datos Apropiados:</strong> 
-                        string, integer, date, time, boolean según el contexto
-                    </li>
-                    <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--color-border);">
-                        <strong style="color: var(--color-primary);">Nomenclatura en Inglés:</strong> 
-                        Siguiendo estándares profesionales internacionales
-                    </li>
-                    <li style="padding: 0.75rem 0;">
-                        <strong style="color: var(--color-primary);">Integridad Referencial:</strong> 
-                        Foreign Keys aseguran consistencia entre tablas relacionadas
-                    </li>
-                </ul>
             </div>
 
             <!-- Stats -->
@@ -277,24 +273,63 @@
                 </h2>
                 <div class="stats-grid">
                     <div class="stats-grid__item">
-                        <i class="fas fa-table stats-grid__icon"></i>
-                        <strong class="stats-grid__value">13</strong>
-                        <span class="stats-grid__label">Tablas Diseñadas</span>
+                        <i class="fas fa-cube stats-grid__icon"></i>
+                        <strong class="stats-grid__value">9</strong>
+                        <span class="stats-grid__label">Entidades</span>
                     </div>
                     <div class="stats-grid__item">
-                        <i class="fas fa-key stats-grid__icon"></i>
-                        <strong class="stats-grid__value">13</strong>
-                        <span class="stats-grid__label">Claves Foráneas</span>
-                    </div>
-                    <div class="stats-grid__item">
-                        <i class="fas fa-columns stats-grid__icon"></i>
-                        <strong class="stats-grid__value">55+</strong>
+                        <i class="fas fa-tags stats-grid__icon"></i>
+                        <strong class="stats-grid__value">45+</strong>
                         <span class="stats-grid__label">Atributos</span>
                     </div>
                     <div class="stats-grid__item">
-                        <i class="fas fa-sitemap stats-grid__icon"></i>
-                        <strong class="stats-grid__value">10</strong>
+                        <i class="fas fa-link stats-grid__icon"></i>
+                        <strong class="stats-grid__value">8</strong>
                         <span class="stats-grid__label">Relaciones</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-project-diagram stats-grid__icon"></i>
+                        <strong class="stats-grid__value">2</strong>
+                        <span class="stats-grid__label">Diagramas ER</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cardinalities -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-arrows-alt-h" style="color: var(--color-primary);"></i>
+                    Tipos de Cardinalidad Implementadas
+                </h2>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="padding: 1.5rem; background: #f0f4ff; border-left: 4px solid #667eea; border-radius: var(--radius-md);">
+                        <strong style="color: #667eea; font-size: 1.25rem; display: block; margin-bottom: 0.5rem;">
+                            1:1 (Uno a Uno)
+                        </strong>
+                        <p style="color: var(--color-text-light); margin: 0;">
+                            Una instancia de una entidad se relaciona con exactamente una instancia de otra entidad.
+                            Ejemplo: Un piloto tiene una única licencia.
+                        </p>
+                    </div>
+                    
+                    <div style="padding: 1.5rem; background: #fef5ff; border-left: 4px solid #764ba2; border-radius: var(--radius-md);">
+                        <strong style="color: #764ba2; font-size: 1.25rem; display: block; margin-bottom: 0.5rem;">
+                            1:N (Uno a Muchos)
+                        </strong>
+                        <p style="color: var(--color-text-light); margin: 0;">
+                            Una instancia de una entidad se relaciona con múltiples instancias de otra entidad.
+                            Ejemplo: Una base tiene muchos aviones.
+                        </p>
+                    </div>
+                    
+                    <div style="padding: 1.5rem; background: #f0fff4; border-left: 4px solid #48bb78; border-radius: var(--radius-md);">
+                        <strong style="color: #48bb78; font-size: 1.25rem; display: block; margin-bottom: 0.5rem;">
+                            N:M (Muchos a Muchos)
+                        </strong>
+                        <p style="color: var(--color-text-light); margin: 0;">
+                            Múltiples instancias de ambas entidades pueden relacionarse entre sí.
+                            Ejemplo: Pilotos ↔ Vuelos, Libros ↔ Autores.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -307,112 +342,42 @@
                 </h2>
                 <ul style="list-style: none; padding: 0;">
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Comprensión profunda del Modelo Relacional de Codd
+                        • Identificación de entidades a partir de requerimientos del sistema
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Identificación de entidades y atributos a partir de requerimientos
+                        • Definición de atributos relevantes y sus tipos
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Diseño de esquemas relacionales sin redundancia
+                        • Establecimiento de relaciones y sus cardinalidades
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Implementación de claves primarias y foráneas
+                        • Distinción entre atributos simples, compuestos y multivaluados
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Resolución de relaciones uno-a-muchos (1:N)
+                        • Modelado conceptual independiente de la implementación
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Resolución de relaciones muchos-a-muchos (N:M) con tablas intermedias
+                        • Documentación visual mediante diagramas ER
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Selección apropiada de tipos de datos
+                        • Participación total vs parcial en relaciones
                     </li>
                     <li style="padding: 0.5rem 0; color: var(--color-text-light); line-height: 1.6;">
-                        • Documentación técnica de esquemas de bases de datos
+                        • Comprensión del diseño conceptual como base para el modelo lógico
                     </li>
                 </ul>
             </div>
 
-            <!-- Relation Types -->
-            <div class="card" style="margin-bottom: 3rem;">
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
-                    <i class="fas fa-project-diagram" style="color: var(--color-primary);"></i>
-                    Tipos de Relaciones Implementadas
-                </h2>
-                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                    <div style="padding: 1.5rem; background: #f0f4ff; border-left: 4px solid #667eea; border-radius: var(--radius-md);">
-                        <strong style="color: #667eea; font-size: 1.25rem; display: block; margin-bottom: 0.5rem;">
-                            1:N (Uno a Muchos)
-                        </strong>
-                        <p style="color: var(--color-text-light); margin: 0;">
-                            Una entidad se relaciona con múltiples instancias de otra entidad. 
-                            Ejemplo: Una base tiene muchos aviones, una editorial tiene muchos libros.
-                        </p>
-                        <div style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--color-text-light);">
-                            <strong>Ejemplos en ejercicios:</strong> Bases → Aviones, Bases → Pilotos, Editorial → Libros
-                        </div>
-                    </div>
-                    
-                    <div style="padding: 1.5rem; background: #fef5ff; border-left: 4px solid #764ba2; border-radius: var(--radius-md);">
-                        <strong style="color: #764ba2; font-size: 1.25rem; display: block; margin-bottom: 0.5rem;">
-                            N:M (Muchos a Muchos)
-                        </strong>
-                        <p style="color: var(--color-text-light); margin: 0;">
-                            Múltiples instancias de una entidad se relacionan con múltiples instancias de otra. 
-                            Requiere tabla intermedia. Ejemplo: Pilotos ↔ Vuelos, Libros ↔ Autores.
-                        </p>
-                        <div style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--color-text-light);">
-                            <strong>Ejemplos en ejercicios:</strong> Pilotos ↔ Vuelos, Tripulación ↔ Vuelos, Libros ↔ Autores
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Data Types -->
-            <div class="card" style="margin-bottom: 3rem;">
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
-                    <i class="fas fa-database" style="color: var(--color-primary);"></i>
-                    Tipos de Datos Utilizados
-                </h2>
-                <div style="background: #2d3748; color: #e2e8f0; padding: 1.5rem; border-radius: var(--radius-lg); font-family: 'Courier New', monospace;">
-                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">string</strong> → Cadenas de texto (nombres, códigos, direcciones)</div>
-                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">integer</strong> → Números enteros (años, horas, niveles)</div>
-                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">date</strong> → Fechas (YYYY-MM-DD)</div>
-                    <div style="margin-bottom: 1rem;"><strong style="color: #81e6d9;">time</strong> → Horas (HH:MM:SS)</div>
-                    <div><strong style="color: #81e6d9;">boolean</strong> → Verdadero/Falso (true/false)</div>
-                </div>
-            </div>
-
-            <!-- Reference -->
-            <div class="card" style="margin-bottom: 3rem; background: linear-gradient(135deg, #f0f4ff 0%, #fef5ff 100%); border: 2px solid var(--color-primary);">
-                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
-                    <i class="fas fa-book-open" style="color: var(--color-primary);"></i>
-                    Referencia Bibliográfica
-                </h2>
-                <div style="padding: 1rem; background: white; border-radius: var(--radius-md); margin-bottom: 1rem;">
-                    <p style="font-size: 1.1rem; color: var(--color-text); margin: 0; line-height: 1.6;">
-                        <strong>Database Systems: The Complete Book</strong><br>
-                        <span style="color: var(--color-text-light);">
-                            Hector Garcia-Molina, Jeffrey D. Ullman, Jennifer Widom<br>
-                            Segunda Edición (2008)<br>
-                            Capítulos 1-2: Introduction to Database Systems y The Relational Model of Data
-                        </span>
-                    </p>
-                </div>
-                <p style="color: var(--color-text-light); font-size: 0.95rem; margin: 0;">
-                    Los ejercicios aplican los conceptos fundamentales del modelo relacional presentados en los 
-                    primeros dos capítulos del libro, incluyendo la definición de relaciones (tablas), atributos, 
-                    tuplas, claves primarias y foráneas.
-                </p>
-            </div>
-
             <!-- CTA -->
             <div style="text-align: center; margin-top: 4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="https://drive.google.com/file/d/1i0hggYzn2lRL3LI7Ey8VpGS3pp8vpnT4/view?usp=sharing" target="_blank" class="btn btn--gradient btn--lg">
-                    <i class="fas fa-file-pdf"></i> Ver Documento Completo (PDF)
+                <a href="https://drive.google.com/file/d/14_j-Ih_Xh2URmpsrs0VYLNs9pZYCVUpH/view?usp=sharing" target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-plane"></i> Ver Ejercicio Aerolínea
                 </a>
-                <a href="../index.html#projects" class="btn btn--outline btn--lg">
-                    <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                <a href="https://drive.google.com/file/d/1L18DpFJOa8puULz2VVd2C2036bEppFFs/view?usp=sharing" target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-book"></i> Ver Ejercicio Biblioteca
+                </a>
+                <a href="modeling-evidence.html" class="btn btn--outline btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Modelado
                 </a>
             </div>
 
