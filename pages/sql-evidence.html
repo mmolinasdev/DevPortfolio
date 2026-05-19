@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Evidencias SQL - Bases de Datos I">
+    <meta name="theme-color" content="#667eea">
+    <title>Evidencias SQL | Miguel Molina</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .sql-code {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid var(--color-primary);
+            white-space: pre;
+        }
+        .sql-keyword { color: #cba6f7; font-weight: bold; }
+        .sql-function { color: #89dceb; }
+        .sql-string  { color: #a6e3a1; }
+        .sql-comment { color: #6c7086; font-style: italic; }
+        .sql-number  { color: #fab387; }
+
+        .practice-card {
+            background: var(--color-bg-secondary, #fff);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(102,126,234,0.15);
+        }
+        .practice-card__header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .practice-card__number {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary, #764ba2));
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .practice-card__title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+        .practice-card__subtitle {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+        .topics-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .topic-tag {
+            background: rgba(102,126,234,0.12);
+            color: var(--color-primary);
+            border: 1px solid rgba(102,126,234,0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .practice-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin: 1.5rem 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+        .key-point i { color: #48bb78; margin-top: 2px; flex-shrink: 0; }
+        .db-schema-note {
+            background: rgba(102,126,234,0.07);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--color-primary);
+        }
+        .db-schema-note strong { color: var(--color-primary); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#home" class="navbar__link">Inicio</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#presentation" class="navbar__link">Presentación</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#about" class="navbar__link">Sobre Mí</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#skills" class="navbar__link">Habilidades</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#projects" class="navbar__link">Proyectos</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#evidence" class="navbar__link navbar__link--active">Evidencias</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#contact" class="navbar__link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height: 50vh; padding: 8rem 0 4rem;">
+        <div class="hero__overlay"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
+                <div class="hero__text">
+                    <a href="../index.html#evidence" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                    </a>
+                    <div style="font-size: 4rem; color: var(--color-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">Evidencias SQL</h1>
+                    <p class="hero__subtitle">Prácticas de consultas sobre Oracle Database Sample Schemas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evidence Content -->
+    <section class="section">
+        <div class="container">
+
+            <!-- Overview -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-info-circle" style="color: var(--color-primary);"></i>
+                    Sobre esta Categoría
+                </h2>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
+                    Esta sección reúne las prácticas realizadas con SQL en Oracle Database, utilizando los
+                    esquemas de ejemplo oficiales de Oracle (<strong>HR – Human Resources</strong>).
+                    Se abordan desde consultas básicas de selección y filtrado hasta JOIN entre múltiples
+                    tablas, funciones de fecha, numéricas, de cadena y de grupo.
+                </p>
+            </div>
+
+            <!-- DB Schema Note -->
+            <div class="db-schema-note">
+                <strong><i class="fas fa-database"></i> Base de datos utilizada:</strong>
+                Oracle Database Sample Schemas — esquema <strong>HR (Human Resources)</strong>.
+                Tablas principales: <code>EMPLOYEES</code>, <code>DEPARTMENTS</code>, <code>LOCATIONS</code>,
+                <code>COUNTRIES</code>, <code>REGIONS</code>, <code>JOBS</code>.
+                Fuente oficial:
+                <a href="https://github.com/oracle-samples/db-sample-schemas" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary);">
+                    github.com/oracle-samples/db-sample-schemas
+                </a>
+            </div>
+
+            <!-- ======================================================
+                 PRÁCTICA 1: Consultas Básicas SELECT
+                 ====================================================== -->
+            <div class="practice-card">
+                <div class="practice-card__header">
+                    <div class="practice-card__number">1</div>
+                    <h2 class="practice-card__title">Consultas Básicas SELECT</h2>
+                </div>
+
+                <div class="topics-list">
+                    <span class="topic-tag">WHERE</span>
+                    <span class="topic-tag">BETWEEN</span>
+                    <span class="topic-tag">IN / NOT IN</span>
+                    <span class="topic-tag">IS NULL / IS NOT NULL</span>
+                    <span class="topic-tag">LIKE</span>
+                    <span class="topic-tag">Variables de sustitución</span>
+                    <span class="topic-tag">UPPER / LOWER</span>
+                    <span class="topic-tag">LPAD / RPAD</span>
+                </div>
+
+                <p class="practice-card__subtitle">
+                    Práctica enfocada en la cláusula <code>WHERE</code> con los operadores de comparación y lógicos
+                    más usados en Oracle SQL. Se exploran filtros por rango, listas de valores, valores nulos,
+                    patrones de texto y variables de sustitución interactivas. También se trabajan funciones de
+                    cadena como <code>UPPER</code>, <code>LOWER</code>, <code>LPAD</code> y <code>RPAD</code>.
+                </p>
+
+                <!-- BETWEEN -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Filtros con BETWEEN</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    <code>BETWEEN</code> filtra un rango inclusivo. Se puede invertir con <code>NOT BETWEEN</code>.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> HIRE_DATE
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> SALARY <span class="sql-keyword">BETWEEN</span> <span class="sql-number">12000</span> <span class="sql-keyword">AND</span> <span class="sql-number">15000</span>;
+
+<span class="sql-keyword">SELECT</span> HIRE_DATE
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> HIRE_DATE <span class="sql-keyword">BETWEEN</span> <span class="sql-string">'01-ENE-12'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'31-DIC-21'</span>;
+
+<span class="sql-keyword">SELECT</span> HIRE_DATE
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> HIRE_DATE <span class="sql-keyword">NOT BETWEEN</span> <span class="sql-string">'01-ENE-12'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'31-DIC-21'</span>;</div>
+
+                <!-- IN / NOT IN -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Filtros con IN / NOT IN</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    <code>IN</code> comprueba si un valor pertenece a una lista, evitando múltiples condiciones <code>OR</code>.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> EMPLOYEE_ID, FIRST_NAME
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> DEPARTMENT_ID <span class="sql-keyword">IN</span> (<span class="sql-number">90</span>, <span class="sql-number">80</span>, <span class="sql-number">100</span>, <span class="sql-number">60</span>);
+
+<span class="sql-keyword">SELECT</span> COUNTRY_ID, COUNTRY_NAME
+<span class="sql-keyword">FROM</span> COUNTRIES
+<span class="sql-keyword">WHERE</span> REGION_ID <span class="sql-keyword">NOT IN</span> (<span class="sql-number">10</span>, <span class="sql-number">20</span>);</div>
+
+                <!-- IS NULL -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Filtros con IS NULL / IS NOT NULL</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Para valores nulos no se puede usar <code>=</code> ni <code>!=</code>; se requiere <code>IS NULL</code>.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> EMPLOYEE_ID, FIRST_NAME
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> MANAGER_ID <span class="sql-keyword">IS NOT NULL</span>;  <span class="sql-comment">-- empleados con gerente</span>
+
+<span class="sql-keyword">SELECT</span> EMPLOYEE_ID, FIRST_NAME
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> MANAGER_ID <span class="sql-keyword">IS NULL</span>;     <span class="sql-comment">-- el CEO / sin gerente</span></div>
+
+                <!-- LIKE -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Búsqueda de patrones con LIKE</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    <code>%</code> representa cero o más caracteres; <code>_</code> representa exactamente uno.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> FIRST_NAME <span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> FIRST_NAME <span class="sql-keyword">LIKE</span> <span class="sql-string">'%A%'</span>;   <span class="sql-comment">-- contiene 'A'</span>
+
+<span class="sql-keyword">SELECT</span> FIRST_NAME <span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> FIRST_NAME <span class="sql-keyword">LIKE</span> <span class="sql-string">'%n'</span>;    <span class="sql-comment">-- termina en 'n'</span>
+
+<span class="sql-keyword">SELECT</span> FIRST_NAME <span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> FIRST_NAME <span class="sql-keyword">LIKE</span> <span class="sql-string">'_o%'</span>;   <span class="sql-comment">-- segunda letra es 'o'</span></div>
+
+                <!-- Substitution Variables -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Variables de sustitución (&amp; y &amp;&amp;)</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Con <code>&amp;variable</code> Oracle pide el valor en cada ejecución;
+                    con <code>&amp;&amp;variable</code> lo reutiliza en la misma sesión. Útil en SQL*Plus y SQL Developer.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> LAST_NAME = <span class="sql-string">'&amp;&amp;ln'</span>;  <span class="sql-comment">-- define una vez, reutiliza</span>
+
+<span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> LAST_NAME = <span class="sql-string">'&amp;ln'</span>;   <span class="sql-comment">-- pide en cada ejecución</span>
+
+<span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> &amp;&amp;condicion;            <span class="sql-comment">-- sustituye la condición completa</span></div>
+
+                <!-- String Functions -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Funciones de cadena: UPPER, LOWER, LPAD, RPAD</p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    FIRST_NAME,
+    <span class="sql-function">UPPER</span>(FIRST_NAME) <span class="sql-keyword">AS</span> <span class="sql-string">"Nombre"</span>,
+    LAST_NAME,
+    <span class="sql-function">LOWER</span>(FIRST_NAME) <span class="sql-keyword">AS</span> <span class="sql-string">"Apellido"</span>
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">WHERE</span> DEPARTMENT_ID = <span class="sql-number">90</span>;
+
+<span class="sql-keyword">SELECT</span>
+    <span class="sql-function">LPAD</span>(<span class="sql-string">'*'</span>, <span class="sql-number">1</span>, <span class="sql-string">'*'</span>),
+    <span class="sql-function">RPAD</span>(<span class="sql-string">'*'</span>, <span class="sql-number">2</span>, <span class="sql-string">'*'</span>),
+    <span class="sql-function">RPAD</span>(<span class="sql-string">'*'</span>, <span class="sql-number">3</span>, <span class="sql-string">'*'</span>),
+    <span class="sql-function">RPAD</span>(<span class="sql-string">'*'</span>, <span class="sql-number">4</span>, <span class="sql-string">'*'</span>)
+<span class="sql-keyword">FROM</span> EMPLOYEES;</div>
+
+                <div class="key-points">
+                    <div class="key-point"><i class="fas fa-check"></i> Operador BETWEEN para rangos numéricos y de fecha</div>
+                    <div class="key-point"><i class="fas fa-check"></i> IN simplifica múltiples condiciones OR</div>
+                    <div class="key-point"><i class="fas fa-check"></i> IS NULL / IS NOT NULL para valores nulos</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Wildcards % y _ en LIKE</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Variables & y && para consultas dinámicas</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Funciones UPPER, LOWER, LPAD, RPAD</div>
+                </div>
+            </div>
+
+            <!-- ======================================================
+                 PRÁCTICA 2: Operadores y Expresiones en SELECT
+                 ====================================================== -->
+            <div class="practice-card">
+                <div class="practice-card__header">
+                    <div class="practice-card__number">2</div>
+                    <h2 class="practice-card__title">SELECT con Operadores y Expresiones</h2>
+                </div>
+
+                <div class="topics-list">
+                    <span class="topic-tag">Operadores aritméticos</span>
+                    <span class="topic-tag">Alias (AS)</span>
+                    <span class="topic-tag">Concatenación (||)</span>
+                    <span class="topic-tag">Q-quote</span>
+                    <span class="topic-tag">DISTINCT</span>
+                    <span class="topic-tag">ORDER BY</span>
+                    <span class="topic-tag">Valores NULL en cálculos</span>
+                </div>
+
+                <p class="practice-card__subtitle">
+                    Exploración de las capacidades de proyección del <code>SELECT</code>: operadores aritméticos
+                    sobre columnas, alias con y sin comillas, operador de concatenación <code>||</code>,
+                    la alternativa <em>q-quote</em> para cadenas con comillas simples, la cláusula
+                    <code>DISTINCT</code> para eliminar duplicados y <code>ORDER BY</code> para ordenar resultados.
+                </p>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> Operadores aritméticos y alias</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Las expresiones aritméticas sobre columnas generan nuevas columnas calculadas.
+                    Si algún operando es <code>NULL</code> el resultado es <code>NULL</code>
+                    (ver columna <code>SALARY_PLUS_COMISSION</code> para empleados sin comisión).
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    FIRST_NAME,
+    LAST_NAME,
+    SALARY,
+    SALARY * <span class="sql-number">0.10</span> <span class="sql-keyword">AS</span> SALARY_10_PERCENT,
+    SALARY * COMMISSION_PCT + SALARY <span class="sql-keyword">AS</span> SALARY_PLUS_COMISSION
+<span class="sql-keyword">FROM</span> EMPLOYEES;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> Alias con comillas dobles y concatenación</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Las comillas dobles permiten alias con espacios y caracteres especiales.
+                    El operador <code>||</code> concatena cadenas y columnas.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    FIRST_NAME <span class="sql-keyword">AS</span> <span class="sql-string">"Nombre"</span>,
+    LAST_NAME  <span class="sql-keyword">AS</span> <span class="sql-string">"Apellido"</span>,
+    FIRST_NAME || <span class="sql-string">' '</span> || LAST_NAME <span class="sql-keyword">AS</span> <span class="sql-string">"Nombre Completo"</span>,
+    SALARY     <span class="sql-keyword">AS</span> <span class="sql-string">"Salario"</span>,
+    SALARY * <span class="sql-number">0.10</span> <span class="sql-keyword">AS</span> <span class="sql-string">"Salario diez porciento"</span>
+<span class="sql-keyword">FROM</span> EMPLOYEES;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> Q-quote para cadenas con comillas simples</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    La sintaxis <code>q'[...]'</code> de Oracle permite incluir comillas simples dentro
+                    de una cadena sin necesidad de escaparlas con doble comilla simple.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    FIRST_NAME || <span class="sql-function">q'[</span><span class="sql-string">'s last name: </span><span class="sql-function">]'</span> || LAST_NAME <span class="sql-keyword">AS</span> <span class="sql-string">"Nombre Completo"</span>
+<span class="sql-keyword">FROM</span> EMPLOYEES;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> DISTINCT y ORDER BY</p>
+                <div class="sql-code"><span class="sql-keyword">SELECT DISTINCT</span>
+    REGION_ID
+<span class="sql-keyword">FROM</span> REGIONS;   <span class="sql-comment">-- elimina filas duplicadas</span>
+
+<span class="sql-keyword">SELECT</span>
+    SALARY
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">ORDER BY</span> SALARY <span class="sql-keyword">DESC</span>;   <span class="sql-comment">-- de mayor a menor</span></div>
+
+                <div class="key-points">
+                    <div class="key-point"><i class="fas fa-check"></i> Expresiones aritméticas en columnas</div>
+                    <div class="key-point"><i class="fas fa-check"></i> NULL en operaciones aritméticas → NULL</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Alias con AS y comillas dobles</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Concatenación con ||</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Q-quote para literales con apostrofes</div>
+                    <div class="key-point"><i class="fas fa-check"></i> DISTINCT elimina duplicados</div>
+                    <div class="key-point"><i class="fas fa-check"></i> ORDER BY ASC / DESC</div>
+                </div>
+            </div>
+
+            <!-- ======================================================
+                 PRÁCTICA 3: Funciones Numéricas y de Fecha
+                 ====================================================== -->
+            <div class="practice-card">
+                <div class="practice-card__header">
+                    <div class="practice-card__number">3</div>
+                    <h2 class="practice-card__title">Funciones Numéricas y de Fecha</h2>
+                </div>
+
+                <div class="topics-list">
+                    <span class="topic-tag">ROUND / TRUNC</span>
+                    <span class="topic-tag">TO_DATE</span>
+                    <span class="topic-tag">SYSDATE / CURRENT_DATE</span>
+                    <span class="topic-tag">ADD_MONTHS</span>
+                    <span class="topic-tag">NEXT_DAY</span>
+                    <span class="topic-tag">LAST_DAY</span>
+                    <span class="topic-tag">Aritmética de fechas</span>
+                    <span class="topic-tag">DUAL</span>
+                </div>
+
+                <p class="practice-card__subtitle">
+                    Práctica sobre funciones de una sola fila para manipulación numérica y de fechas en Oracle.
+                    Se usa la tabla <code>DUAL</code> para probar expresiones sin necesitar datos reales.
+                    Se trabajan redondeos, truncamientos, conversión de cadenas a fecha, obtención de la
+                    fecha actual, y funciones especiales de calendario.
+                </p>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> ROUND y TRUNC numéricos</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    <code>ROUND(n, d)</code> redondea a <em>d</em> decimales (negativo redondea a la izquierda del punto).
+                    <code>TRUNC(n, d)</code> trunca sin redondear.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> <span class="sql-function">ROUND</span>(<span class="sql-number">555.923</span>, <span class="sql-number">-3</span>) <span class="sql-keyword">FROM</span> DUAL;  <span class="sql-comment">-- → 1000</span>
+
+<span class="sql-keyword">SELECT</span> <span class="sql-function">TRUNC</span>(<span class="sql-number">45.923</span>, <span class="sql-number">2</span>)  <span class="sql-keyword">FROM</span> DUAL;  <span class="sql-comment">-- → 45.92</span>
+<span class="sql-keyword">SELECT</span> <span class="sql-function">TRUNC</span>(<span class="sql-number">45.923</span>, <span class="sql-number">-1</span>) <span class="sql-keyword">FROM</span> DUAL;  <span class="sql-comment">-- → 40</span></div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> TO_DATE y aritmética de fechas</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    <code>TO_DATE</code> convierte una cadena a tipo DATE usando una máscara de formato.
+                    Se puede sumar/restar días directamente a un valor DATE.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    last_name,
+    hire_date + <span class="sql-number">1</span> <span class="sql-keyword">AS</span> <span class="sql-string">"Fecha Ajustada"</span>
+<span class="sql-keyword">FROM</span> EMPLOYEES;
+
+<span class="sql-keyword">SELECT</span> <span class="sql-function">TO_DATE</span>(<span class="sql-string">'29/07/2002'</span>, <span class="sql-string">'DD/MM/YYYY'</span>) <span class="sql-keyword">FROM</span> DUAL;
+<span class="sql-keyword">SELECT</span> <span class="sql-function">TO_DATE</span>(<span class="sql-string">'29/07/2002'</span>, <span class="sql-string">'DD/MM/RRRR'</span>) <span class="sql-keyword">FROM</span> DUAL;  <span class="sql-comment">-- RRRR maneja años de 2 dígitos</span></div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> SYSDATE y CURRENT_DATE</p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> SYSDATE <span class="sql-keyword">FROM</span> DUAL;              <span class="sql-comment">-- fecha/hora del servidor</span>
+
+<span class="sql-keyword">SELECT</span> SESSIONTIMEZONE, CURRENT_DATE
+<span class="sql-keyword">FROM</span> DUAL;                             <span class="sql-comment">-- fecha/hora de la sesión</span>
+
+<span class="sql-keyword">SELECT</span>
+    <span class="sql-function">ROUND</span>(SYSDATE - (<span class="sql-function">TO_DATE</span>(<span class="sql-string">'29/07/2002'</span>, <span class="sql-string">'DD/MM/YYYY'</span>)), <span class="sql-number">0</span>) <span class="sql-keyword">AS</span> <span class="sql-string">"DIAS_VIVIDOS"</span>
+<span class="sql-keyword">FROM</span> DUAL;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> TRUNC de fechas</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    <code>TRUNC(fecha, 'MONTH')</code> trunca al primer día del mes.
+                    Análogamente <code>ROUND</code> redondea fechas al inicio del período más cercano.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> <span class="sql-function">TRUNC</span>(CURRENT_DATE, <span class="sql-string">'MONTH'</span>) <span class="sql-keyword">FROM</span> DUAL;
+
+<span class="sql-keyword">SELECT</span>
+    <span class="sql-function">ROUND</span>(<span class="sql-function">TO_DATE</span>(<span class="sql-string">'15/05/2026'</span>, <span class="sql-string">'DD/MM/YYYY'</span>) - <span class="sql-number">2</span>, <span class="sql-string">'MONTH'</span>)
+<span class="sql-keyword">FROM</span> DUAL;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> ADD_MONTHS, NEXT_DAY y LAST_DAY</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Funciones de calendario: sumar meses, obtener el próximo día de la semana
+                    y el último día del mes.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> <span class="sql-function">ADD_MONTHS</span>(CURRENT_DATE, <span class="sql-number">1</span>) <span class="sql-keyword">FROM</span> DUAL;  <span class="sql-comment">-- mes siguiente</span>
+
+<span class="sql-keyword">SELECT</span> <span class="sql-function">NEXT_DAY</span>(CURRENT_DATE, <span class="sql-string">'VIERNES'</span>) <span class="sql-keyword">FROM</span> DUAL;  <span class="sql-comment">-- próximo viernes</span>
+
+<span class="sql-comment">-- Último viernes del n-ésimo mes a partir de hoy</span>
+<span class="sql-keyword">SELECT</span>
+    <span class="sql-function">NEXT_DAY</span>(<span class="sql-function">LAST_DAY</span>((<span class="sql-function">ADD_MONTHS</span>(CURRENT_DATE, &amp;mes))) - <span class="sql-number">7</span>, <span class="sql-string">'VIERNES'</span>)
+<span class="sql-keyword">FROM</span> DUAL;</div>
+
+                <div class="key-points">
+                    <div class="key-point"><i class="fas fa-check"></i> ROUND / TRUNC para números y fechas</div>
+                    <div class="key-point"><i class="fas fa-check"></i> TO_DATE con máscaras YYYY y RRRR</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Aritmética directa sobre fechas</div>
+                    <div class="key-point"><i class="fas fa-check"></i> SYSDATE vs CURRENT_DATE</div>
+                    <div class="key-point"><i class="fas fa-check"></i> ADD_MONTHS, NEXT_DAY, LAST_DAY</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Uso de la tabla DUAL</div>
+                </div>
+            </div>
+
+            <!-- ======================================================
+                 PRÁCTICA 4: JOINs y Funciones de Grupo
+                 ====================================================== -->
+            <div class="practice-card">
+                <div class="practice-card__header">
+                    <div class="practice-card__number">4</div>
+                    <h2 class="practice-card__title">JOINs Avanzados y Funciones de Grupo</h2>
+                </div>
+
+                <div class="topics-list">
+                    <span class="topic-tag">INNER JOIN</span>
+                    <span class="topic-tag">LEFT JOIN</span>
+                    <span class="topic-tag">RIGHT JOIN</span>
+                    <span class="topic-tag">FULL OUTER JOIN</span>
+                    <span class="topic-tag">Self-Join</span>
+                    <span class="topic-tag">JOIN multi-tabla</span>
+                    <span class="topic-tag">COUNT / MAX / MIN / AVG</span>
+                    <span class="topic-tag">GROUP BY</span>
+                    <span class="topic-tag">ORDER BY</span>
+                </div>
+
+                <p class="practice-card__subtitle">
+                    Práctica avanzada sobre combinación de tablas con los distintos tipos de JOIN de SQL:92,
+                    incluyendo self-join para jerarquías (empleado → gerente) y JOIN entre cinco tablas
+                    encadenadas. Se incorporan las funciones de agregación <code>COUNT</code>, <code>MAX</code>,
+                    <code>MIN</code> y <code>AVG</code> junto con <code>GROUP BY</code> y <code>ORDER BY</code>
+                    para análisis estadísticos por departamento.
+                </p>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> LEFT JOIN y RIGHT JOIN</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    <code>LEFT JOIN</code> devuelve todos los registros de la tabla izquierda aunque no tengan
+                    coincidencia en la derecha. <code>RIGHT JOIN</code> hace lo contrario: conserva todos los
+                    departamentos, incluso los sin empleados asignados.
+                </p>
+                <div class="sql-code"><span class="sql-comment">-- LEFT JOIN: todos los empleados, con o sin departamento</span>
+<span class="sql-keyword">SELECT</span>
+    e.FIRST_NAME, e.LAST_NAME, d.DEPARTMENT_NAME
+<span class="sql-keyword">FROM</span> EMPLOYEES e
+<span class="sql-keyword">LEFT JOIN</span> DEPARTMENTS d
+  <span class="sql-keyword">ON</span> e.DEPARTMENT_ID = d.DEPARTMENT_ID;
+
+<span class="sql-comment">-- RIGHT JOIN: todos los departamentos, con o sin empleados</span>
+<span class="sql-keyword">SELECT</span>
+    e.FIRST_NAME, e.LAST_NAME, d.DEPARTMENT_NAME
+<span class="sql-keyword">FROM</span> EMPLOYEES e
+<span class="sql-keyword">RIGHT JOIN</span> DEPARTMENTS d
+  <span class="sql-keyword">ON</span> e.DEPARTMENT_ID = d.DEPARTMENT_ID;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> FULL OUTER JOIN</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Retorna todas las filas de ambas tablas, completando con <code>NULL</code> donde no hay
+                    coincidencia. Es la unión de LEFT + RIGHT JOIN.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    e.FIRST_NAME, e.LAST_NAME, d.DEPARTMENT_NAME
+<span class="sql-keyword">FROM</span> EMPLOYEES e
+<span class="sql-keyword">FULL OUTER JOIN</span> DEPARTMENTS d
+  <span class="sql-keyword">ON</span> e.DEPARTMENT_ID = d.DEPARTMENT_ID;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> INNER JOIN encadenado (5 tablas)</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Conecta <code>EMPLOYEES → DEPARTMENTS → LOCATIONS → COUNTRIES → REGIONS</code>
+                    para obtener la región geográfica de cada empleado.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    e.first_name, e.last_name, r.region_name
+<span class="sql-keyword">FROM</span> EMPLOYEES e
+<span class="sql-keyword">INNER JOIN</span> DEPARTMENTS d  <span class="sql-keyword">ON</span> d.department_id = e.department_id
+<span class="sql-keyword">INNER JOIN</span> LOCATIONS l    <span class="sql-keyword">ON</span> l.location_id  = d.location_id
+<span class="sql-keyword">INNER JOIN</span> COUNTRIES c    <span class="sql-keyword">ON</span> c.country_id   = l.country_id
+<span class="sql-keyword">INNER JOIN</span> REGIONS r      <span class="sql-keyword">ON</span> r.region_id    = c.region_id;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> Self-Join (jerarquía empleado – gerente)</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Una tabla se une consigo misma usando dos alias distintos. Con <code>LEFT JOIN</code>
+                    se incluye el CEO (sin gerente asignado).
+                </p>
+                <div class="sql-code"><span class="sql-comment">-- INNER: excluye al CEO</span>
+<span class="sql-keyword">SELECT</span>
+    e.first_name || <span class="sql-string">' '</span> || e.last_name <span class="sql-keyword">AS</span> employee_name,
+    m.first_name || <span class="sql-string">' '</span> || m.last_name <span class="sql-keyword">AS</span> manager_name
+<span class="sql-keyword">FROM</span> EMPLOYEES e
+<span class="sql-keyword">INNER JOIN</span> EMPLOYEES m <span class="sql-keyword">ON</span> e.manager_id = m.employee_id;
+
+<span class="sql-comment">-- LEFT: incluye al CEO con manager_name = NULL</span>
+<span class="sql-keyword">SELECT</span>
+    e.first_name || <span class="sql-string">' '</span> || e.last_name <span class="sql-keyword">AS</span> employee_name,
+    m.first_name || <span class="sql-string">' '</span> || m.last_name <span class="sql-keyword">AS</span> manager_name
+<span class="sql-keyword">FROM</span> EMPLOYEES e
+<span class="sql-keyword">LEFT JOIN</span> EMPLOYEES m <span class="sql-keyword">ON</span> e.manager_id = m.employee_id;</div>
+
+                <p class="practice-section-title"><i class="fas fa-code"></i> Funciones de grupo: COUNT, MAX, MIN, AVG con GROUP BY</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Las funciones de agregación operan sobre grupos de filas definidos por <code>GROUP BY</code>.
+                    <code>ORDER BY</code> ordena el resultado final.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span> <span class="sql-function">COUNT</span>(*) <span class="sql-keyword">FROM</span> COUNTRIES;  <span class="sql-comment">-- total de países</span>
+
+<span class="sql-comment">-- Salario máximo por departamento</span>
+<span class="sql-keyword">SELECT</span> <span class="sql-function">MAX</span>(SALARY)
+<span class="sql-keyword">FROM</span> EMPLOYEES
+<span class="sql-keyword">GROUP BY</span> DEPARTMENT_ID;
+
+<span class="sql-comment">-- Estadísticas completas con nombre de departamento</span>
+<span class="sql-keyword">SELECT</span>
+    d.department_name,
+    <span class="sql-function">MAX</span>(e.salary)   <span class="sql-keyword">AS</span> max_salary,
+    <span class="sql-function">MIN</span>(e.salary)   <span class="sql-keyword">AS</span> min_salary,
+    <span class="sql-function">AVG</span>(e.salary)   <span class="sql-keyword">AS</span> average_salary,
+    <span class="sql-function">COUNT</span>(e.employee_id) <span class="sql-keyword">AS</span> employees_quantity
+<span class="sql-keyword">FROM</span> DEPARTMENTS d
+<span class="sql-keyword">JOIN</span> EMPLOYEES e <span class="sql-keyword">ON</span> e.department_id = d.department_id
+<span class="sql-keyword">GROUP BY</span> d.department_name
+<span class="sql-keyword">ORDER BY</span> max_salary <span class="sql-keyword">DESC</span>;</div>
+
+                <div class="key-points">
+                    <div class="key-point"><i class="fas fa-check"></i> LEFT / RIGHT / FULL OUTER JOIN</div>
+                    <div class="key-point"><i class="fas fa-check"></i> INNER JOIN entre 5 tablas</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Self-Join para jerarquías</div>
+                    <div class="key-point"><i class="fas fa-check"></i> COUNT, MAX, MIN, AVG</div>
+                    <div class="key-point"><i class="fas fa-check"></i> GROUP BY por departamento</div>
+                    <div class="key-point"><i class="fas fa-check"></i> ORDER BY en resultados agregados</div>
+                </div>
+            </div>
+
+            <!-- Summary Stats -->
+            <div class="card" style="margin-top: 1rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-chart-line" style="color: var(--color-primary);"></i>
+                    Resumen General
+                </h2>
+                <div class="stats-grid">
+                    <div class="stats-grid__item">
+                        <i class="fas fa-check-circle stats-grid__icon" style="color: #48bb78;"></i>
+                        <strong class="stats-grid__value">4</strong>
+                        <span class="stats-grid__label">Prácticas Completadas</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-code stats-grid__icon"></i>
+                        <strong class="stats-grid__value">40+</strong>
+                        <span class="stats-grid__label">Consultas SQL</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-table stats-grid__icon"></i>
+                        <strong class="stats-grid__value">5</strong>
+                        <span class="stats-grid__label">Tablas HR utilizadas</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-link stats-grid__icon"></i>
+                        <strong class="stats-grid__value">4</strong>
+                        <span class="stats-grid__label">Tipos de JOIN</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concepts Covered -->
+            <div class="card" style="margin-top: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-book-open" style="color: var(--color-primary);"></i>
+                    Conceptos Cubiertos
+                </h2>
+                <div class="grid grid--cols-2" style="gap: 0.75rem;">
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Cláusula WHERE y operadores de comparación</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>BETWEEN, IN, IS NULL, LIKE</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Variables de sustitución (& y &&)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Funciones de cadena: UPPER, LOWER, LPAD, RPAD</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Operadores aritméticos y alias</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Concatenación || y Q-quote</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>DISTINCT y ORDER BY</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Funciones numéricas: ROUND y TRUNC</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Funciones de fecha: TO_DATE, ADD_MONTHS, NEXT_DAY, LAST_DAY</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>SYSDATE, CURRENT_DATE, SESSIONTIMEZONE</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>INNER, LEFT, RIGHT y FULL OUTER JOIN</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Self-Join para relaciones jerárquicas</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Funciones de grupo: COUNT, MAX, MIN, AVG</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>GROUP BY y ORDER BY con agregaciones</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="../index.html#evidence" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>
