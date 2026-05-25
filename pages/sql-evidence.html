@@ -640,6 +640,214 @@
                 </div>
             </div>
 
+            <!-- ======================================================
+                 PRÁCTICA 5: Taller Aplicado 1 — SQL Avanzado + Transacciones ACID
+                 ====================================================== -->
+            <div id="taller-acid" class="practice-card" style="border-color: rgba(232,0,45,0.2);">
+                <div class="practice-card__header">
+                    <div class="practice-card__number" style="background: linear-gradient(135deg, #e8002d, #a00020);">5</div>
+                    <div>
+                        <h2 class="practice-card__title">Taller Aplicado 1 — SQL Avanzado + Transacciones ACID</h2>
+                        <span style="font-size:0.8rem; font-weight:600; background:#e8002d; color:#fff; padding:0.2rem 0.6rem; border-radius:20px;">Variante 3 — Ajuste conservador</span>
+                    </div>
+                </div>
+
+                <div class="topics-list">
+                    <span class="topic-tag">SAVEPOINT</span>
+                    <span class="topic-tag">COMMIT / ROLLBACK</span>
+                    <span class="topic-tag">UPDATE transaccional</span>
+                    <span class="topic-tag">INSERT + SELECT</span>
+                    <span class="topic-tag">DENSE_RANK() OVER</span>
+                    <span class="topic-tag">Subconsultas escalares</span>
+                    <span class="topic-tag">CASE WHEN multicondición</span>
+                    <span class="topic-tag">LEFT JOIN como EXISTS</span>
+                    <span class="topic-tag">ACID</span>
+                    <span class="topic-tag">Auditoría</span>
+                </div>
+
+                <p class="practice-card__subtitle">
+                    Caso de negocio: una empresa aplica un ajuste salarial extraordinario solo a los empleados
+                    que cumplen las reglas de la variante asignada. El taller evalúa criterio técnico: no basta con
+                    escribir SQL correcto, hay que analizar datos, decidir elegibles, prevalidar el impacto,
+                    ejecutar con control transaccional y dejar evidencia de auditoría.
+                    Tablas propias del taller: <code>T1_EMPLOYEES</code>, <code>T1_DEPARTMENTS</code>,
+                    <code>T1_JOB_HISTORY</code>, <code>T1_VARIANTS</code>, <code>AUDIT_SALARY_ADJUSTMENTS_T1</code>.
+                </p>
+
+                <!-- Flujo del taller -->
+                <p class="practice-section-title"><i class="fas fa-route"></i> Las 5 etapas del taller</p>
+                <div style="display:flex; gap:0; flex-wrap:wrap; margin-bottom:1.5rem;">
+                    <div style="flex:1; min-width:120px; text-align:center; padding:0.75rem 0.5rem; background:rgba(232,0,45,0.08); border:1px solid rgba(232,0,45,0.2); border-radius:8px 0 0 8px; font-size:0.8rem;">
+                        <strong style="display:block; color:#e8002d;">1</strong>Diagnóstico
+                    </div>
+                    <div style="flex:1; min-width:120px; text-align:center; padding:0.75rem 0.5rem; background:rgba(102,126,234,0.08); border:1px solid rgba(102,126,234,0.2); border-left:none; font-size:0.8rem;">
+                        <strong style="display:block; color:#667eea;">2</strong>Decisión
+                    </div>
+                    <div style="flex:1; min-width:120px; text-align:center; padding:0.75rem 0.5rem; background:rgba(246,173,85,0.12); border:1px solid rgba(246,173,85,0.3); border-left:none; font-size:0.8rem;">
+                        <strong style="display:block; color:#d97706;">3</strong>Prevalidación
+                    </div>
+                    <div style="flex:1; min-width:120px; text-align:center; padding:0.75rem 0.5rem; background:rgba(72,187,120,0.1); border:1px solid rgba(72,187,120,0.3); border-left:none; font-size:0.8rem;">
+                        <strong style="display:block; color:#38a169;">4</strong>Ejecución
+                    </div>
+                    <div style="flex:1; min-width:120px; text-align:center; padding:0.75rem 0.5rem; background:rgba(118,75,162,0.08); border:1px solid rgba(118,75,162,0.2); border-left:none; border-radius:0 8px 8px 0; font-size:0.8rem;">
+                        <strong style="display:block; color:#764ba2;">5</strong>Validación
+                    </div>
+                </div>
+
+                <!-- Fase 1: Diagnóstico -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Etapa 1 — Consulta diagnóstica (DENSE_RANK + subconsultas)</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Muestra el estado de cada empleado antes del cambio. Las estadísticas del departamento
+                    (promedio, máximo, conteo) se calculan con subconsultas escalares correlacionadas.
+                    El historial reciente se detecta con <code>LEFT JOIN</code> como alternativa a <code>EXISTS</code>.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    e.employee_id, e.first_name, e.last_name,
+    e.salary,
+    <span class="sql-comment">-- Promedio del departamento: subconsulta escalar correlacionada</span>
+    (<span class="sql-keyword">SELECT</span> <span class="sql-function">ROUND</span>(<span class="sql-function">AVG</span>(salary), <span class="sql-number">2</span>)
+       <span class="sql-keyword">FROM</span> t1_employees
+      <span class="sql-keyword">WHERE</span> department_id = e.department_id)      <span class="sql-keyword">AS</span> dept_avg_salary,
+    <span class="sql-comment">-- % brecha al promedio</span>
+    <span class="sql-function">ROUND</span>(
+        ( (<span class="sql-keyword">SELECT</span> <span class="sql-function">AVG</span>(salary) <span class="sql-keyword">FROM</span> t1_employees
+            <span class="sql-keyword">WHERE</span> department_id = e.department_id) - e.salary )
+        / <span class="sql-function">NULLIF</span>(
+            (<span class="sql-keyword">SELECT</span> <span class="sql-function">AVG</span>(salary) <span class="sql-keyword">FROM</span> t1_employees
+              <span class="sql-keyword">WHERE</span> department_id = e.department_id), <span class="sql-number">0</span>) * <span class="sql-number">100</span>
+    , <span class="sql-number">2</span>)                                            <span class="sql-keyword">AS</span> pct_gap_to_avg,
+    <span class="sql-comment">-- Historial reciente: LEFT JOIN reemplaza a EXISTS</span>
+    <span class="sql-keyword">CASE</span>
+        <span class="sql-keyword">WHEN</span> jh_reciente.employee_id <span class="sql-keyword">IS NOT NULL THEN</span> <span class="sql-string">'SI'</span>
+        <span class="sql-keyword">ELSE</span> <span class="sql-string">'NO'</span>
+    <span class="sql-keyword">END</span>                                              <span class="sql-keyword">AS</span> recent_job_history_flag,
+    <span class="sql-comment">-- Ranking salarial dentro del departamento</span>
+    <span class="sql-function">DENSE_RANK</span>() <span class="sql-keyword">OVER</span> (
+        <span class="sql-keyword">PARTITION BY</span> e.department_id
+        <span class="sql-keyword">ORDER BY</span> e.salary <span class="sql-keyword">DESC</span>
+    )                                                <span class="sql-keyword">AS</span> salary_rank_in_department
+<span class="sql-keyword">FROM</span>   t1_employees e
+<span class="sql-keyword">LEFT JOIN</span> t1_departments d <span class="sql-keyword">ON</span> e.department_id = d.department_id
+<span class="sql-keyword">LEFT JOIN</span> (
+    <span class="sql-keyword">SELECT DISTINCT</span> employee_id <span class="sql-keyword">FROM</span> t1_job_history
+    <span class="sql-keyword">WHERE</span>  start_date >= <span class="sql-function">ADD_MONTHS</span>(SYSDATE,
+               -(<span class="sql-keyword">SELECT</span> recent_job_history_months <span class="sql-keyword">FROM</span> t1_variants
+                  <span class="sql-keyword">WHERE</span> variant_id = &amp;p_variant_id))
+) jh_reciente <span class="sql-keyword">ON</span> jh_reciente.employee_id = e.employee_id
+<span class="sql-keyword">ORDER BY</span> e.department_id <span class="sql-keyword">NULLS LAST</span>, salary_rank_in_department;</div>
+
+                <!-- Fase 2: Elegibles -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Etapa 2 — Decisión de elegibles (CASE WHEN encadenado)</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    Evalúa en orden de prioridad cada regla de exclusión. Los parámetros se leen dinámicamente
+                    de <code>T1_VARIANTS</code> según la variante asignada, no se usan valores fijos.
+                </p>
+                <div class="sql-code"><span class="sql-comment">-- Bandera de elegibilidad (fragmento del CASE)</span>
+<span class="sql-keyword">CASE</span>
+    <span class="sql-keyword">WHEN</span> e.department_id <span class="sql-keyword">IS NULL</span>                      <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">WHEN</span> e.department_id = (<span class="sql-keyword">SELECT</span> excluded_department_id
+                              <span class="sql-keyword">FROM</span> t1_variants <span class="sql-keyword">WHERE</span> variant_id = &amp;p_variant_id)
+                                                    <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">WHEN</span> ds.dept_employee_count &lt; <span class="sql-number">3</span>              <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">WHEN</span> <span class="sql-function">TRUNC</span>(<span class="sql-function">MONTHS_BETWEEN</span>(SYSDATE, e.hire_date) / <span class="sql-number">12</span>)
+         &lt; (<span class="sql-keyword">SELECT</span> min_years_service <span class="sql-keyword">FROM</span> t1_variants
+             <span class="sql-keyword">WHERE</span> variant_id = &amp;p_variant_id)      <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">WHEN</span> jh_reciente.employee_id <span class="sql-keyword">IS NOT NULL</span>      <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">WHEN</span> mgr.employee_id <span class="sql-keyword">IS NOT NULL</span>
+      <span class="sql-keyword">OR</span> e.job_id <span class="sql-keyword">LIKE</span> <span class="sql-string">'AD_%'</span>                  <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">WHEN</span> <span class="sql-function">ROUND</span>((ds.dept_avg_salary - e.salary)
+              / <span class="sql-function">NULLIF</span>(ds.dept_avg_salary, <span class="sql-number">0</span>) * <span class="sql-number">100</span>, <span class="sql-number">2</span>) &lt;= <span class="sql-number">0</span>
+                                                    <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">ELSE</span> <span class="sql-string">'ELEGIBLE'</span>
+<span class="sql-keyword">END</span>                                               <span class="sql-keyword">AS</span> eligibility_flag</div>
+
+                <!-- Fase 4: Ejecución transaccional -->
+                <p class="practice-section-title"><i class="fas fa-code"></i> Etapa 4 — Ejecución transaccional (SAVEPOINT + UPDATE + COMMIT)</p>
+                <p style="font-size:0.9rem; color:var(--color-text-light); margin-bottom:0.5rem;">
+                    El <code>SAVEPOINT</code> protege la transacción. El <code>INSERT</code> a la tabla de auditoría
+                    se ejecuta <em>antes</em> del <code>UPDATE</code> para conservar los salarios originales.
+                    Solo si la validación intermedia confirma que ningún salario supera el tope se ejecuta <code>COMMIT</code>.
+                </p>
+                <div class="sql-code"><span class="sql-comment">-- Crear punto de restauración</span>
+SAVEPOINT sv_before_adjustment;
+
+<span class="sql-comment">-- INSERT auditoría (salarios antes de modificar)</span>
+<span class="sql-keyword">INSERT INTO</span> audit_salary_adjustments_t1 (
+    audit_id, execution_tag, variant_id,
+    employee_id, department_id,
+    salary_before, salary_after, rule_applied, executed_by, executed_at
+)
+<span class="sql-keyword">SELECT</span>
+    audit_salary_adj_t1_seq.NEXTVAL,
+    <span class="sql-string">'P03_FINAL'</span>,  &amp;p_variant_id,
+    e.employee_id, e.department_id,
+    e.salary <span class="sql-keyword">AS</span> salary_before,
+    <span class="sql-function">ROUND</span>(e.salary * (<span class="sql-number">1</span> + ajuste_pct / <span class="sql-number">100</span>), <span class="sql-number">2</span>) <span class="sql-keyword">AS</span> salary_after,
+    <span class="sql-comment">-- ... regla, usuario, fecha ...</span>
+    USER, SYSDATE
+<span class="sql-keyword">FROM</span> t1_employees e <span class="sql-keyword">JOIN</span> ... <span class="sql-comment">-- filtros de elegibilidad</span>;
+
+<span class="sql-comment">-- UPDATE de salarios</span>
+<span class="sql-keyword">UPDATE</span> t1_employees e
+<span class="sql-keyword">SET</span>    e.salary = <span class="sql-function">ROUND</span>(e.salary * (
+    <span class="sql-keyword">SELECT</span> <span class="sql-number">1</span> + <span class="sql-keyword">CASE</span>
+        <span class="sql-keyword">WHEN</span> brecha >= v.gap_high_threshold_pct <span class="sql-keyword">THEN</span> v.raise_high_pct
+        <span class="sql-keyword">WHEN</span> brecha >= v.gap_mid_threshold_pct  <span class="sql-keyword">THEN</span> v.raise_mid_pct
+        <span class="sql-keyword">ELSE</span> v.raise_low_pct
+    <span class="sql-keyword">END</span> / <span class="sql-number">100</span>
+    <span class="sql-keyword">FROM</span> t1_variants v, ... <span class="sql-keyword">WHERE</span> v.variant_id = &amp;p_variant_id
+), <span class="sql-number">2</span>)
+<span class="sql-keyword">WHERE</span> e.employee_id <span class="sql-keyword">IN</span> (<span class="sql-keyword">SELECT</span> ... <span class="sql-comment">-- subquery elegibles</span>);
+
+<span class="sql-comment">-- Si validación OK → COMMIT; si hay topes superados → ROLLBACK</span>
+COMMIT;
+<span class="sql-comment">-- ROLLBACK TO SAVEPOINT sv_before_adjustment;</span></div>
+
+                <!-- Justificación ACID -->
+                <p class="practice-section-title"><i class="fas fa-shield-alt"></i> Justificación ACID</p>
+                <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem;">
+                    <div style="padding:1rem 1.25rem; background:rgba(232,0,45,0.06); border-left:4px solid #e8002d; border-radius:6px;">
+                        <strong style="color:#e8002d;">Atomicidad</strong>
+                        <p style="color:var(--color-text-light); font-size:0.875rem; margin:0.25rem 0 0; line-height:1.6;">
+                            El <code>INSERT</code> de auditoría y el <code>UPDATE</code> son una unidad cubierta por el <code>SAVEPOINT</code>.
+                            Si la validación detecta un tope superado, el <code>ROLLBACK TO SAVEPOINT</code> revierte ambas operaciones juntas.
+                        </p>
+                    </div>
+                    <div style="padding:1rem 1.25rem; background:rgba(102,126,234,0.06); border-left:4px solid #667eea; border-radius:6px;">
+                        <strong style="color:#667eea;">Consistencia</strong>
+                        <p style="color:var(--color-text-light); font-size:0.875rem; margin:0.25rem 0 0; line-height:1.6;">
+                            Antes del <code>COMMIT</code> se verifica que ningún salario supere el 118% del promedio original
+                            del departamento. El promedio se reconstruye desde la tabla de auditoría, no desde los datos ya modificados.
+                        </p>
+                    </div>
+                    <div style="padding:1rem 1.25rem; background:rgba(72,187,120,0.06); border-left:4px solid #48bb78; border-radius:6px;">
+                        <strong style="color:#38a169;">Aislamiento</strong>
+                        <p style="color:var(--color-text-light); font-size:0.875rem; margin:0.25rem 0 0; line-height:1.6;">
+                            Oracle garantiza <em>read consistency</em>: otras sesiones ven los salarios originales hasta el <code>COMMIT</code>.
+                            El bloqueo a nivel de fila impide que dos sesiones actualicen el mismo empleado simultáneamente.
+                        </p>
+                    </div>
+                    <div style="padding:1rem 1.25rem; background:rgba(118,75,162,0.06); border-left:4px solid #764ba2; border-radius:6px;">
+                        <strong style="color:#764ba2;">Durabilidad</strong>
+                        <p style="color:var(--color-text-light); font-size:0.875rem; margin:0.25rem 0 0; line-height:1.6;">
+                            El <code>COMMIT</code> escribe en el <em>redo log</em> antes de confirmar. Si el servidor falla tras el commit,
+                            Oracle recupera los cambios al reiniciar mediante <em>media recovery</em>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="key-points" style="margin-top:1.5rem;">
+                    <div class="key-point"><i class="fas fa-check"></i> SAVEPOINT para control de rollback parcial</div>
+                    <div class="key-point"><i class="fas fa-check"></i> DENSE_RANK() OVER PARTITION BY</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Subconsultas escalares correlacionadas</div>
+                    <div class="key-point"><i class="fas fa-check"></i> LEFT JOIN como alternativa a EXISTS</div>
+                    <div class="key-point"><i class="fas fa-check"></i> INSERT INTO ... SELECT para auditoría</div>
+                    <div class="key-point"><i class="fas fa-check"></i> UPDATE con subconsulta de elegibilidad</div>
+                    <div class="key-point"><i class="fas fa-check"></i> CASE WHEN con parámetros dinámicos de T1_VARIANTS</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Propiedades ACID documentadas y justificadas</div>
+                </div>
+            </div>
+
             <!-- Summary Stats -->
             <div class="card" style="margin-top: 1rem;">
                 <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
@@ -649,23 +857,23 @@
                 <div class="stats-grid">
                     <div class="stats-grid__item">
                         <i class="fas fa-check-circle stats-grid__icon" style="color: #48bb78;"></i>
-                        <strong class="stats-grid__value">4</strong>
+                        <strong class="stats-grid__value">5</strong>
                         <span class="stats-grid__label">Prácticas Completadas</span>
                     </div>
                     <div class="stats-grid__item">
                         <i class="fas fa-code stats-grid__icon"></i>
-                        <strong class="stats-grid__value">40+</strong>
+                        <strong class="stats-grid__value">60+</strong>
                         <span class="stats-grid__label">Consultas SQL</span>
                     </div>
                     <div class="stats-grid__item">
                         <i class="fas fa-table stats-grid__icon"></i>
-                        <strong class="stats-grid__value">5</strong>
-                        <span class="stats-grid__label">Tablas HR utilizadas</span>
+                        <strong class="stats-grid__value">9</strong>
+                        <span class="stats-grid__label">Tablas utilizadas</span>
                     </div>
                     <div class="stats-grid__item">
-                        <i class="fas fa-link stats-grid__icon"></i>
-                        <strong class="stats-grid__value">4</strong>
-                        <span class="stats-grid__label">Tipos de JOIN</span>
+                        <i class="fas fa-shield-alt stats-grid__icon"></i>
+                        <strong class="stats-grid__value">ACID</strong>
+                        <span class="stats-grid__label">Transacciones</span>
                     </div>
                 </div>
             </div>
@@ -732,6 +940,30 @@
                     <div class="project-card__feature">
                         <i class="fas fa-check project-card__feature-icon"></i>
                         <span>GROUP BY y ORDER BY con agregaciones</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>DENSE_RANK() OVER (PARTITION BY ... ORDER BY ...)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Subconsultas escalares correlacionadas</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>SAVEPOINT y ROLLBACK TO SAVEPOINT</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>INSERT INTO ... SELECT para auditoría</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>UPDATE con subconsulta de elegibilidad</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Propiedades ACID: Atomicidad, Consistencia, Aislamiento, Durabilidad</span>
                     </div>
                 </div>
             </div>

@@ -72,229 +72,224 @@
         </div>
     </section>
 
+    <style>
+        .ev-card {
+            background: var(--color-surface, #fff);
+            border: 1px solid var(--color-border); border-radius: 12px;
+            padding: 1.75rem; display: flex; flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none; color: inherit;
+        }
+        .ev-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+        .ev-card__top { display: flex; align-items: center; gap: 0.875rem; margin-bottom: 1rem; }
+        .ev-card__icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; color: #fff; flex-shrink: 0;
+        }
+        .ev-card__meta { display: flex; flex-direction: column; gap: 0.2rem; }
+        .ev-card__badge {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; padding: 0.15rem 0.6rem;
+            border-radius: 20px; border: 1px solid; width: fit-content;
+        }
+        .ev-card__num { font-size: 0.78rem; color: var(--color-text-light); }
+        .ev-card__title { font-size: 1.15rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.5rem; line-height: 1.4; }
+        .ev-card__desc { font-size: 0.9rem; color: var(--color-text-light); line-height: 1.65; flex: 1; margin-bottom: 1rem; }
+        .ev-card__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+        .ev-card__tag {
+            font-size: 0.73rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 500;
+            background: rgba(102,126,234,0.1); color: var(--color-primary);
+            border: 1px solid rgba(102,126,234,0.25);
+        }
+        .ev-card__footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--color-border); }
+        .ev-card__link { font-size: 0.875rem; font-weight: 600; color: var(--color-primary); display: flex; align-items: center; gap: 0.35rem; }
+        .ev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    </style>
+
     <!-- Evidence Content -->
     <section class="section">
         <div class="container">
-            
-            <!-- Overview -->
+
+            <!-- Descripción de la categoría -->
             <div class="card" style="margin-bottom: 3rem;">
                 <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
                     <i class="fas fa-info-circle" style="color: var(--color-primary);"></i>
-                    Sobre esta Categoría
+                    Sobre esta categoría
                 </h2>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8; margin-bottom: 1rem;">
+                    Esta categoría reúne los talleres de diseño de bases de datos aplicando modelado conceptual y lógico.
+                    Se trabajan dos enfoques complementarios: el <strong style="color:var(--color-text);">Modelo Entidad-Relación</strong>
+                    para capturar la realidad del negocio de forma gráfica, y el <strong style="color:var(--color-text);">Modelo Relacional</strong>
+                    para traducirlo a tablas con claves e integridad referencial.
+                </p>
                 <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
-                    Esta sección contiene los trabajos realizados sobre modelado de bases de datos relacionales, 
-                    aplicando los conceptos fundamentales del Modelo Relacional según Garcia-Molina, Ullman y Widom. 
-                    Se incluyen diseños de esquemas, definición de claves primarias y foráneas, y resolución de 
-                    relaciones entre tablas.
+                    Los casos de estudio utilizados son sistemas reales simplificados: una <strong style="color:var(--color-text);">aerolínea</strong>
+                    y una <strong style="color:var(--color-text);">biblioteca</strong>, siguiendo los conceptos de Garcia-Molina, Ullman y Widom.
                 </p>
             </div>
 
-            <!-- Projects Grid -->
-            <div class="projects__grid">
-                
-                <!-- Proyecto 1: Modelado Relacional -->
-                <article class="project-card project-card--featured">
-                    <span class="project-card__badge">Destacado</span>
-                    
-                    <div class="project-card__image">
-                        <img src="https://via.placeholder.com/600x400/667eea/ffffff?text=Relational+Database+Modeling" alt="Modelado Relacional">
-                        <div class="project-card__overlay">
-                            <div class="project-card__links">
-                                <a href="https://drive.google.com/file/d/1i0hggYzn2lRL3LI7Ey8VpGS3pp8vpnT4/view?usp=sharing" target="_blank" class="project-card__link">
-                                    <i class="fas fa-file-pdf"></i> Ver PDF
-                                </a>
-                                <a href="relational-modeling.html" class="project-card__link">
-                                    <i class="fas fa-info-circle"></i> Ver Detalles
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card__content">
-                        <div class="project-card__tags">
-                            <span class="tag">Bases de Datos</span>
-                            <span class="tag">Modelo Relacional</span>
-                            <span class="tag">Esquemas</span>
-                            <span class="tag">SQL</span>
-                        </div>
-                        
-                        <h3 class="project-card__title">Modelado Relacional - Ejercicios</h3>
-                        
-                        <p class="project-card__description">
-                            Diseño de bases de datos relacionales, escogiendo 2 de 3 casos de estudio propuestos: Aerolínea y Biblioteca. 
-                            Aplicando los conceptos del modelo relacional de Garcia-Molina.
-                        </p>
-                        
-                        <div class="project-card__features">
-                            <div class="project-card__feature">
-                                <i class="fas fa-check project-card__feature-icon"></i>
-                                <span>Aerolínea: 7 tablas, 8 FK</span>
-                            </div>
-                            <div class="project-card__feature">
-                                <i class="fas fa-check project-card__feature-icon"></i>
-                                <span>Biblioteca: 6 tablas, 5 FK</span>
-                            </div>
-                            <div class="project-card__feature">
-                                <i class="fas fa-check project-card__feature-icon"></i>
-                                <span>Relaciones 1:N y N:M</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+            <!-- Cards de talleres -->
+            <div class="ev-grid" style="margin-bottom: 3rem;">
 
-                <!-- Proyecto 2: Modelo Entidad-Relación -->
-                <article class="project-card project-card--featured">
-                    <span class="project-card__badge">Destacado</span>
-                    
-                    <div class="project-card__image">
-                        <img src="https://via.placeholder.com/600x400/764ba2/ffffff?text=Entity-Relationship+Diagrams" alt="Modelo Entidad-Relación">
-                        <div class="project-card__overlay">
-                            <div class="project-card__links">
-                                <a href="https://drive.google.com/drive/folders/1HClo6_PYv7b2UvdaWBtQWPLvXVohGP0p?hl=es-419" target="_blank" class="project-card__link">
-                                    <i class="fas fa-folder-open"></i> Ver Archivos
-                                </a>
-                                <a href="er-modeling.html" class="project-card__link">
-                                    <i class="fas fa-info-circle"></i> Ver Detalles
-                                </a>
-                            </div>
+                <a href="er-modeling.html" class="ev-card">
+                    <div class="ev-card__top">
+                        <div class="ev-card__icon" style="background: linear-gradient(135deg,#764ba2,#667eea);">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="ev-card__meta">
+                            <span class="ev-card__badge" style="color:#764ba2; border-color:#764ba2; background:rgba(118,75,162,0.08);">Modelado</span>
+                            <span class="ev-card__num">Taller 1</span>
                         </div>
                     </div>
-                    
-                    <div class="project-card__content">
-                        <div class="project-card__tags">
-                            <span class="tag">Modelo ER</span>
-                            <span class="tag">Entidades</span>
-                            <span class="tag">Atributos</span>
-                            <span class="tag">Cardinalidad</span>
-                        </div>
-                        
-                        <h3 class="project-card__title">Modelo Entidad-Relación</h3>
-                        
-                        <p class="project-card__description">
-                            Diseño conceptual con diagramas Entidad-Relación, escogiendo 2 de 3 casos de estudio: 
-                            Aerolínea y Biblioteca. Identificando entidades, atributos y relaciones.
-                        </p>
-                        
-                        <div class="project-card__features">
-                            <div class="project-card__feature">
-                                <i class="fas fa-check project-card__feature-icon"></i>
-                                <span>9 Entidades identificadas</span>
-                            </div>
-                            <div class="project-card__feature">
-                                <i class="fas fa-check project-card__feature-icon"></i>
-                                <span>45+ Atributos definidos</span>
-                            </div>
-                            <div class="project-card__feature">
-                                <i class="fas fa-check project-card__feature-icon"></i>
-                                <span>Cardinalidades 1:1, 1:N y N:M</span>
-                            </div>
-                        </div>
+                    <div class="ev-card__title">Modelo Entidad-Relación</div>
+                    <div class="ev-card__desc">Diseño conceptual con diagramas ER para los casos Aerolínea y Biblioteca. Identificación de entidades, atributos simples, compuestos y multivaluados, y cardinalidades 1:1, 1:N, N:M.</div>
+                    <div class="ev-card__tags">
+                        <span class="ev-card__tag">Modelo ER</span>
+                        <span class="ev-card__tag">Entidades</span>
+                        <span class="ev-card__tag">Atributos</span>
+                        <span class="ev-card__tag">Cardinalidad</span>
+                        <span class="ev-card__tag">2 Diagramas</span>
                     </div>
-                </article>
+                    <div class="ev-card__footer">
+                        <span class="ev-card__link">Ver taller <i class="fas fa-arrow-right"></i></span>
+                        <span style="font-size:0.8rem; color:var(--color-text-light);">9 entidades · 45+ atributos</span>
+                    </div>
+                </a>
 
-                <!-- Placeholder para futuros proyectos -->
-                <article class="project-card project-card--coming-soon">
-                    <div class="project-card__image">
-                        <img src="https://via.placeholder.com/600x400/f093fb/ffffff?text=Advanced+Modeling" alt="Modelado Avanzado">
-                    </div>
-                    <div class="project-card__content">
-                        <div class="project-card__tags">
-                            <span class="tag">Avanzado</span>
-                            <span class="tag">NoSQL</span>
+                <a href="bienes-raices-taller.html" class="ev-card">
+                    <div class="ev-card__top">
+                        <div class="ev-card__icon" style="background: linear-gradient(135deg,#d97706,#f6ad55);">
+                            <i class="fas fa-home"></i>
                         </div>
-                        <h3 class="project-card__title">Modelado Avanzado</h3>
-                        <p class="project-card__description">
-                            Diseño de bases de datos NoSQL y modelos híbridos.
-                        </p>
-                        <span class="project-card__coming-soon-badge">Próximamente</span>
+                        <div class="ev-card__meta">
+                            <span class="ev-card__badge" style="color:#d97706; border-color:#d97706; background:rgba(217,119,6,0.08);">Modelado</span>
+                            <span class="ev-card__num">Taller 5 · ER + Reducción</span>
+                        </div>
                     </div>
-                </article>
+                    <div class="ev-card__title">Bienes Raíces</div>
+                    <div class="ev-card__desc">Modelo E-R de una empresa inmobiliaria: casas, agentes, firmas, clientes y características variables. Incluye reducción completa a tablas relacionales con PK, FK y relaciones N:M.</div>
+                    <div class="ev-card__tags">
+                        <span class="ev-card__tag">Modelo ER</span>
+                        <span class="ev-card__tag">Reducción a Tablas</span>
+                        <span class="ev-card__tag">N:M</span>
+                        <span class="ev-card__tag">Atributo compuesto</span>
+                    </div>
+                    <div class="ev-card__footer">
+                        <span class="ev-card__link">Ver taller <i class="fas fa-arrow-right"></i></span>
+                        <span style="font-size:0.8rem; color:var(--color-text-light);">5 entidades · 8 tablas</span>
+                    </div>
+                </a>
+
+                <a href="elbosque-shop-taller.html" class="ev-card">
+                    <div class="ev-card__top">
+                        <div class="ev-card__icon" style="background: linear-gradient(135deg,#2e7d32,#4caf50);">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="ev-card__meta">
+                            <span class="ev-card__badge" style="color:#2e7d32; border-color:#2e7d32; background:rgba(46,125,50,0.08);">Modelado · Caso Integrador</span>
+                            <span class="ev-card__num">Taller 4 · MER-E</span>
+                        </div>
+                    </div>
+                    <div class="ev-card__title">El Bosque Shop — E-Commerce MER-E</div>
+                    <div class="ev-card__desc">Caso integrador: plataforma de comercio electrónico B2C/B2B con catálogo, kits, inventario por lotes, logística, pagos parciales, postventa, fidelización, corporativo y auditoría. 22 secciones de supuestos.</div>
+                    <div class="ev-card__tags">
+                        <span class="ev-card__tag">MER-E</span>
+                        <span class="ev-card__tag">E-Commerce</span>
+                        <span class="ev-card__tag">B2C / B2B</span>
+                        <span class="ev-card__tag">22 secciones</span>
+                        <span class="ev-card__tag">draw.io</span>
+                    </div>
+                    <div class="ev-card__footer">
+                        <span class="ev-card__link">Ver taller <i class="fas fa-arrow-right"></i></span>
+                        <span style="font-size:0.8rem; color:var(--color-text-light);">caso integrador · completo</span>
+                    </div>
+                </a>
+
+                <a href="mer-taller.html" class="ev-card">
+                    <div class="ev-card__top">
+                        <div class="ev-card__icon" style="background: linear-gradient(135deg,#48bb78,#38a169);">
+                            <i class="fas fa-draw-polygon"></i>
+                        </div>
+                        <div class="ev-card__meta">
+                            <span class="ev-card__badge" style="color:#38a169; border-color:#38a169; background:rgba(72,187,120,0.1);">Modelado</span>
+                            <span class="ev-card__num">Taller 3 · MER / MER-E</span>
+                        </div>
+                    </div>
+                    <div class="ev-card__title">Taller MER — Tres Problemáticas</div>
+                    <div class="ev-card__desc">Tres modelos diseñados en app.diagrams.net: Residuos Tóxicos (MER), Comidas a Domicilio Eat'n Go (MER) y Employees UEB (MER-E con especialización y herencia).</div>
+                    <div class="ev-card__tags">
+                        <span class="ev-card__tag">MER básico</span>
+                        <span class="ev-card__tag">MER-E</span>
+                        <span class="ev-card__tag">Especialización</span>
+                        <span class="ev-card__tag">draw.io</span>
+                        <span class="ev-card__tag">3 Diagramas</span>
+                    </div>
+                    <div class="ev-card__footer">
+                        <span class="ev-card__link">Ver taller <i class="fas fa-arrow-right"></i></span>
+                        <span style="font-size:0.8rem; color:var(--color-text-light);">3 modelos · app.diagrams.net</span>
+                    </div>
+                </a>
+
+                <a href="relational-modeling.html" class="ev-card">
+                    <div class="ev-card__top">
+                        <div class="ev-card__icon" style="background: linear-gradient(135deg,#667eea,#764ba2);">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <div class="ev-card__meta">
+                            <span class="ev-card__badge" style="color:#667eea; border-color:#667eea; background:rgba(102,126,234,0.08);">Modelado</span>
+                            <span class="ev-card__num">Taller 2</span>
+                        </div>
+                    </div>
+                    <div class="ev-card__title">Modelado Relacional</div>
+                    <div class="ev-card__desc">Traducción del modelo conceptual a tablas relacionales para Aerolínea y Biblioteca. Definición de claves primarias, foráneas, restricciones de integridad y relaciones N:M resueltas con tablas intermedias.</div>
+                    <div class="ev-card__tags">
+                        <span class="ev-card__tag">Modelo Relacional</span>
+                        <span class="ev-card__tag">PK / FK</span>
+                        <span class="ev-card__tag">Esquemas</span>
+                        <span class="ev-card__tag">Integridad</span>
+                        <span class="ev-card__tag">13 Tablas</span>
+                    </div>
+                    <div class="ev-card__footer">
+                        <span class="ev-card__link">Ver taller <i class="fas fa-arrow-right"></i></span>
+                        <span style="font-size:0.8rem; color:var(--color-text-light);">13 tablas · 13 FK</span>
+                    </div>
+                </a>
 
             </div>
 
-            <!-- Summary Stats -->
-            <div class="card" style="margin-top: 4rem;">
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
-                    <i class="fas fa-chart-line" style="color: var(--color-primary);"></i>
-                    Resumen General
+            <!-- Resumen -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.75rem; margin-bottom: 1.25rem; color: var(--color-text);">
+                    <i class="fas fa-chart-bar" style="color: var(--color-primary);"></i>
+                    Resumen de la categoría
                 </h2>
                 <div class="stats-grid">
                     <div class="stats-grid__item">
-                        <i class="fas fa-check-circle stats-grid__icon" style="color: #48bb78;"></i>
-                        <strong class="stats-grid__value">2</strong>
-                        <span class="stats-grid__label">Proyectos Completados</span>
+                        <i class="fas fa-check-circle stats-grid__icon" style="color:#48bb78;"></i>
+                        <strong class="stats-grid__value">5</strong>
+                        <span class="stats-grid__label">Talleres completados</span>
                     </div>
                     <div class="stats-grid__item">
                         <i class="fas fa-table stats-grid__icon"></i>
                         <strong class="stats-grid__value">13</strong>
-                        <span class="stats-grid__label">Tablas (Modelo Relacional)</span>
+                        <span class="stats-grid__label">Tablas (Modelado Relacional)</span>
                     </div>
                     <div class="stats-grid__item">
                         <i class="fas fa-cube stats-grid__icon"></i>
-                        <strong class="stats-grid__value">9</strong>
-                        <span class="stats-grid__label">Entidades (Modelo ER)</span>
+                        <strong class="stats-grid__value">9+</strong>
+                        <span class="stats-grid__label">Entidades modeladas</span>
                     </div>
                     <div class="stats-grid__item">
                         <i class="fas fa-project-diagram stats-grid__icon"></i>
-                        <strong class="stats-grid__value">4</strong>
-                        <span class="stats-grid__label">Diagramas Totales</span>
+                        <strong class="stats-grid__value">7</strong>
+                        <span class="stats-grid__label">Diagramas totales</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Concepts Covered -->
-            <div class="card" style="margin-top: 3rem;">
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
-                    <i class="fas fa-book-open" style="color: var(--color-primary);"></i>
-                    Conceptos Cubiertos
-                </h2>
-                <div class="grid grid--cols-2" style="gap: 0.75rem;">
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Modelo Relacional de Codd</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Relaciones (Tablas)</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Atributos y Tuplas</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Claves Primarias (PK)</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Claves Foráneas (FK)</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Relaciones 1:N</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Relaciones N:M</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Integridad Referencial</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Tipos de Datos</span>
-                    </div>
-                    <div class="project-card__feature">
-                        <i class="fas fa-check project-card__feature-icon"></i>
-                        <span>Nomenclatura Profesional</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Back Button -->
-            <div style="text-align: center; margin-top: 4rem;">
+            <!-- Volver -->
+            <div style="text-align: center; margin-top: 2rem;">
                 <a href="../index.html#evidence" class="btn btn--gradient btn--lg">
                     <i class="fas fa-arrow-left"></i> Volver a Evidencias
                 </a>

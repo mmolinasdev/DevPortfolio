@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Álgebra Relacional — Ejercicios y soluciones | Miguel Molina BD1">
+    <meta name="theme-color" content="#667eea">
+    <title>Álgebra Relacional | Miguel Molina</title>
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ── Operator display ── */
+        .ra-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            line-height: 2;
+            overflow-x: auto;
+            margin: 0.75rem 0 1rem;
+            border-left: 4px solid var(--color-primary);
+        }
+        .ra-op   { color: #cba6f7; font-weight: 700; }   /* σ π ⋈ × ∪ − ÷ ρ */
+        .ra-rel  { color: #89dceb; font-style: italic; }  /* nombre de relación */
+        .ra-cond { color: #fab387; }                       /* condición / atributo */
+        .ra-str  { color: #a6e3a1; }                       /* 'Universidad Central' */
+        .ra-step { color: #f38ba8; font-weight: 600; }     /* T1, T2... */
+        .ra-com  { color: #6c7086; font-style: italic; }   /* comentario */
+
+        /* ── Exercise card ── */
+        .ex-card {
+            background: var(--color-bg-secondary, #fff);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(102,126,234,0.15);
+        }
+        .ex-card__header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .ex-card__num {
+            background: linear-gradient(135deg, var(--color-primary), #764ba2);
+            color: #fff;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .ex-card__question {
+            font-size: 1.05rem;
+            color: var(--color-text);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .ex-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 1.25rem 0 0.4rem;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .ex-note {
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+            line-height: 1.7;
+            background: rgba(102,126,234,0.06);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 6px 6px 0;
+            padding: 0.75rem 1rem;
+            margin-top: 0.75rem;
+        }
+
+        /* ── Schema boxes ── */
+        .schema-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        .schema-item {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-top: 3px solid var(--color-primary);
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            font-size: 0.85rem;
+        }
+        .schema-item strong {
+            display: block;
+            font-family: 'Courier New', monospace;
+            color: var(--color-primary);
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+        .schema-item span {
+            font-family: 'Courier New', monospace;
+            color: var(--color-text-light);
+            font-size: 0.8rem;
+        }
+        .schema-item .pk { color: #f6ad55; font-weight: 700; }
+
+        /* ── Operator legend ── */
+        .op-legend {
+            display: flex; flex-wrap: wrap; gap: 0.6rem;
+            margin: 1.25rem 0;
+        }
+        .op-legend__item {
+            display: flex; align-items: center; gap: 0.4rem;
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 0.3rem 0.75rem;
+            font-size: 0.82rem;
+        }
+        .op-legend__sym {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #cba6f7;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item"><a href="../index.html#home" class="navbar__link">Inicio</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#presentation" class="navbar__link">Presentación</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#about" class="navbar__link">Sobre Mí</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#skills" class="navbar__link">Habilidades</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#projects" class="navbar__link">Proyectos</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#evidence" class="navbar__link navbar__link--active">Evidencias</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#contact" class="navbar__link">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height: 50vh; padding: 8rem 0 4rem;">
+        <div class="hero__overlay"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
+                <div class="hero__text">
+                    <a href="../index.html#evidence" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                    </a>
+                    <div style="font-size: 4rem; color: var(--color-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">Álgebra Relacional</h1>
+                    <p class="hero__subtitle">Ejercicios de consulta sobre relaciones Universidad–Empleado</p>
+                    <div style="display:flex; gap:0.75rem; justify-content:center; margin-top:2rem; flex-wrap:wrap;">
+                        <span class="tag tag--primary">Selección σ</span>
+                        <span class="tag tag--primary">Proyección π</span>
+                        <span class="tag tag--primary">Join ⋈</span>
+                        <span class="tag tag--primary">Diferencia −</span>
+                        <span class="tag tag--primary">Producto ×</span>
+                        <span class="tag tag--primary">Renombre ρ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container" style="max-width: 900px;">
+
+            <!-- Descripción -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-info-circle" style="color: var(--color-primary);"></i>
+                    Sobre esta práctica
+                </h2>
+                <p style="font-size: 1.1rem; color: var(--color-text-light); line-height: 1.8;">
+                    Taller de Álgebra Relacional aplicado sobre un esquema de universidades y empleados.
+                    Cada ejercicio requiere expresar la consulta usando únicamente los operadores formales
+                    del álgebra relacional: selección, proyección, join natural, producto cartesiano,
+                    diferencia de conjuntos y renombrado.
+                </p>
+            </div>
+
+            <!-- Esquema -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.25rem; color: var(--color-text);">
+                    <i class="fas fa-project-diagram" style="color: var(--color-primary);"></i>
+                    Esquema de relaciones
+                </h2>
+                <div class="schema-grid">
+                    <div class="schema-item">
+                        <strong>empleado</strong>
+                        <span><span class="pk">cod_emp</span>, nombre_emp,<br>calle, ciudad</span>
+                    </div>
+                    <div class="schema-item">
+                        <strong>trabaja</strong>
+                        <span><span class="pk">cod_emp</span>, <span class="pk">cod_uni</span>,<br>sueldo_mensual</span>
+                    </div>
+                    <div class="schema-item">
+                        <strong>universidad</strong>
+                        <span><span class="pk">cod_uni</span>, nombre_uni,<br>ciudad</span>
+                    </div>
+                    <div class="schema-item">
+                        <strong>jefe</strong>
+                        <span><span class="pk">cod_jefe</span>, nombre_jefe,<br>calle, ciudad</span>
+                    </div>
+                </div>
+                <p style="font-size:0.85rem; color:var(--color-text-light);">
+                    <span style="color:#f6ad55; font-weight:700;">Subrayado</span> = clave primaria (PK) &nbsp;·&nbsp;
+                    <code>sueldo_mensual</code> está en pesos colombianos (COP).
+                </p>
+            </div>
+
+            <!-- Leyenda de operadores -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-book" style="color: var(--color-primary);"></i>
+                    Operadores utilizados
+                </h2>
+                <div class="op-legend">
+                    <div class="op-legend__item"><span class="op-legend__sym">σ</span> Selección</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">π</span> Proyección</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">⋈</span> Join natural</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">×</span> Producto cartesiano</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">−</span> Diferencia</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">∪</span> Unión</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">ρ</span> Renombrado</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">∧</span> Y lógico</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">∨</span> O lógico</div>
+                    <div class="op-legend__item"><span class="op-legend__sym">¬</span> Negación</div>
+                </div>
+            </div>
+
+            <!-- ── Ejercicio 1 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">1</div>
+                    <p class="ex-card__question">
+                        Averiguar los nombres de todos los empleados que trabajan para la
+                        <strong>Universidad Central</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-step">T1</span> ← <span class="ra-op">σ</span><sub><span class="ra-cond">nombre_uni = </span><span class="ra-str">'Universidad Central'</span></sub>(<span class="ra-rel">universidad</span>)
+
+<span class="ra-step">T2</span> ← <span class="ra-step">T1</span> <span class="ra-op">⋈</span> <span class="ra-rel">trabaja</span> <span class="ra-op">⋈</span> <span class="ra-rel">empleado</span>
+
+<span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp</span></sub>(<span class="ra-step">T2</span>)</div>
+                <p class="ex-note">
+                    Se filtra la universidad deseada con <strong>σ</strong>, luego se encadenan dos join naturales
+                    para conectar <em>universidad → trabaja → empleado</em> a través de
+                    <code>cod_uni</code> y <code>cod_emp</code>. Finalmente <strong>π</strong> proyecta solo el nombre.
+                </p>
+            </div>
+
+            <!-- ── Ejercicio 2 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">2</div>
+                    <p class="ex-card__question">
+                        Averiguar el <strong>nombre</strong> y la <strong>ciudad de residencia</strong> de todos los
+                        empleados que trabajan para la <strong>Universidad de Los Andes</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-step">T1</span> ← <span class="ra-op">σ</span><sub><span class="ra-cond">nombre_uni = </span><span class="ra-str">'Universidad de Los Andes'</span></sub>(<span class="ra-rel">universidad</span>)
+
+<span class="ra-step">T2</span> ← <span class="ra-step">T1</span> <span class="ra-op">⋈</span> <span class="ra-rel">trabaja</span> <span class="ra-op">⋈</span> <span class="ra-rel">empleado</span>
+
+<span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp, ciudad</span></sub>(<span class="ra-step">T2</span>)</div>
+                <p class="ex-note">
+                    Idéntica estrategia al ejercicio 1, cambiando el predicado de selección.
+                    La proyección final incluye <code>ciudad</code> que proviene de <em>empleado</em>
+                    (ciudad de residencia), no de <em>universidad</em>.
+                </p>
+            </div>
+
+            <!-- ── Ejercicio 3 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">3</div>
+                    <p class="ex-card__question">
+                        Averiguar el <strong>nombre</strong>, la <strong>calle</strong> y la <strong>ciudad</strong> de todos los
+                        empleados que trabajan para la Universidad Central y
+                        <strong>ganan más de $25&#x2019;000.000 anuales</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-com">-- $25'000.000 anuales = $2'083.333 mensuales</span>
+<span class="ra-step">T1</span> ← <span class="ra-op">σ</span><sub><span class="ra-cond">nombre_uni = </span><span class="ra-str">'Universidad Central'</span></sub>(<span class="ra-rel">universidad</span>)
+
+<span class="ra-step">T2</span> ← <span class="ra-op">σ</span><sub><span class="ra-cond">sueldo_mensual × 12 > 25000000</span></sub>(<span class="ra-rel">trabaja</span>)
+
+<span class="ra-step">T3</span> ← <span class="ra-step">T1</span> <span class="ra-op">⋈</span> <span class="ra-step">T2</span> <span class="ra-op">⋈</span> <span class="ra-rel">empleado</span>
+
+<span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp, calle, ciudad</span></sub>(<span class="ra-step">T3</span>)</div>
+                <p class="ex-note">
+                    Se aplican dos selecciones independientes: una sobre <em>universidad</em>
+                    (universidad deseada) y otra sobre <em>trabaja</em> (condición salarial).
+                    El join encadena las tres relaciones y la proyección extrae los tres atributos pedidos.
+                </p>
+            </div>
+
+            <!-- ── Ejercicio 4 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">4</div>
+                    <p class="ex-card__question">
+                        Averiguar el nombre de todos los empleados que <strong>viven en la misma ciudad
+                        que la universidad para la que trabajan</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-com">-- Renombrar 'ciudad' en empleado para evitar ambigüedad con universidad.ciudad</span>
+<span class="ra-step">T1</span> ← <span class="ra-op">ρ</span><sub><span class="ra-cond">ciudad_emp ← ciudad</span></sub>(<span class="ra-rel">empleado</span>) <span class="ra-op">⋈</span> <span class="ra-rel">trabaja</span>
+
+<span class="ra-step">T2</span> ← <span class="ra-op">ρ</span><sub><span class="ra-cond">ciudad_uni ← ciudad</span></sub>(<span class="ra-rel">universidad</span>)
+
+<span class="ra-step">T3</span> ← <span class="ra-step">T1</span> <span class="ra-op">⋈</span> <span class="ra-step">T2</span>
+
+<span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp</span></sub>(<span class="ra-op">σ</span><sub><span class="ra-cond">ciudad_emp = ciudad_uni</span></sub>(<span class="ra-step">T3</span>))</div>
+                <p class="ex-note">
+                    Como ambas relaciones tienen el atributo <code>ciudad</code>,
+                    se usa <strong>ρ</strong> (renombrado) para distinguirlas antes del join.
+                    La selección final compara ambas ciudades y solo conserva las filas donde coinciden.
+                </p>
+            </div>
+
+            <!-- ── Ejercicio 5 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">5</div>
+                    <p class="ex-card__question">
+                        Averiguar el nombre de todos los empleados que <strong>viven en la misma ciudad
+                        y en la misma calle que sus jefes</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-com">-- Renombrar atributos de jefe para distinguirlos de empleado</span>
+<span class="ra-step">T1</span> ← <span class="ra-op">ρ</span><sub><span class="ra-cond">ciudad_j ← ciudad, calle_j ← calle</span></sub>(<span class="ra-rel">jefe</span>)
+
+<span class="ra-com">-- Producto cartesiano entre empleado y jefe (renombrado)</span>
+<span class="ra-step">T2</span> ← <span class="ra-rel">empleado</span> <span class="ra-op">×</span> <span class="ra-step">T1</span>
+
+<span class="ra-com">-- Filtrar los que comparten ciudad Y calle</span>
+<span class="ra-step">T3</span> ← <span class="ra-op">σ</span><sub><span class="ra-cond">ciudad = ciudad_j ∧ calle = calle_j</span></sub>(<span class="ra-step">T2</span>)
+
+<span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp</span></sub>(<span class="ra-step">T3</span>)</div>
+                <p class="ex-note">
+                    Al no existir un atributo de clave foránea explícito entre <em>empleado</em> y <em>jefe</em>,
+                    se usa el <strong>producto cartesiano</strong> para combinar todas las combinaciones posibles
+                    y luego la selección retiene solo aquellas donde ciudad y calle coinciden simultáneamente
+                    (condición compuesta con <strong>∧</strong>).
+                </p>
+            </div>
+
+            <!-- ── Ejercicio 6 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">6</div>
+                    <p class="ex-card__question">
+                        Averiguar el nombre de todos los empleados que
+                        <strong>no trabajan para la Universidad Central</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-com">-- Todos los empleados</span>
+<span class="ra-step">T_todos</span> ← <span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp</span></sub>(<span class="ra-rel">empleado</span>)
+
+<span class="ra-com">-- Empleados que SÍ trabajan para Universidad Central</span>
+<span class="ra-step">T_central</span> ← <span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp</span></sub>(
+    <span class="ra-rel">empleado</span> <span class="ra-op">⋈</span> <span class="ra-rel">trabaja</span> <span class="ra-op">⋈</span>
+    <span class="ra-op">σ</span><sub><span class="ra-cond">nombre_uni = </span><span class="ra-str">'Universidad Central'</span></sub>(<span class="ra-rel">universidad</span>)
+)
+
+<span class="ra-com">-- Diferencia: empleados que NO están en T_central</span>
+<span class="ra-step">T_todos</span> <span class="ra-op">−</span> <span class="ra-step">T_central</span></div>
+                <p class="ex-note">
+                    Se aplica la <strong>diferencia de conjuntos (−)</strong>: al conjunto de todos los nombres de
+                    empleados se le resta el subconjunto de los que trabajan para Universidad Central.
+                    El resultado son quienes no pertenecen a esa universidad.
+                </p>
+            </div>
+
+            <!-- ── Ejercicio 7 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">7</div>
+                    <p class="ex-card__question">
+                        Averiguar el nombre de todos los empleados que <strong>ganan más que cualquier
+                        empleado de la Universidad de Los Andes</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-com">-- Sueldos de empleados de Los Andes</span>
+<span class="ra-step">T_andes</span> ← <span class="ra-op">π</span><sub><span class="ra-cond">sueldo_mensual</span></sub>(
+    <span class="ra-rel">trabaja</span> <span class="ra-op">⋈</span> <span class="ra-op">σ</span><sub><span class="ra-cond">nombre_uni = </span><span class="ra-str">'Universidad de Los Andes'</span></sub>(<span class="ra-rel">universidad</span>)
+)
+
+<span class="ra-com">-- Renombrar para poder comparar en el producto</span>
+<span class="ra-step">T_and_r</span> ← <span class="ra-op">ρ</span><sub><span class="ra-cond">sueldo_andes ← sueldo_mensual</span></sub>(<span class="ra-step">T_andes</span>)
+
+<span class="ra-com">-- Todos los cod_emp y sus sueldos</span>
+<span class="ra-step">T_all</span> ← <span class="ra-op">π</span><sub><span class="ra-cond">cod_emp, sueldo_mensual</span></sub>(<span class="ra-rel">trabaja</span>)
+
+<span class="ra-com">-- Empleados que ganan ≤ que ALGÚN sueldo de Los Andes (no cumplen la condición)</span>
+<span class="ra-step">T_no</span> ← <span class="ra-op">π</span><sub><span class="ra-cond">cod_emp</span></sub>(
+    <span class="ra-op">σ</span><sub><span class="ra-cond">sueldo_mensual ≤ sueldo_andes</span></sub>(<span class="ra-step">T_all</span> <span class="ra-op">×</span> <span class="ra-step">T_and_r</span>)
+)
+
+<span class="ra-com">-- Empleados que SÍ ganan más que TODOS en Los Andes</span>
+<span class="ra-step">T_si</span> ← <span class="ra-op">π</span><sub><span class="ra-cond">cod_emp</span></sub>(<span class="ra-rel">trabaja</span>) <span class="ra-op">−</span> <span class="ra-step">T_no</span>
+
+<span class="ra-op">π</span><sub><span class="ra-cond">nombre_emp</span></sub>(<span class="ra-rel">empleado</span> <span class="ra-op">⋈</span> <span class="ra-step">T_si</span>)</div>
+                <p class="ex-note">
+                    <strong>"Más que cualquier empleado"</strong> significa superar el salario de
+                    <em>todos</em> ellos (equivale a ser mayor que el máximo). Sin funciones de agregación,
+                    se resuelve por complemento: se identifican los empleados que <em>no</em> superan a
+                    algún sueldo de Los Andes y se les resta del total con la <strong>diferencia (−)</strong>.
+                </p>
+            </div>
+
+            <!-- ── Ejercicio 8 ── -->
+            <div class="ex-card">
+                <div class="ex-card__header">
+                    <div class="ex-card__num">8</div>
+                    <p class="ex-card__question">
+                        La Universidad Nacional de Colombia está instalada en varias ciudades.
+                        Hallar todas las <strong>universidades instaladas en cada ciudad en que
+                        está la Universidad Nacional de Colombia</strong>.
+                    </p>
+                </div>
+                <p class="ex-label"><i class="fas fa-lightbulb"></i> Solución</p>
+                <div class="ra-block">
+<span class="ra-com">-- Ciudades donde está la Universidad Nacional</span>
+<span class="ra-step">T_ciudades</span> ← <span class="ra-op">π</span><sub><span class="ra-cond">ciudad</span></sub>(
+    <span class="ra-op">σ</span><sub><span class="ra-cond">nombre_uni = </span><span class="ra-str">'Universidad Nacional de Colombia'</span></sub>(<span class="ra-rel">universidad</span>)
+)
+
+<span class="ra-com">-- Join natural: filtra solo universidades cuya ciudad esté en T_ciudades</span>
+<span class="ra-op">π</span><sub><span class="ra-cond">nombre_uni</span></sub>(<span class="ra-rel">universidad</span> <span class="ra-op">⋈</span> <span class="ra-step">T_ciudades</span>)</div>
+                <p class="ex-note">
+                    El join natural entre <em>universidad</em> y <em>T_ciudades</em> actúa como un
+                    filtro: solo conserva las tuplas cuya <code>ciudad</code> aparece en la lista de
+                    ciudades de la U. Nacional. Esto incluye a la propia U. Nacional en cada ciudad.
+                </p>
+            </div>
+
+            <!-- Solución completa en Drive -->
+            <div class="card" style="margin-bottom: 3rem; padding: 0; overflow: hidden;">
+                <div style="padding: 2rem 2rem 1rem 2rem; background: var(--color-background-alt);">
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                        <i class="fas fa-file-pdf" style="color: var(--color-primary);"></i>
+                        Documento completo — Soluciones
+                    </h2>
+                    <p style="color: var(--color-text-light); margin: 0;">
+                        Solución detallada de los 8 ejercicios de álgebra relacional
+                    </p>
+                </div>
+                <div style="width: 100%; height: 680px; background: #f5f5f5;">
+                    <iframe
+                        src="https://drive.google.com/file/d/1rU9h79SWREovNSiGo-VnL4HKBdJ7ePSv/preview"
+                        width="100%"
+                        height="680"
+                        style="border: none; display: block;"
+                        allow="autoplay"
+                        title="Soluciones Álgebra Relacional">
+                    </iframe>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt);">
+                    <a href="https://drive.google.com/file/d/1rU9h79SWREovNSiGo-VnL4HKBdJ7ePSv/view?usp=sharing"
+                       target="_blank" class="btn btn--primary">
+                        <i class="fas fa-external-link-alt"></i> Abrir en Google Drive
+                    </a>
+                </div>
+            </div>
+
+            <!-- Resumen -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-chart-bar" style="color: var(--color-primary);"></i>
+                    Resumen del taller
+                </h2>
+                <div class="stats-grid">
+                    <div class="stats-grid__item">
+                        <i class="fas fa-check-circle stats-grid__icon" style="color: #48bb78;"></i>
+                        <strong class="stats-grid__value">8</strong>
+                        <span class="stats-grid__label">Ejercicios resueltos</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-table stats-grid__icon"></i>
+                        <strong class="stats-grid__value">4</strong>
+                        <span class="stats-grid__label">Relaciones del esquema</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-calculator stats-grid__icon"></i>
+                        <strong class="stats-grid__value">6</strong>
+                        <span class="stats-grid__label">Operadores utilizados</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-minus stats-grid__icon"></i>
+                        <strong class="stats-grid__value">3</strong>
+                        <span class="stats-grid__label">Ejercicios con diferencia (−)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conceptos -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-book-open" style="color: var(--color-primary);"></i>
+                    Conceptos aplicados
+                </h2>
+                <div class="grid grid--cols-2" style="gap: 0.75rem;">
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>σ (Selección):</strong> filtrar tuplas por predicado</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>π (Proyección):</strong> extraer atributos específicos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>⋈ (Join natural):</strong> combinar por atributo común</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>× (Producto cartesiano):</strong> todas las combinaciones</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>− (Diferencia):</strong> consultas con negación ("que no…")</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>ρ (Renombrado):</strong> resolver ambigüedad de atributos</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Condiciones compuestas con ∧ (AND)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Complemento para "más que cualquier" (ej. 7)</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Encadenamiento de operadores en expresiones complejas</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span>Join natural como filtro de subconjunto (ej. 8)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://drive.google.com/file/d/1rU9h79SWREovNSiGo-VnL4HKBdJ7ePSv/view?usp=sharing"
+                   target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-file-pdf"></i> Ver solución completa
+                </a>
+                <a href="../index.html#evidence" class="btn btn--outline btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

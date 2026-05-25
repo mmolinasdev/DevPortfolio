@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Caso Integrador El Bosque Shop — MER-E | Miguel Molina BD1">
+    <meta name="theme-color" content="#667eea">
+    <title>El Bosque Shop — MER-E | Miguel Molina</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Section cards ── */
+        .sec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .sec-card {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 1.1rem 1.25rem;
+            border-left: 4px solid var(--color-primary);
+        }
+        .sec-card__header {
+            display: flex; align-items: center; gap: 0.6rem;
+            margin-bottom: 0.6rem;
+        }
+        .sec-card__letter {
+            width: 30px; height: 30px; border-radius: 8px;
+            background: var(--color-primary); color: #fff;
+            font-weight: 800; font-size: 0.85rem;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .sec-card__title { font-weight: 700; font-size: 0.9rem; color: var(--color-text); }
+        .sec-card__rules {
+            list-style: none; padding: 0; margin: 0;
+            font-size: 0.8rem; color: var(--color-text-light); line-height: 1.6;
+        }
+        .sec-card__rules li { padding: 0.15rem 0; display: flex; gap: 0.4rem; }
+        .sec-card__rules li::before { content: "·"; color: var(--color-primary); font-weight: 700; flex-shrink: 0; }
+
+        /* ── Domain chips ── */
+        .domain-grid {
+            display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0;
+        }
+        .domain-chip {
+            display: flex; align-items: center; gap: 0.4rem;
+            background: var(--color-background-alt); border: 1px solid var(--color-border);
+            border-radius: 8px; padding: 0.3rem 0.75rem; font-size: 0.8rem; color: var(--color-text);
+        }
+        .domain-chip i { color: var(--color-primary); font-size: 0.8rem; }
+
+        /* ── Diagram frame ── */
+        .diagram-wrap { border-radius: 12px; overflow: hidden; border: 1px solid var(--color-border); margin-bottom: 3rem; }
+        .diagram-wrap__bar {
+            padding: 1rem 1.5rem;
+            background: var(--color-background-alt);
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .diagram-wrap__label { font-weight: 600; color: var(--color-text); display: flex; align-items: center; gap: 0.5rem; }
+
+        details summary { cursor: pointer; list-style: none; user-select: none; }
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary .chevron { transform: rotate(180deg); }
+        .chevron { transition: transform 0.2s; display: inline-block; margin-left: 0.4rem; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item"><a href="../index.html#home" class="navbar__link">Inicio</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#presentation" class="navbar__link">Presentación</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#about" class="navbar__link">Sobre Mí</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#skills" class="navbar__link">Habilidades</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#projects" class="navbar__link">Proyectos</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#evidence" class="navbar__link navbar__link--active">Evidencias</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#contact" class="navbar__link">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height:55vh; padding:8rem 0 4rem; background: linear-gradient(135deg, #0d2f1e 0%, #1a5c3a 50%, #0d2f1e 100%);">
+        <div class="hero__overlay" style="background:rgba(0,0,0,0.45);"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns:1fr; text-align:center;">
+                <div class="hero__text">
+                    <a href="modeling-evidence.html" class="btn btn--secondary" style="margin-bottom:2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Modelado
+                    </a>
+                    <div style="display:inline-flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap; justify-content:center;">
+                        <span style="background:#2e7d32; color:#fff; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; padding:0.25rem 0.75rem; border-radius:999px;">Taller 4 · Modelado</span>
+                        <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; padding:0.25rem 0.75rem; border-radius:999px;">Caso Integrador</span>
+                    </div>
+                    <h1 class="hero__title" style="margin-bottom:1rem;">
+                        El Bosque Shop<br>
+                        <span style="color:#4caf50;">MER-E</span>
+                    </h1>
+                    <p class="hero__subtitle">Plataforma de comercio electrónico — modelo entidad-relación extendido completo</p>
+                    <div style="display:flex; gap:0.75rem; justify-content:center; margin-top:2rem; flex-wrap:wrap;">
+                        <span class="tag tag--primary">MER-E</span>
+                        <span class="tag tag--primary">E-Commerce</span>
+                        <span class="tag tag--primary">B2C / B2B</span>
+                        <span class="tag tag--primary">22 Secciones</span>
+                        <span class="tag tag--primary">Caso integrador</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container" style="max-width:1000px;">
+
+            <!-- Descripción -->
+            <div class="card" style="margin-bottom:3rem;">
+                <h2 style="font-size:2rem; margin-bottom:1rem; color:var(--color-text);">
+                    <i class="fas fa-info-circle" style="color:var(--color-primary);"></i>
+                    Sobre el caso
+                </h2>
+                <p style="font-size:1.1rem; color:var(--color-text-light); line-height:1.8; margin-bottom:1rem;">
+                    <strong style="color:var(--color-text);">El Bosque Shop</strong> es una plataforma de comercio
+                    electrónico orientada a productos para vida al aire libre y consumo responsable: indumentaria,
+                    equipos de camping, accesorios, cuidado personal ecológico, alimentos empacados y artículos de
+                    temporada.
+                </p>
+                <p style="font-size:1.1rem; color:var(--color-text-light); line-height:1.8; margin-bottom:1.25rem;">
+                    La empresa opera con <strong style="color:var(--color-text);">despacho propio</strong> (centros administrados
+                    por El Bosque Shop) y <strong style="color:var(--color-text);">despacho de aliados</strong> (marcas/vendedores
+                    externos que publican en la plataforma y despachan desde sus propios centros). Atiende a
+                    <strong style="color:var(--color-text);">clientes persona (B2C)</strong> y
+                    <strong style="color:var(--color-text);">clientes empresa (B2B)</strong> con crédito, aprobaciones
+                    internas y condiciones negociadas.
+                </p>
+                <div class="domain-grid">
+                    <div class="domain-chip"><i class="fas fa-box-open"></i> Catálogo con variantes y kits</div>
+                    <div class="domain-chip"><i class="fas fa-warehouse"></i> Inventario por centro + lotes</div>
+                    <div class="domain-chip"><i class="fas fa-truck"></i> Logística y operadores</div>
+                    <div class="domain-chip"><i class="fas fa-credit-card"></i> Pagos parciales + conciliación</div>
+                    <div class="domain-chip"><i class="fas fa-undo"></i> Devoluciones y postventa</div>
+                    <div class="domain-chip"><i class="fas fa-star"></i> Fidelización con puntos</div>
+                    <div class="domain-chip"><i class="fas fa-tags"></i> Campañas y cupones</div>
+                    <div class="domain-chip"><i class="fas fa-building"></i> Corporativo y crédito B2B</div>
+                    <div class="domain-chip"><i class="fas fa-history"></i> Auditoría y trazabilidad</div>
+                    <div class="domain-chip"><i class="fas fa-chart-line"></i> Analítica comercial y logística</div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="card" style="margin-bottom:3rem;">
+                <div class="stats-grid">
+                    <div class="stats-grid__item">
+                        <i class="fas fa-list-alt stats-grid__icon" style="color:var(--color-primary);"></i>
+                        <strong class="stats-grid__value">22</strong>
+                        <span class="stats-grid__label">Secciones de supuestos</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-project-diagram stats-grid__icon" style="color:var(--color-primary);"></i>
+                        <strong class="stats-grid__value">MER-E</strong>
+                        <span class="stats-grid__label">Tipo de modelo</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-users stats-grid__icon" style="color:var(--color-primary);"></i>
+                        <strong class="stats-grid__value">B2C + B2B</strong>
+                        <span class="stats-grid__label">Tipos de cliente</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-tools stats-grid__icon" style="color:var(--color-primary);"></i>
+                        <strong class="stats-grid__value">draw.io</strong>
+                        <span class="stats-grid__label">Herramienta</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enunciado completo — secciones A-V -->
+            <div class="card" style="margin-bottom:3rem;">
+                <h2 style="font-size:1.75rem; margin-bottom:1.5rem; color:var(--color-text);">
+                    <i class="fas fa-file-alt" style="color:var(--color-primary);"></i>
+                    Supuestos del caso (A – V)
+                </h2>
+
+                <div class="sec-grid">
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">A</div>
+                            <div class="sec-card__title">Generales del negocio</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Un país, múltiples regiones/ciudades</li>
+                            <li>Todo actor tiene ID interno único y auditoría básica</li>
+                            <li>Estados con vigencia y trazabilidad</li>
+                            <li>Soporte de múltiples monedas (moneda base por país)</li>
+                            <li>Canal de interacción: web, app, call-center, marketplace aliado</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">B</div>
+                            <div class="sec-card__title">Clientes, contactos y consentimiento</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Cliente puede ser Persona (doc + nombres) o Empresa (NIT + razón social)</li>
+                            <li>Múltiples direcciones por tipo (entrega / facturación); una principal por tipo</li>
+                            <li>Empresa puede asociar direcciones a sucursales</li>
+                            <li>Múltiples contactos (teléfono, correo) con preferencia de uso</li>
+                            <li>Consentimiento por versión legal + canal; revocación no elimina historial</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">C</div>
+                            <div class="sec-card__title">Catálogo: familias, productos, variantes</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Familias jerárquicas (padre–hijo)</li>
+                            <li>Producto base → múltiples SKU (talla/color/capacidad/aroma)</li>
+                            <li>Atributos técnicos definidos por familia (obligatorios/opcionales)</li>
+                            <li>Valores de atributo por presentación (SKU), no por producto base</li>
+                            <li>SKU con restricciones: edad mínima, requiere frío, frágil, voluminoso</li>
+                            <li>Versiones de descripción y ficha técnica para auditoría</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">D</div>
+                            <div class="sec-card__title">Kits / Combos</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Kit = unidad comercial compuesta de varias presentaciones con cantidades</li>
+                            <li>Puede incluir SKUs de diferentes familias</li>
+                            <li>Sin ciclos (un kit no puede incluirse a sí mismo directa/indirectamente)</li>
+                            <li>Precio propio del kit (para simplificar cálculo)</li>
+                            <li>Inventario del kit calculado por componentes</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">E</div>
+                            <div class="sec-card__title">Imágenes, contenido y reseñas</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>SKU puede tener múltiples imágenes y documentos (manual, ficha PDF)</li>
+                            <li>Reseña solo si el cliente recibió el producto (verificación)</li>
+                            <li>Reseña: calificación, comentario, fecha, estado (publicada/oculta/moderación)</li>
+                            <li>Se registra motivo de moderación y moderador</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">F</div>
+                            <div class="sec-card__title">Precios, listas y vigencias</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Precio por lista de precios vigente (pública B2C / corporativa B2B)</li>
+                            <li>Lista con vigencia inicio/fin; pueden coexistir listas de distinto tipo</li>
+                            <li>La venta congela el precio unitario al confirmarse</li>
+                            <li>Descuentos por campaña y por cupón (acumulación regulada por config.)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">G</div>
+                            <div class="sec-card__title">Impuestos y reglas fiscales</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Impuesto por región × tipo de producto (familia o atributo fiscal)</li>
+                            <li>Tasas con vigencia temporal (cambios legales)</li>
+                            <li>La venta conserva el detalle de impuestos al momento de confirmación</li>
+                            <li>Empresa: régimen fiscal y uso de comprobante como atributos</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">H</div>
+                            <div class="sec-card__title">Inventario por centro y reservas</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Inventario por SKU × centro de despacho (propio o aliado)</li>
+                            <li>Distingue disponible vs. reservado</li>
+                            <li>Al confirmar venta → incrementa reservado; al despachar → decrementa ambos</li>
+                            <li>Punto de reorden y stock de seguridad por SKU × centro</li>
+                            <li>Registro de merma/ajuste con motivo (daño, conteo, caducidad, robo)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">I</div>
+                            <div class="sec-card__title">Perecederos y lotes</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Lote por SKU × centro: fecha ingreso, vencimiento y cantidad actual</li>
+                            <li>En despacho de perecederos se asigna lote al ítem (trazabilidad)</li>
+                            <li>Selección FEFO (first-expire-first-out), con override manual auditado</li>
+                            <li>No se puede vender lote vencido; sí se registra para historial</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">J</div>
+                            <div class="sec-card__title">Proveedores y abastecimiento</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>SKU puede tener múltiples proveedores; relación guarda costo y tiempo de entrega</li>
+                            <li>Órdenes de abastecimiento a proveedores para centros propios</li>
+                            <li>Ingreso de perecederos puede generar o asociar lotes</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">K</div>
+                            <div class="sec-card__title">Venta, detalle y partición en envíos</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Venta: cliente, estado, múltiples líneas de ítems (SKU, cantidad, precio, descuento, impuesto)</li>
+                            <li>Una venta puede dividirse en múltiples envíos por origen de despacho</li>
+                            <li>Un envío sale de un único centro; puede tener cantidades parciales</li>
+                            <li>Se registran ventanas de entrega y notas del cliente</li>
+                            <li>Ítem sin inventario queda "pendiente" (sustitución como extensión)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">L</div>
+                            <div class="sec-card__title">Operadores logísticos y trazabilidad</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Envío asignado a operador logístico con servicio (estándar/exprés/refrigerado)</li>
+                            <li>Guía/tracking externo si aplica</li>
+                            <li>Eventos logísticos: recibido, en ruta, intento fallido, entregado, devuelto</li>
+                            <li>Evento registra fecha/hora, ubicación y observación</li>
+                            <li>Intento fallido puede generar reprogramación con nueva ventana</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">M</div>
+                            <div class="sec-card__title">Pagos, conciliación y contracargos</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Venta puede tener múltiples pagos (parcialidad)</li>
+                            <li>Pago: medio, estado, referencia externa (pasarela/banco)</li>
+                            <li>Conciliación agrupa pagos por lote bancario o corte diario</li>
+                            <li>Contracargo (máx. uno por pago): estado, valor disputado</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">N</div>
+                            <div class="sec-card__title">Reembolsos</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Reembolso parcial o total; vinculado a venta</li>
+                            <li>Originado por postventa o por contracargo</li>
+                            <li>Atributos: medio, estado, fecha, motivo</li>
+                            <li>Suma de reembolsos efectivos ≤ neto pagado (integridad)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">O</div>
+                            <div class="sec-card__title">Postventa: retracto, garantía, error</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Solicitud contra venta: motivo (retracto/garantía/error), estados</li>
+                            <li>Ítems con motivos detallados; puede haber inspección con evidencia</li>
+                            <li>Resolución: reponer, reembolsar o rechazar</li>
+                            <li>Reposición puede generar nuevo envío</li>
+                            <li>Garantía: disposición del producto (reparación/destrucción/reciclaje)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">P</div>
+                            <div class="sec-card__title">PQR y SLA</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>PQR por cliente: tipo (queja/reclamo/consulta) y canal</li>
+                            <li>Asociable a venta, envío o ambos</li>
+                            <li>Asignado a agente; historial de estados</li>
+                            <li>SLA objetivo por tipo y prioridad; escalamiento a supervisor</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">Q</div>
+                            <div class="sec-card__title">Campañas, cupones y restricciones</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Campaña: objetivo, vigencia, estado</li>
+                            <li>Cupón: tipo (% / valor), vigencia, límites de uso por cliente y global</li>
+                            <li>Restricciones: familia, marca, cliente, monto mínimo, cantidad máx.</li>
+                            <li>Registro de cada intento de uso (éxito o rechazo con motivo)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">R</div>
+                            <div class="sec-card__title">Fidelización con puntos y niveles</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Cuenta de puntos por cliente: saldo y nivel (Bronce/Plata/Oro)</li>
+                            <li>Movimientos: acumular, redimir, ajustar</li>
+                            <li>Acumulación con vigencia por familia/campaña/canal</li>
+                            <li>Redención con restricciones (mínimo de puntos, productos excluidos)</li>
+                            <li>Cancelación/reembolso reviersa los puntos (movimientos compensatorios)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">S</div>
+                            <div class="sec-card__title">Suscripciones (recurrencia)</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Suscripción por cliente × SKU: periodicidad, cantidad, dirección y medio de pago preferidos</li>
+                            <li>Genera ventas periódicas; estado activa/pausada/cancelada</li>
+                            <li>Fallo de cobro → reintentos y posible suspensión automática</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">T</div>
+                            <div class="sec-card__title">Corporativo: aprobaciones y crédito</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Venta corporativa puede requerir aprobación multinivel antes de confirmarse</li>
+                            <li>Aprobador pertenece a empresa, con nivel de autorización</li>
+                            <li>Cada decisión registra fecha, comentario y resultado</li>
+                            <li>Empresa con cupo de crédito y condición de pago (ej. 30 días)</li>
+                            <li>Cupo insuficiente → venta queda en espera o se rechaza</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">U</div>
+                            <div class="sec-card__title">Auditoría y control de cambios</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Auditoría en: precio, inventario, estados, reglas de cupón, resoluciones</li>
+                            <li>Registro: actor, acción, fecha/hora, valores antes/después, canal</li>
+                            <li>Cambios automáticos del sistema auditados con actor "sistema"</li>
+                        </ul>
+                    </div>
+
+                    <div class="sec-card">
+                        <div class="sec-card__header">
+                            <div class="sec-card__letter">V</div>
+                            <div class="sec-card__title">Analítica mínima exigida</div>
+                        </div>
+                        <ul class="sec-card__rules">
+                            <li>Ventas por familia, marca, región, canal y período</li>
+                            <li>Cumplimiento logístico: tiempo de entrega, intentos fallidos, devoluciones</li>
+                            <li>Productos con mayor tasa de postventa (garantía/retracto)</li>
+                            <li>Efectividad de campañas: uso de cupón, ticket promedio, conversión</li>
+                            <li>Trazabilidad de perecederos por lote en caso de recall</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagrama embebido -->
+            <div class="diagram-wrap">
+                <div class="diagram-wrap__bar">
+                    <span class="diagram-wrap__label">
+                        <i class="fas fa-project-diagram" style="color:var(--color-primary);"></i>
+                        MER-E — El Bosque Shop (app.diagrams.net)
+                    </span>
+                    <a href="https://drive.google.com/file/d/15gaFQ7VNCBYZTSmHg5r9dzgMZmx_keEX/view?usp=sharing"
+                       target="_blank" class="btn btn--primary" style="font-size:0.85rem; padding:0.4rem 1rem;">
+                        <i class="fas fa-external-link-alt"></i> Abrir en Drive
+                    </a>
+                </div>
+                <iframe
+                    src="https://drive.google.com/file/d/15gaFQ7VNCBYZTSmHg5r9dzgMZmx_keEX/preview"
+                    width="100%" height="700"
+                    style="border:none; display:block; background:#f5f5f5;"
+                    allow="autoplay"
+                    title="MER-E El Bosque Shop">
+                </iframe>
+            </div>
+
+            <!-- Conceptos MER-E aplicados -->
+            <div class="card" style="margin-bottom:3rem;">
+                <h2 style="font-size:1.75rem; margin-bottom:1.25rem; color:var(--color-text);">
+                    <i class="fas fa-book-open" style="color:var(--color-primary);"></i>
+                    Conceptos MER-E aplicados
+                </h2>
+                <div class="grid grid--cols-2" style="gap:0.75rem;">
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Especialización / generalización de entidades (Cliente → Persona / Empresa)</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Herencia de atributos y relaciones entre superclase y subclases</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Restricciones de disjunción (d) y solapamiento (o)</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Entidades débiles identificadas por contexto (lote, línea de venta)</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Cardinalidades 1:1, 1:N y N:M con participación total/parcial</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Atributos multivaluados (contactos, imágenes, restricciones de SKU)</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Relaciones ternarias (traslado logístico, asignación lote-despacho)</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Atributos de relación (cantidad en composición de kit, precio congelado)</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Auto-relación jerárquica (familia padre–hijo, kit recursivo)</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Regla de no ciclos en composición de kits</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Modelado de vigencias, estados y auditoría como entidades propias</span></div>
+                    <div class="project-card__feature"><i class="fas fa-check project-card__feature-icon"></i><span>Diseño con app.diagrams.net (draw.io) y exportación PDF</span></div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align:center; margin-top:3rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                <a href="https://drive.google.com/file/d/15gaFQ7VNCBYZTSmHg5r9dzgMZmx_keEX/view?usp=sharing"
+                   target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-project-diagram"></i> Ver MER-E en Drive
+                </a>
+                <a href="modeling-evidence.html" class="btn btn--outline btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Modelado
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">&copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I</p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Taller SQL Avanzado + Transacciones ACID — Variante 3 | Miguel Molina BD1">
+    <meta name="theme-color" content="#e8002d">
+    <title>Taller SQL Avanzado + ACID | Miguel Molina</title>
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .sql-code {
+            background: #1e1e2e; color: #cdd6f4;
+            border-radius: 8px; padding: 1.25rem 1.5rem;
+            font-family: 'Courier New', monospace; font-size: 0.875rem;
+            line-height: 1.7; overflow-x: auto; margin: 0.75rem 0 1rem;
+            border-left: 4px solid #e8002d; white-space: pre;
+        }
+        .sql-keyword { color: #cba6f7; font-weight: bold; }
+        .sql-function { color: #89dceb; }
+        .sql-string  { color: #a6e3a1; }
+        .sql-comment { color: #6c7086; font-style: italic; }
+        .sql-number  { color: #fab387; }
+
+        .practice-section-title {
+            font-size: 1rem; font-weight: 600; color: #e8002d;
+            margin: 1.75rem 0 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .topics-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+        .topic-tag {
+            background: rgba(232,0,45,0.1); color: #e8002d;
+            border: 1px solid rgba(232,0,45,0.3);
+            padding: 0.25rem 0.75rem; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 500;
+        }
+        .key-points { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.5rem; margin-top: 1rem; }
+        .key-point { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.9rem; color: var(--color-text-light); }
+        .key-point i { color: #48bb78; margin-top: 2px; flex-shrink: 0; }
+
+        .stage-flow {
+            display: flex; gap: 0; flex-wrap: wrap; margin-bottom: 1.5rem;
+        }
+        .stage-item {
+            flex: 1; min-width: 110px; text-align: center;
+            padding: 0.75rem 0.5rem; font-size: 0.8rem;
+            border: 1px solid;
+        }
+        .stage-item:first-child { border-radius: 8px 0 0 8px; }
+        .stage-item:last-child  { border-radius: 0 8px 8px 0; border-left: none; }
+        .stage-item:not(:first-child):not(:last-child) { border-left: none; }
+        .stage-item strong { display: block; font-size: 1rem; margin-bottom: 0.2rem; }
+
+        .acid-block {
+            padding: 1rem 1.25rem; border-radius: 6px; margin-bottom: 0.75rem;
+        }
+        .acid-block strong { display: block; font-weight: 700; margin-bottom: 0.25rem; }
+        .acid-block p { color: var(--color-text-light); font-size: 0.875rem; line-height: 1.6; margin: 0; }
+
+        .table-card {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-top: 3px solid #e8002d;
+            border-radius: 8px; padding: 1rem 1.25rem;
+            font-size: 0.85rem;
+        }
+        .table-card strong { display: block; font-family: monospace; color: #e8002d; margin-bottom: 0.4rem; }
+        .table-card ul { margin: 0; padding-left: 1rem; color: var(--color-text-light); line-height: 1.7; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item"><a href="../index.html#home" class="navbar__link">Inicio</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#presentation" class="navbar__link">Presentación</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#about" class="navbar__link">Sobre Mí</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#skills" class="navbar__link">Habilidades</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#projects" class="navbar__link">Proyectos</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#evidence" class="navbar__link navbar__link--active">Evidencias</a></li>
+                    <li class="navbar__menu-item"><a href="../index.html#contact" class="navbar__link">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height: 50vh; padding: 8rem 0 4rem; background: linear-gradient(135deg, #1a0000 0%, #3d0000 50%, #1a0000 100%);">
+        <div class="hero__overlay" style="background: rgba(0,0,0,0.5);"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
+                <div class="hero__text">
+                    <a href="../index.html#evidence" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                    </a>
+                    <div style="display:inline-flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap; justify-content:center;">
+                        <span style="background:#e8002d; color:#fff; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; padding:0.25rem 0.75rem; border-radius:999px;">SQL Avanzado</span>
+                        <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; padding:0.25rem 0.75rem; border-radius:999px;">Variante 3 — Ajuste conservador</span>
+                    </div>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">
+                        Taller SQL Avanzado<br>
+                        <span style="color: #e8002d;">+ Transacciones ACID</span>
+                    </h1>
+                    <p class="hero__subtitle">Ajuste salarial transaccional con auditoría en Oracle DB</p>
+                    <div style="display:flex; gap:0.75rem; justify-content:center; margin-top:2rem; flex-wrap:wrap;">
+                        <span class="tag tag--primary">SAVEPOINT</span>
+                        <span class="tag tag--primary">COMMIT / ROLLBACK</span>
+                        <span class="tag tag--primary">DENSE_RANK()</span>
+                        <span class="tag tag--primary">Subconsultas escalares</span>
+                        <span class="tag tag--primary">ACID</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container" style="max-width: 900px;">
+
+            <!-- Descripción -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-info-circle" style="color: #e8002d;"></i>
+                    Descripción del taller
+                </h2>
+                <p style="font-size: 1.1rem; color: var(--color-text-light); line-height: 1.8; margin-bottom: 1rem;">
+                    Caso de negocio: una empresa aplica un <strong style="color:var(--color-text);">ajuste salarial extraordinario</strong>
+                    a empleados que cumplen reglas de negocio específicas según la variante asignada.
+                    El taller evalúa criterio técnico: no basta con SQL correcto, hay que analizar datos,
+                    decidir elegibles, prevalidar el impacto económico y ejecutar con control transaccional
+                    dejando evidencia de auditoría.
+                </p>
+                <p style="font-size: 1.1rem; color: var(--color-text-light); line-height: 1.8;">
+                    <strong style="color:var(--color-text);">Variante 3 — Ajuste conservador</strong>: los parámetros
+                    (departamento excluido, antigüedad mínima, umbrales de brecha, porcentajes de ajuste y tope máximo)
+                    se leen dinámicamente de la tabla <code>T1_VARIANTS</code>. No se usan valores fijos en el SQL.
+                </p>
+            </div>
+
+            <!-- Tablas -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-table" style="color: #e8002d;"></i>
+                    Tablas del entorno de taller
+                </h2>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:0.75rem;">
+                    <div class="table-card">
+                        <strong>T1_EMPLOYEES</strong>
+                        <ul><li>Tabla principal del caso</li><li>Salario, cargo, jefe, antigüedad</li><li>Aquí ocurre el UPDATE</li></ul>
+                    </div>
+                    <div class="table-card">
+                        <strong>T1_DEPARTMENTS</strong>
+                        <ul><li>Contexto del departamento</li><li>Detecta manager principal</li></ul>
+                    </div>
+                    <div class="table-card">
+                        <strong>T1_JOB_HISTORY</strong>
+                        <ul><li>Historial de cambios de cargo</li><li>Empleados con historial reciente pueden quedar excluidos</li></ul>
+                    </div>
+                    <div class="table-card">
+                        <strong>T1_VARIANTS</strong>
+                        <ul><li>Reglas de cada variante</li><li>Sin valores fijos en el SQL</li></ul>
+                    </div>
+                    <div class="table-card" style="border-top-color:#667eea;">
+                        <strong style="color:#667eea;">AUDIT_SALARY_ADJ_T1</strong>
+                        <ul><li>Rastro de la ejecución</li><li>Salario antes/después, regla, usuario, fecha y tag</li></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Las 5 etapas -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-route" style="color: #e8002d;"></i>
+                    Las 5 etapas del taller
+                </h2>
+                <div class="stage-flow">
+                    <div class="stage-item" style="background:rgba(232,0,45,0.08); border-color:rgba(232,0,45,0.3);">
+                        <strong style="color:#e8002d;">1</strong>Diagnóstico
+                    </div>
+                    <div class="stage-item" style="background:rgba(102,126,234,0.08); border-color:rgba(102,126,234,0.3);">
+                        <strong style="color:#667eea;">2</strong>Decisión
+                    </div>
+                    <div class="stage-item" style="background:rgba(246,173,85,0.12); border-color:rgba(246,173,85,0.4);">
+                        <strong style="color:#d97706;">3</strong>Prevalidación
+                    </div>
+                    <div class="stage-item" style="background:rgba(72,187,120,0.1); border-color:rgba(72,187,120,0.4);">
+                        <strong style="color:#38a169;">4</strong>Ejecución
+                    </div>
+                    <div class="stage-item" style="background:rgba(118,75,162,0.08); border-color:rgba(118,75,162,0.3);">
+                        <strong style="color:#764ba2;">5</strong>Validación
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.9rem; color:var(--color-text-light);">
+                    <div style="display:grid; grid-template-columns:auto 1fr auto; gap:0.75rem; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--color-border);">
+                        <strong style="color:#e8002d; min-width:24px;">1</strong>
+                        <span><strong style="color:var(--color-text);">Diagnóstico</strong> — estado de cada empleado antes del cambio</span>
+                        <code style="font-size:0.78rem;">promedio, máximo, conteo, ranking, historial</code>
+                    </div>
+                    <div style="display:grid; grid-template-columns:auto 1fr auto; gap:0.75rem; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--color-border);">
+                        <strong style="color:#667eea; min-width:24px;">2</strong>
+                        <span><strong style="color:var(--color-text);">Decisión</strong> — quién sí y quién no aplica</span>
+                        <code style="font-size:0.78rem;">eligibility_flag, exclusion_reason, raise_pct</code>
+                    </div>
+                    <div style="display:grid; grid-template-columns:auto 1fr auto; gap:0.75rem; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--color-border);">
+                        <strong style="color:#d97706; min-width:24px;">3</strong>
+                        <span><strong style="color:var(--color-text);">Prevalidación</strong> — impacto económico proyectado</span>
+                        <code style="font-size:0.78rem;">masa_antes, masa_despues, incremento</code>
+                    </div>
+                    <div style="display:grid; grid-template-columns:auto 1fr auto; gap:0.75rem; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--color-border);">
+                        <strong style="color:#38a169; min-width:24px;">4</strong>
+                        <span><strong style="color:var(--color-text);">Ejecución</strong> — transacción controlada</span>
+                        <code style="font-size:0.78rem;">SAVEPOINT, INSERT auditoría, UPDATE, COMMIT</code>
+                    </div>
+                    <div style="display:grid; grid-template-columns:auto 1fr auto; gap:0.75rem; align-items:center; padding:0.5rem 0;">
+                        <strong style="color:#764ba2; min-width:24px;">5</strong>
+                        <span><strong style="color:var(--color-text);">Validación</strong> — resultado correcto y auditado</span>
+                        <code style="font-size:0.78rem;">impactados, topes, auditoría, consistencia</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 1: Diagnóstico -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                    <span style="color:#e8002d;">Etapa 1</span> — Consulta diagnóstica
+                </h2>
+                <div class="topics-list">
+                    <span class="topic-tag">DENSE_RANK() OVER</span>
+                    <span class="topic-tag">Subconsultas escalares</span>
+                    <span class="topic-tag">LEFT JOIN como EXISTS</span>
+                    <span class="topic-tag">MONTHS_BETWEEN</span>
+                </div>
+                <p style="color:var(--color-text-light); font-size:0.9rem; line-height:1.7; margin-bottom:0.75rem;">
+                    Retrato completo de cada empleado antes del cambio: promedio/máximo/conteo del departamento
+                    via subconsultas escalares correlacionadas, historial reciente via LEFT JOIN y ranking salarial
+                    con función de ventana.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    e.employee_id, e.first_name, e.salary,
+    <span class="sql-comment">-- Promedio departamental: subconsulta escalar correlacionada</span>
+    (<span class="sql-keyword">SELECT</span> <span class="sql-function">ROUND</span>(<span class="sql-function">AVG</span>(salary), <span class="sql-number">2</span>)
+       <span class="sql-keyword">FROM</span>   t1_employees
+      <span class="sql-keyword">WHERE</span>  department_id = e.department_id)   <span class="sql-keyword">AS</span> dept_avg_salary,
+    <span class="sql-comment">-- Brecha % hacia el promedio</span>
+    <span class="sql-function">ROUND</span>(
+        (dept_avg - e.salary) / <span class="sql-function">NULLIF</span>(dept_avg, <span class="sql-number">0</span>) * <span class="sql-number">100</span>
+    , <span class="sql-number">2</span>)                                        <span class="sql-keyword">AS</span> pct_gap_to_avg,
+    <span class="sql-comment">-- Historial reciente: LEFT JOIN reemplaza a EXISTS</span>
+    <span class="sql-keyword">CASE</span> <span class="sql-keyword">WHEN</span> jh.employee_id <span class="sql-keyword">IS NOT NULL THEN</span> <span class="sql-string">'SI'</span> <span class="sql-keyword">ELSE</span> <span class="sql-string">'NO'</span> <span class="sql-keyword">END</span>
+                                                AS recent_job_history_flag,
+    <span class="sql-comment">-- Ranking salarial dentro del departamento</span>
+    <span class="sql-function">DENSE_RANK</span>() <span class="sql-keyword">OVER</span> (
+        <span class="sql-keyword">PARTITION BY</span> e.department_id
+        <span class="sql-keyword">ORDER BY</span>     e.salary <span class="sql-keyword">DESC</span>
+    )                                           <span class="sql-keyword">AS</span> salary_rank_in_dept
+<span class="sql-keyword">FROM</span>   t1_employees e
+<span class="sql-keyword">LEFT JOIN</span> t1_departments d  <span class="sql-keyword">ON</span> d.department_id = e.department_id
+<span class="sql-keyword">LEFT JOIN</span> (
+    <span class="sql-keyword">SELECT DISTINCT</span> employee_id <span class="sql-keyword">FROM</span> t1_job_history
+    <span class="sql-keyword">WHERE</span> start_date >= <span class="sql-function">ADD_MONTHS</span>(SYSDATE,
+        -(<span class="sql-keyword">SELECT</span> recent_job_history_months <span class="sql-keyword">FROM</span> t1_variants
+           <span class="sql-keyword">WHERE</span> variant_id = &amp;p_variant_id))
+) jh <span class="sql-keyword">ON</span> jh.employee_id = e.employee_id
+<span class="sql-keyword">ORDER BY</span> e.department_id <span class="sql-keyword">NULLS LAST</span>, salary_rank_in_dept;</div>
+            </div>
+
+            <!-- Etapa 2: Decisión -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                    <span style="color:#667eea;">Etapa 2</span> — Decisión de elegibles
+                </h2>
+                <div class="topics-list">
+                    <span class="topic-tag" style="background:rgba(102,126,234,0.1); color:#667eea; border-color:rgba(102,126,234,0.3);">CASE WHEN encadenado</span>
+                    <span class="topic-tag" style="background:rgba(102,126,234,0.1); color:#667eea; border-color:rgba(102,126,234,0.3);">T1_VARIANTS dinámico</span>
+                </div>
+                <p style="color:var(--color-text-light); font-size:0.9rem; line-height:1.7; margin-bottom:0.75rem;">
+                    Evalúa en orden de prioridad cada regla de exclusión. Los parámetros se leen de
+                    <code>T1_VARIANTS</code> — nunca se hard-codean.
+                </p>
+                <div class="sql-code"><span class="sql-comment">-- Fragmento del CASE de elegibilidad</span>
+<span class="sql-keyword">CASE</span>
+    <span class="sql-keyword">WHEN</span> e.department_id <span class="sql-keyword">IS NULL</span>                          <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>
+    <span class="sql-keyword">WHEN</span> e.department_id = (<span class="sql-keyword">SELECT</span> excluded_department_id
+                              <span class="sql-keyword">FROM</span> t1_variants <span class="sql-keyword">WHERE</span> variant_id = &amp;p_variant_id)
+                                                        <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>  <span class="sql-comment">-- depto excluido</span>
+    <span class="sql-keyword">WHEN</span> ds.dept_employee_count &lt; <span class="sql-number">3</span>                  <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>  <span class="sql-comment">-- depto pequeño</span>
+    <span class="sql-keyword">WHEN</span> <span class="sql-function">TRUNC</span>(<span class="sql-function">MONTHS_BETWEEN</span>(SYSDATE, e.hire_date)/<span class="sql-number">12</span>)
+         &lt; (<span class="sql-keyword">SELECT</span> min_years_service <span class="sql-keyword">FROM</span> t1_variants
+             <span class="sql-keyword">WHERE</span> variant_id = &amp;p_variant_id)          <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>  <span class="sql-comment">-- poca antigüedad</span>
+    <span class="sql-keyword">WHEN</span> jh_reciente.employee_id <span class="sql-keyword">IS NOT NULL</span>          <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>  <span class="sql-comment">-- historial reciente</span>
+    <span class="sql-keyword">WHEN</span> mgr.employee_id <span class="sql-keyword">IS NOT NULL</span> <span class="sql-keyword">OR</span> e.job_id <span class="sql-keyword">LIKE</span> <span class="sql-string">'AD_%'</span>
+                                                        <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>  <span class="sql-comment">-- manager/directivo</span>
+    <span class="sql-keyword">WHEN</span> pct_gap &lt;= <span class="sql-number">0</span>                                <span class="sql-keyword">THEN</span> <span class="sql-string">'NO_ELEGIBLE'</span>  <span class="sql-comment">-- ya supera promedio</span>
+    <span class="sql-keyword">ELSE</span> <span class="sql-string">'ELEGIBLE'</span>
+<span class="sql-keyword">END</span>  <span class="sql-keyword">AS</span> eligibility_flag</div>
+            </div>
+
+            <!-- Etapa 3: Prevalidación -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                    <span style="color:#d97706;">Etapa 3</span> — Prevalidación económica
+                </h2>
+                <div class="topics-list">
+                    <span class="topic-tag" style="background:rgba(246,173,85,0.12); color:#d97706; border-color:rgba(246,173,85,0.4);">Resumen económico</span>
+                    <span class="topic-tag" style="background:rgba(246,173,85,0.12); color:#d97706; border-color:rgba(246,173,85,0.4);">Control de topes</span>
+                </div>
+                <p style="color:var(--color-text-light); font-size:0.9rem; line-height:1.7; margin-bottom:0.75rem;">
+                    Calcula el impacto antes de modificar datos: masa salarial antes/después, total de empleados
+                    elegibles e incremento total. También verifica que ningún salario proyectado supere el tope
+                    máximo permitido por la variante.
+                </p>
+                <div class="sql-code"><span class="sql-keyword">SELECT</span>
+    <span class="sql-function">COUNT</span>(*)                                    <span class="sql-keyword">AS</span> total_eligible_employees,
+    <span class="sql-function">ROUND</span>(<span class="sql-function">SUM</span>(e.salary), <span class="sql-number">2</span>)                   <span class="sql-keyword">AS</span> total_salary_before,
+    <span class="sql-function">ROUND</span>(<span class="sql-function">SUM</span>(e.salary * (<span class="sql-number">1</span> + ajuste_pct/<span class="sql-number">100</span>)), <span class="sql-number">2</span>) <span class="sql-keyword">AS</span> total_salary_after,
+    <span class="sql-function">ROUND</span>(<span class="sql-function">SUM</span>(e.salary * ajuste_pct/<span class="sql-number">100</span>), <span class="sql-number">2</span>)      <span class="sql-keyword">AS</span> total_increment
+<span class="sql-keyword">FROM</span>   t1_employees e
+<span class="sql-keyword">JOIN</span>   ... <span class="sql-comment">-- filtros de elegibilidad (mismos que etapa 2)</span></div>
+            </div>
+
+            <!-- Etapa 4: Ejecución -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                    <span style="color:#38a169;">Etapa 4</span> — Ejecución transaccional
+                </h2>
+                <div class="topics-list">
+                    <span class="topic-tag" style="background:rgba(72,187,120,0.1); color:#38a169; border-color:rgba(72,187,120,0.4);">SAVEPOINT</span>
+                    <span class="topic-tag" style="background:rgba(72,187,120,0.1); color:#38a169; border-color:rgba(72,187,120,0.4);">INSERT + SELECT</span>
+                    <span class="topic-tag" style="background:rgba(72,187,120,0.1); color:#38a169; border-color:rgba(72,187,120,0.4);">UPDATE subconsulta</span>
+                    <span class="topic-tag" style="background:rgba(72,187,120,0.1); color:#38a169; border-color:rgba(72,187,120,0.4);">COMMIT / ROLLBACK</span>
+                </div>
+                <p style="color:var(--color-text-light); font-size:0.9rem; line-height:1.7; margin-bottom:0.75rem;">
+                    El INSERT de auditoría captura los salarios <em>antes</em> del UPDATE. La validación intermedia
+                    confirma que ningún salario supera el tope — si todo está OK se ejecuta COMMIT; si no, ROLLBACK TO SAVEPOINT.
+                </p>
+                <div class="sql-code"><span class="sql-comment">-- 1. Punto de restauración</span>
+SAVEPOINT sv_before_adjustment;
+
+<span class="sql-comment">-- 2. Auditoría ANTES del UPDATE</span>
+<span class="sql-keyword">INSERT INTO</span> audit_salary_adjustments_t1 (
+    audit_id, execution_tag, variant_id,
+    employee_id, salary_before, salary_after, rule_applied, executed_by, executed_at
+)
+<span class="sql-keyword">SELECT</span>
+    audit_salary_adj_t1_seq.NEXTVAL,
+    <span class="sql-string">'P03_FINAL'</span>, &amp;p_variant_id,
+    e.employee_id,
+    e.salary,                                          <span class="sql-comment">-- salary_before</span>
+    <span class="sql-function">ROUND</span>(e.salary * (<span class="sql-number">1</span> + regla_pct/<span class="sql-number">100</span>), <span class="sql-number">2</span>),           <span class="sql-comment">-- salary_after</span>
+    regla_aplicada, USER, SYSDATE
+<span class="sql-keyword">FROM</span>   t1_employees e <span class="sql-keyword">JOIN</span> ... <span class="sql-comment">-- filtros elegibles</span>;
+
+<span class="sql-comment">-- 3. UPDATE de salarios</span>
+<span class="sql-keyword">UPDATE</span> t1_employees e
+<span class="sql-keyword">SET</span>    e.salary = <span class="sql-function">ROUND</span>(e.salary * (
+    <span class="sql-keyword">SELECT</span> <span class="sql-number">1</span> + <span class="sql-keyword">CASE</span>
+        <span class="sql-keyword">WHEN</span> brecha >= v.gap_high_threshold_pct <span class="sql-keyword">THEN</span> v.raise_high_pct
+        <span class="sql-keyword">WHEN</span> brecha >= v.gap_mid_threshold_pct  <span class="sql-keyword">THEN</span> v.raise_mid_pct
+        <span class="sql-keyword">ELSE</span>                                         v.raise_low_pct
+    <span class="sql-keyword">END</span> / <span class="sql-number">100</span>
+    <span class="sql-keyword">FROM</span> t1_variants v, ... <span class="sql-keyword">WHERE</span> v.variant_id = &amp;p_variant_id
+), <span class="sql-number">2</span>)
+<span class="sql-keyword">WHERE</span>  e.employee_id <span class="sql-keyword">IN</span> (<span class="sql-keyword">SELECT</span> ... <span class="sql-comment">-- subquery elegibles</span>);
+
+<span class="sql-comment">-- 4. Validación intermedia → si todos DENTRO_DEL_TOPE → COMMIT</span>
+COMMIT;
+<span class="sql-comment">-- ROLLBACK TO SAVEPOINT sv_before_adjustment;  ← si hay SUPERA_EL_TOPE</span></div>
+            </div>
+
+            <!-- ACID -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-shield-alt" style="color: #e8002d;"></i>
+                    Propiedades ACID — Justificación técnica
+                </h2>
+                <div class="acid-block" style="background:rgba(232,0,45,0.06); border-left:4px solid #e8002d;">
+                    <strong style="color:#e8002d;">Atomicidad</strong>
+                    <p>El INSERT de auditoría y el UPDATE son una unidad cubierta por el SAVEPOINT. Si la validación detecta un tope superado, el ROLLBACK TO SAVEPOINT revierte ambas operaciones al mismo tiempo — nunca puede quedar una sin la otra.</p>
+                </div>
+                <div class="acid-block" style="background:rgba(102,126,234,0.06); border-left:4px solid #667eea;">
+                    <strong style="color:#667eea;">Consistencia</strong>
+                    <p>Antes del COMMIT se verifica que ningún salario actualizado supere el 118% del promedio original del departamento. El promedio se reconstruye combinando <code>salary_before</code> de la auditoría con los salarios no modificados.</p>
+                </div>
+                <div class="acid-block" style="background:rgba(72,187,120,0.06); border-left:4px solid #48bb78;">
+                    <strong style="color:#38a169;">Aislamiento</strong>
+                    <p>Oracle garantiza <em>read consistency</em>: otras sesiones ven los salarios originales hasta el COMMIT. El bloqueo a nivel de fila impide que dos sesiones actualicen el mismo empleado simultáneamente.</p>
+                </div>
+                <div class="acid-block" style="background:rgba(118,75,162,0.06); border-left:4px solid #764ba2;">
+                    <strong style="color:#764ba2;">Durabilidad</strong>
+                    <p>El COMMIT escribe primero en el redo log antes de confirmar. Si el servidor falla después del COMMIT, Oracle recupera los cambios al reiniciar mediante el mecanismo de media recovery.</p>
+                </div>
+            </div>
+
+            <!-- Resumen -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-chart-bar" style="color: #e8002d;"></i>
+                    Resumen del taller
+                </h2>
+                <div class="stats-grid">
+                    <div class="stats-grid__item">
+                        <i class="fas fa-tasks stats-grid__icon" style="color:#e8002d;"></i>
+                        <strong class="stats-grid__value">5</strong>
+                        <span class="stats-grid__label">Etapas completadas</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-table stats-grid__icon" style="color:#e8002d;"></i>
+                        <strong class="stats-grid__value">5</strong>
+                        <span class="stats-grid__label">Tablas del entorno</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-code stats-grid__icon" style="color:#e8002d;"></i>
+                        <strong class="stats-grid__value">897</strong>
+                        <span class="stats-grid__label">Líneas de SQL</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-shield-alt stats-grid__icon" style="color:#e8002d;"></i>
+                        <strong class="stats-grid__value">ACID</strong>
+                        <span class="stats-grid__label">Propiedades garantizadas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conceptos -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-book-open" style="color: #e8002d;"></i>
+                    Conceptos aplicados
+                </h2>
+                <div class="key-points">
+                    <div class="key-point"><i class="fas fa-check"></i> SAVEPOINT y ROLLBACK TO SAVEPOINT</div>
+                    <div class="key-point"><i class="fas fa-check"></i> DENSE_RANK() OVER (PARTITION BY … ORDER BY …)</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Subconsultas escalares correlacionadas</div>
+                    <div class="key-point"><i class="fas fa-check"></i> LEFT JOIN como alternativa a EXISTS</div>
+                    <div class="key-point"><i class="fas fa-check"></i> INSERT INTO … SELECT para auditoría</div>
+                    <div class="key-point"><i class="fas fa-check"></i> UPDATE con subconsulta de elegibilidad</div>
+                    <div class="key-point"><i class="fas fa-check"></i> CASE WHEN multicondición con T1_VARIANTS</div>
+                    <div class="key-point"><i class="fas fa-check"></i> MONTHS_BETWEEN / TRUNC para antigüedad</div>
+                    <div class="key-point"><i class="fas fa-check"></i> NULLIF para evitar división por cero</div>
+                    <div class="key-point"><i class="fas fa-check"></i> Propiedades ACID documentadas y justificadas</div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="../index.html#evidence" class="btn btn--outline btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Evidencias
+                </a>
+                <a href="sql-evidence.html" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-database"></i> Ver Prácticas SQL Oracle HR
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Proyecto Final BD1 — Sistema de Estadísticas de Fórmula 1">
+    <meta name="theme-color" content="#e8002d">
+    <title>Proyecto Final F1 | Miguel Molina</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .f1-accent { color: #e8002d; }
+        .f1-badge {
+            display: inline-block;
+            background: #e8002d;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+        .arch-box {
+            background: #1a1a2e;
+            color: #e2e2e2;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+        .arch-box .highlight { color: #e8002d; font-weight: 700; }
+        .arch-box .dim { color: #888; }
+        .table-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        .table-item {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-left: 4px solid #e8002d;
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-family: 'Courier New', monospace;
+            color: var(--color-text);
+        }
+        .phase-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .phase-item {
+            display: flex;
+            gap: 1.5rem;
+            position: relative;
+        }
+        .phase-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            width: 2px;
+            height: calc(100% - 8px);
+            background: var(--color-border);
+        }
+        .phase-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e8002d;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+        .phase-content {
+            padding: 0.5rem 0 2rem 0;
+            flex: 1;
+        }
+        .phase-content h4 {
+            font-size: 1.1rem;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+        .phase-content p {
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        .tech-item {
+            text-align: center;
+            padding: 1.25rem 1rem;
+            background: var(--color-background-alt);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+        }
+        .tech-item i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .tech-item strong {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+        .tech-item span {
+            font-size: 0.78rem;
+            color: var(--color-text-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar__container">
+                <a href="../index.html" class="navbar__logo">Miguel Molina</a>
+
+                <button class="navbar__toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                    <span class="navbar__toggle-bar"></span>
+                </button>
+
+                <ul class="navbar__menu" id="navMenu">
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#home" class="navbar__link">Inicio</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#presentation" class="navbar__link">Presentación</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#about" class="navbar__link">Sobre Mí</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#skills" class="navbar__link">Habilidades</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#projects" class="navbar__link navbar__link--active">Proyectos</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#evidence" class="navbar__link">Evidencias</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="../index.html#contact" class="navbar__link">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="hero" style="min-height: 50vh; padding: 8rem 0 4rem; background: linear-gradient(135deg, #1a0000 0%, #3d0000 50%, #1a0000 100%);">
+        <div class="hero__overlay" style="background: rgba(0,0,0,0.5);"></div>
+        <div class="container">
+            <div class="hero__content" style="grid-template-columns: 1fr; text-align: center;">
+                <div class="hero__text">
+                    <a href="../index.html#projects" class="btn btn--secondary" style="margin-bottom: 2rem;">
+                        <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                    </a>
+                    <div class="f1-badge">Proyecto Final — BD1</div>
+                    <h1 class="hero__title" style="margin-bottom: 1rem;">
+                        Sistema de Estadísticas<br>
+                        <span style="color: #e8002d;">Fórmula 1</span>
+                    </h1>
+                    <p class="hero__subtitle">Base de datos + API REST + Frontend interactivo</p>
+                    <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                        <span class="tag tag--primary">MySQL 8.0</span>
+                        <span class="tag tag--primary">Spring Boot 3</span>
+                        <span class="tag tag--primary">React 18</span>
+                        <span class="tag tag--primary">TypeScript</span>
+                        <span class="tag tag--primary">VirtualBox</span>
+                        <span class="tag tag--primary">Full-Stack</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="section">
+        <div class="container" style="max-width: 960px;">
+
+            <!-- Descripción -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--color-text);">
+                    <i class="fas fa-info-circle" style="color: #e8002d;"></i>
+                    Descripción del Proyecto
+                </h2>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8; margin-bottom: 1rem;">
+                    Sistema de información que modela el funcionamiento de la Fórmula 1 — pilotos, equipos, circuitos,
+                    temporadas, carreras, sesiones y reglamentos — y permite obtener resultados y estadísticas de forma
+                    consistente a partir de ese modelo.
+                </p>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8; margin-bottom: 1rem;">
+                    El dominio cubre: catálogo de pilotos, equipos, circuitos y temporadas; registro de Grandes Premios
+                    (GPs, sprints, clasificaciones); resultados por sesión (posición, vueltas, tiempos, abandonos);
+                    estadísticas derivadas (podios, victorias, poles, vueltas rápidas); campeonatos y clasificaciones
+                    (standings de pilotos y constructores, evolución carrera a carrera); y trazabilidad analítica
+                    (rendimiento por circuito, head-to-head, tendencias por temporada).
+                </p>
+                <p style="font-size: 1.125rem; color: var(--color-text-light); line-height: 1.8;">
+                    El proyecto fue desarrollado como trabajo final de Bases de Datos I en la
+                    <strong style="color: var(--color-text);">Universidad El Bosque</strong>, aplicando el ciclo
+                    completo de diseño: desde el modelo MERE hasta la implementación full-stack con una VM dedicada.
+                </p>
+            </div>
+
+            <!-- Stats -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-chart-bar" style="color: #e8002d;"></i>
+                    Estadísticas del Proyecto
+                </h2>
+                <div class="stats-grid">
+                    <div class="stats-grid__item">
+                        <i class="fas fa-table stats-grid__icon" style="color: #e8002d;"></i>
+                        <strong class="stats-grid__value">17</strong>
+                        <span class="stats-grid__label">Tablas MySQL</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-code stats-grid__icon" style="color: #e8002d;"></i>
+                        <strong class="stats-grid__value">5,612</strong>
+                        <span class="stats-grid__label">Líneas de SQL</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-calendar stats-grid__icon" style="color: #e8002d;"></i>
+                        <strong class="stats-grid__value">4</strong>
+                        <span class="stats-grid__label">Temporadas cargadas</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-link stats-grid__icon" style="color: #e8002d;"></i>
+                        <strong class="stats-grid__value">15+</strong>
+                        <span class="stats-grid__label">Claves foráneas</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-project-diagram stats-grid__icon" style="color: #e8002d;"></i>
+                        <strong class="stats-grid__value">8</strong>
+                        <span class="stats-grid__label">Fases de desarrollo</span>
+                    </div>
+                    <div class="stats-grid__item">
+                        <i class="fas fa-layer-group stats-grid__icon" style="color: #e8002d;"></i>
+                        <strong class="stats-grid__value">3</strong>
+                        <span class="stats-grid__label">Capas de arquitectura</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arquitectura -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-server" style="color: #e8002d;"></i>
+                    Arquitectura del Sistema
+                </h2>
+                <div class="arch-box">
+<pre>
+┌─────────────────────────────────────────┐     ┌──────────────────────────┐
+│          <span class="highlight">Host (Mac / PC)</span>                  │     │   <span class="highlight">VM Ubuntu — VirtualBox</span>  │
+│                                         │     │                          │
+│  ┌──────────────┐   ┌────────────────┐  │     │  ┌────────────────────┐  │
+│  │  <span class="highlight">React 18</span>    │   │  <span class="highlight">Spring Boot 3</span> │──┼─────┼─▶│  <span class="highlight">MySQL 8.0</span>          │  │
+│  │  TypeScript  │──▶│  Java + JPA    │  │     │  │  DB: formula1      │  │
+│  │  puerto 3001 │   │  puerto 8080   │  │     │  │  17 tablas         │  │
+│  └──────────────┘   └────────────────┘  │     │  └────────────────────┘  │
+│                                         │     │                          │
+│  <span class="dim">Material UI v7 + Recharts</span>               │     │  <span class="dim">utf8mb4_unicode_ci</span>        │
+└─────────────────────────────────────────┘     └──────────────────────────┘
+</pre>
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="padding: 1.25rem; background: var(--color-background-alt); border-left: 4px solid #e8002d; border-radius: var(--radius-md);">
+                        <strong style="color: var(--color-text);">Frontend — React 18 + TypeScript</strong>
+                        <p style="color: var(--color-text-light); margin: 0.5rem 0 0; font-size: 0.9rem; line-height: 1.6;">
+                            Aplicación SPA con Vite, Material UI v7, Recharts para gráficas de estadísticas,
+                            React Router para navegación y Context API para estado global.
+                        </p>
+                    </div>
+                    <div style="padding: 1.25rem; background: var(--color-background-alt); border-left: 4px solid #667eea; border-radius: var(--radius-md);">
+                        <strong style="color: var(--color-text);">Backend — Spring Boot 3 + Java</strong>
+                        <p style="color: var(--color-text-light); margin: 0.5rem 0 0; font-size: 0.9rem; line-height: 1.6;">
+                            API REST con Spring Data JPA / Hibernate, documentación automática con SpringDoc OpenAPI
+                            (Swagger UI) y arquitectura en capas (Controller → Service → Repository).
+                        </p>
+                    </div>
+                    <div style="padding: 1.25rem; background: var(--color-background-alt); border-left: 4px solid #48bb78; border-radius: var(--radius-md);">
+                        <strong style="color: var(--color-text);">Base de Datos — MySQL 8.0 en VirtualBox</strong>
+                        <p style="color: var(--color-text-light); margin: 0.5rem 0 0; font-size: 0.9rem; line-height: 1.6;">
+                            Instancia MySQL corriendo en VM Ubuntu (VirtualBox). Diseño con CHECK constraints,
+                            claves foráneas, índices únicos y datos reales de temporadas 2023–2026.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stack Tecnológico -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-tools" style="color: #e8002d;"></i>
+                    Stack Tecnológico
+                </h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <i class="fab fa-react" style="color: #61dafb;"></i>
+                        <strong>React 18</strong>
+                        <span>Frontend SPA</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-code" style="color: #3178c6;"></i>
+                        <strong>TypeScript</strong>
+                        <span>Tipado estático</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-java" style="color: #f89820;"></i>
+                        <strong>Spring Boot 3</strong>
+                        <span>API REST</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database" style="color: #4479a1;"></i>
+                        <strong>MySQL 8.0</strong>
+                        <span>Base de datos</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-box" style="color: #183a61;"></i>
+                        <strong>VirtualBox</strong>
+                        <span>VM Ubuntu</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-bolt" style="color: #646cff;"></i>
+                        <strong>Vite</strong>
+                        <span>Build tool</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-palette" style="color: #0081cb;"></i>
+                        <strong>Material UI v7</strong>
+                        <span>Componentes UI</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-chart-line" style="color: #22b5bf;"></i>
+                        <strong>Recharts</strong>
+                        <span>Gráficas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tablas de la base de datos -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                    <i class="fas fa-table" style="color: #e8002d;"></i>
+                    Modelo de Base de Datos — 17 Tablas
+                </h2>
+                <p style="color: var(--color-text-light); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    Diseño normalizado en MySQL 8.0 con constraints de integridad referencial y validaciones CHECK.
+                </p>
+                <div class="table-list">
+                    <div class="table-item"><i class="fas fa-circle" style="color: #e8002d; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>rol</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #e8002d; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>persona</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #e8002d; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>usuario</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #667eea; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>piloto</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #667eea; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>escuderia</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #667eea; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>contrato</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #48bb78; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>temporada</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #48bb78; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>regla_puntuacion</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #48bb78; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>circuito</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #48bb78; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>variante_circuito</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #48bb78; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>gran_premio</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #f6ad55; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>sesion</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #f6ad55; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>resultado_carrera</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #f6ad55; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>resultado_clasificacion</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #f6ad55; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>puntos_resultado</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #f6ad55; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>penalizacion</div>
+                    <div class="table-item"><i class="fas fa-circle" style="color: #f6ad55; font-size: 0.5rem; vertical-align: middle; margin-right: 0.5rem;"></i>clasificacion_campeonato</div>
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--color-text-light);">
+                    <span><span style="color: #e8002d;">&#9679;</span> Usuarios / Autenticación</span>
+                    <span><span style="color: #667eea;">&#9679;</span> Pilotos y Equipos</span>
+                    <span><span style="color: #48bb78;">&#9679;</span> Circuitos y Temporadas</span>
+                    <span><span style="color: #f6ad55;">&#9679;</span> Resultados y Estadísticas</span>
+                </div>
+            </div>
+
+            <!-- Scripts SQL -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-file-code" style="color: #e8002d;"></i>
+                    Scripts SQL — 5,612 Líneas
+                </h2>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">DDL.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Estructura de la base de datos — 17 tablas con constraints</span>
+                        </div>
+                        <span style="font-weight: 700; color: #e8002d; font-size: 0.9rem;">387 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">DML.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Procedimientos y manipulación de datos</span>
+                        </div>
+                        <span style="font-weight: 700; color: #e8002d; font-size: 0.9rem;">396 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">datos_iniciales.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Datos de catálogos base (circuitos, equipos, pilotos)</span>
+                        </div>
+                        <span style="font-weight: 700; color: #e8002d; font-size: 0.9rem;">194 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">pilotos_historicos.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Registro de pilotos históricos de la Fórmula 1</span>
+                        </div>
+                        <span style="font-weight: 700; color: #e8002d; font-size: 0.9rem;">74 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">temporada_2023.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Datos completos de la temporada 2023</span>
+                        </div>
+                        <span style="font-weight: 700; color: #667eea; font-size: 0.9rem;">1,072 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">temporada_2024.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Datos completos de la temporada 2024</span>
+                        </div>
+                        <span style="font-weight: 700; color: #667eea; font-size: 0.9rem;">357 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">temporada_2025.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Datos completos de la temporada 2025</span>
+                        </div>
+                        <span style="font-weight: 700; color: #667eea; font-size: 0.9rem;">356 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: var(--color-background-alt); border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                        <div>
+                            <strong style="font-family: monospace; color: var(--color-text);">temporada_2026.sql</strong>
+                            <span style="color: var(--color-text-light); font-size: 0.85rem; display: block;">Datos de la temporada 2026 (en curso)</span>
+                        </div>
+                        <span style="font-weight: 700; color: #667eea; font-size: 0.9rem;">245 líneas</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.875rem 1.25rem; background: #1a1a2e; border-radius: var(--radius-md); border: 1px solid #333;">
+                        <div>
+                            <strong style="font-family: monospace; color: #fff;">formula1_completo.sql</strong>
+                            <span style="color: #aaa; font-size: 0.85rem; display: block;">Script unificado — DDL + todos los datos</span>
+                        </div>
+                        <span style="font-weight: 700; color: #e8002d; font-size: 1rem;">2,531 líneas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fases del proyecto -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--color-text);">
+                    <i class="fas fa-tasks" style="color: #e8002d;"></i>
+                    Fases de Desarrollo
+                </h2>
+                <div class="phase-timeline">
+                    <div class="phase-item">
+                        <div class="phase-dot">1</div>
+                        <div class="phase-content">
+                            <h4>Planteamiento del Problema</h4>
+                            <p>Definición del dominio del sistema, alcance del proyecto, objetivos y requerimientos funcionales del sistema de estadísticas F1.</p>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-dot">2</div>
+                        <div class="phase-content">
+                            <h4>Identificación de Entidades</h4>
+                            <p>Análisis del dominio para identificar las entidades principales: pilotos, escuderías, circuitos, temporadas, grandes premios, sesiones y resultados.</p>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-dot">3</div>
+                        <div class="phase-content">
+                            <h4>Diagrama MERE</h4>
+                            <p>Construcción del Modelo Entidad-Relación Extendido (MERE_F1.drawio / MERE_F1.pdf) con entidades, atributos, relaciones y cardinalidades completas.</p>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-dot">4</div>
+                        <div class="phase-content">
+                            <h4>Modelo Relacional</h4>
+                            <p>Conversión del MERE al modelo relacional: definición de tablas, claves primarias, claves foráneas y restricciones de integridad.</p>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-dot">5</div>
+                        <div class="phase-content">
+                            <h4>Normalización</h4>
+                            <p>Aplicación de las formas normales (1FN, 2FN, 3FN) para eliminar redundancias y garantizar la integridad de los datos.</p>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-dot">6</div>
+                        <div class="phase-content">
+                            <h4>Script SQL (DDL + DML)</h4>
+                            <p>Implementación del DDL con 17 tablas, constraints CHECK, claves foráneas e índices únicos en MySQL 8.0. DML con datos reales de 4 temporadas.</p>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-dot">7</div>
+                        <div class="phase-content">
+                            <h4>Reducción a Tablas</h4>
+                            <p>Proceso formal de reducción del modelo relacional a tablas físicas, documentando las decisiones de implementación.</p>
+                        </div>
+                    </div>
+                    <div class="phase-item">
+                        <div class="phase-dot" style="background: #48bb78;">8</div>
+                        <div class="phase-content">
+                            <h4>Implementación Full-Stack + VirtualBox</h4>
+                            <p>Despliegue de MySQL en VM Ubuntu (VirtualBox), API REST con Spring Boot 3 y frontend React 18 + TypeScript con visualizaciones de estadísticas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conceptos aplicados -->
+            <div class="card" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-text);">
+                    <i class="fas fa-graduation-cap" style="color: #e8002d;"></i>
+                    Conceptos de BD Aplicados
+                </h2>
+                <div class="grid grid--cols-2" style="gap: 0.75rem;">
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Modelo MERE:</strong> Diseño conceptual completo con notación extendida</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Normalización:</strong> 1FN, 2FN y 3FN aplicadas al modelo</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Integridad referencial:</strong> 15+ claves foráneas con ON DELETE</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>CHECK constraints:</strong> Validaciones de dominio en MySQL</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Índices únicos:</strong> Restricciones UNIQUE para consistencia</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Herencia / Especialización:</strong> Patrón persona → piloto / usuario</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Relaciones N:M:</strong> Contratos piloto ↔ escudería por temporada</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>ORM:</strong> Hibernate mapeando el modelo relacional a Java</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>Virtualización:</strong> Servidor MySQL en VM Ubuntu dedicada</span>
+                    </div>
+                    <div class="project-card__feature">
+                        <i class="fas fa-check project-card__feature-icon"></i>
+                        <span><strong>API REST:</strong> Exposición del modelo de datos vía HTTP/JSON</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagrama MERE -->
+            <div class="card" style="margin-bottom: 3rem; padding: 0; overflow: hidden;">
+                <div style="padding: 2rem 2rem 1rem 2rem; background: var(--color-background-alt);">
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                        <i class="fas fa-file-pdf" style="color: #e8002d;"></i>
+                        Diagrama MERE — Fórmula 1
+                    </h2>
+                    <p style="color: var(--color-text-light); margin: 0;">
+                        Modelo Entidad-Relación Extendido del sistema completo
+                    </p>
+                </div>
+                <div style="width: 100%; height: 700px; background: #f5f5f5;">
+                    <iframe
+                        src="https://drive.google.com/file/d/15jaCF2AMHmHpnvNob9JBeZdwtsj-Y005/preview"
+                        width="100%"
+                        height="700"
+                        style="border: none; display: block;"
+                        allow="autoplay"
+                        title="Diagrama MERE Fórmula 1">
+                    </iframe>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: var(--color-background-alt);">
+                    <a href="https://drive.google.com/file/d/15jaCF2AMHmHpnvNob9JBeZdwtsj-Y005/view?usp=sharing" target="_blank" class="btn btn--primary">
+                        <i class="fas fa-external-link-alt"></i> Abrir MERE en Google Drive
+                    </a>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://drive.google.com/file/d/15jaCF2AMHmHpnvNob9JBeZdwtsj-Y005/view?usp=sharing" target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fas fa-project-diagram"></i> Ver Diagrama MERE
+                </a>
+                <a href="https://github.com/mmolinasdev/formula1-bd" target="_blank" class="btn btn--gradient btn--lg">
+                    <i class="fab fa-github"></i> Ver Código en GitHub
+                </a>
+                <a href="../index.html#projects" class="btn btn--outline btn--lg">
+                    <i class="fas fa-arrow-left"></i> Volver a Proyectos
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Miguel Molina | Universidad El Bosque - Bases de Datos I
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/mmolinasdev" target="_blank" class="footer__link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="footer__link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>
